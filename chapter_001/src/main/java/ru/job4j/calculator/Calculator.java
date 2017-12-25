@@ -1,4 +1,4 @@
-package ru.job4j.calculator
+package ru.job4j.calculator;
 
 public class Calculator {
 	private double result;
@@ -19,6 +19,6 @@ public class Calculator {
 	}
 	
 	public double getResult() {
-		rturn this.result;
+		return this.result;
 	}
 }

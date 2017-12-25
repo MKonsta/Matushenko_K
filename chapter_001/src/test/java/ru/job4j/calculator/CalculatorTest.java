@@ -5,14 +5,14 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class CalculatorTest; {
+public class CalculatorTest {
 	@Test
 	public void whenAddOnePlusOneThenTwo() {
 		Calculator calc = new Calculator();
 		calc.add(1D, 1D);
 		double result = calc.getResult();
 		double expect = 2D;
-		assertThat(result, is(expected));
+		assertThat(result, is(expect));
 	}
 	
 	public void whenSubtractOneMinesOneThenZero() {
@@ -20,7 +20,7 @@ public class CalculatorTest; {
 		calc.subtract(1D, 1D);
 		double result = calc.getResult();
 		double expect = 0D;
-		assertThat(result, is(expected));
+		assertThat(result, is(expect));
 	}
 	
 	public void whenOneDivOneThenOne() {
@@ -28,7 +28,7 @@ public class CalculatorTest; {
 		calc.div(1D, 1D);
 		double result = calc.getResult();
 		double expect = 1D;
-		assertThat(result, is(expected));
+		assertThat(result, is(expect));
 	}
 	
 	public void whenOneMultipleOneThenOne() {
@@ -36,6 +36,6 @@ public class CalculatorTest; {
 		calc.multiple(1D, 1D);
 		double result = calc.getResult();
 		double expect = 1D;
-		assertThat(result, is(expected));
+		assertThat(result, is(expect));
 	}
 }
