@@ -19,4 +19,12 @@ public class Turn {
         return array;
     }
 
+    public static void main(String[] args) {
+        Turn a = new Turn();
+        int[] nova = {1, 2};
+        for (int r : a.back(nova)) {
+            System.out.println(r);
+        }
+    }
+
 }
