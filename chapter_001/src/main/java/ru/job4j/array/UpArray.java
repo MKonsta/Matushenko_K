@@ -34,8 +34,10 @@ public class UpArray {
     }
 
     public static void main(String[] args) {
-        int[] a = {5, 10, 15, 20, 50,};
-        int[] b = {6, 7,  8,  18, 19, 23, 48, 63};
+        //int[] a = {5, 10, 15, 20, 50,};
+        //int[] b = {6, 7,  8,  18, 19, 23, 48, 63};
+        int[] a = {54, 68, 73, 80};
+        int[] b = {30, 35, 55};
         UpArray dd = new UpArray();
         for (int e : dd.ar(a, b)) {
             System.out.println(e);
