@@ -20,8 +20,8 @@ public class Doctor extends Profession {
     }
 
 
-    public String diagnoseHeal() {
-        return name + " лечит " + getPacientName();
+    public String diagnoseHeal(Pacient pacient) {
+        return this.name + " лечит " + pacient.getName();
     }
     public void treat() {
     }
