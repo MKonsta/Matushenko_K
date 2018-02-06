@@ -10,7 +10,7 @@ public class Teacher extends Profession {
     public int getClassNumber() {
         return this.classNumber;
     }
-    public String teach() {
-        return getName() + " учит " + getClassNumber() + " класс";
+    public String teach(Pupil pupil) {
+        return getName() + " учит " + pupil.getName();
     }
 }

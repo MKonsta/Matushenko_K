@@ -11,8 +11,8 @@ public class Engineer extends Profession {
         return this.houseFloors;
     }
 
-    public String projectBuild() {
-        return "проектирует " + getHouseFloors() + "-этажный дом";
+    public String projectBuild(HouseProject building) {
+        return "проектирует " + building.getFloorsNumber() + "-этажный дом";
     }
     public void createDrawning() {
     }
