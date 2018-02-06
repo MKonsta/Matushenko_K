@@ -10,7 +10,7 @@ public class UpArrayTest {
         int[] a = {5, 10, 15, 20, 50,};
         int[] b = {6, 7,  8,  18, 19, 23, 48, 63,};
         UpArray upArray = new UpArray();
-        int[] result = upArray.ar(a, b);
+        int[] result = upArray.arr(a, b);
         int[] expect = {5, 6, 7, 8, 10, 15, 18, 19, 20, 23, 48, 50, 63};
         assertThat(expect, is(result));
     }
@@ -20,7 +20,7 @@ public class UpArrayTest {
         int[] a = {54, 68, 73, 80};
         int[] b = {30, 35, 55};
         UpArray upArray = new UpArray();
-        int[] result = upArray.ar(a, b);
+        int[] result = upArray.arr(a, b);
         int[] expect = {30, 35, 54, 55, 68, 73, 80};
         assertThat(expect, is(result));
     }
