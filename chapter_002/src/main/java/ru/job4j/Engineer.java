@@ -4,6 +4,10 @@ public class Engineer extends Profession {
     public boolean higerEducation;
     public int houseFloors;
 
+    public Engineer(String name, int i, String specialization) {
+        super(name, i, specialization);
+    }
+
     public boolean getHigerEducation() {
         return this.higerEducation;
     }

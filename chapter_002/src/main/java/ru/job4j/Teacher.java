@@ -3,6 +3,9 @@ package ru.job4j;
 public class Teacher extends Profession {
     int workExpirience;
     int classNumber;
+    public Teacher(String name, int i, String specialization) {
+        super(name, i, specialization);
+    }
 
     public int getWorkExpirience() {
         return this.workExpirience;

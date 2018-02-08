@@ -6,6 +6,10 @@ public class Doctor extends Profession {
     boolean graduate;
     public String pacientName;
 
+    public Doctor(String name, int i, String specialization) {
+        super(name, i, specialization);
+    }
+
     public int getSalary() {
         return this.salary;
     }
@@ -21,11 +25,11 @@ public class Doctor extends Profession {
 
 
     public String diagnoseHeal(Pacient pacient) {
-        return this.name + " лечит " + pacient.getName();
+        return getName() + " лечит " + pacient.getName();
     }
     public void treat() {
     }
     public void makeOperation() {
-
     }
+
 }

@@ -5,6 +5,12 @@ public class Profession {
     int age;
     String specialization;
 
+    public Profession(String name, int age, String specialization) {
+        this.name = name;
+        this.age = age;
+        this.specialization = specialization;
+    }
+
     public String getName() {
         return this.name;
     }
