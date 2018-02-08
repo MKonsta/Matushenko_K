@@ -6,8 +6,8 @@ public class Doctor extends Profession {
     boolean graduate;
     public String pacientName;
 
-    public Doctor(String name, int i, String specialization) {
-        super(name, i, specialization);
+    public Doctor(String name, int age, String specialization) {
+        super(name, age, specialization);
     }
 
     public int getSalary() {
