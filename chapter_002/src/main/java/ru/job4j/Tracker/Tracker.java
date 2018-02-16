@@ -89,19 +89,7 @@ public class Tracker {
 
     public static void main(String[] args) {
         Tracker tracker = new Tracker();
-        Item item = new Item("Задача1", "Стол1", 333l);
-        tracker.add(item);
-        System.out.println(tracker.position);
-        System.out.println(tracker.items[tracker.position-1].getName());
 
-        Item item1 = new Item("Задачка2", "Столик2", 333l);
-        Item item2 = new Item("zadacha3", "stol3", 346l);
-        tracker.add(item2);
-        tracker.replace(item.getId(), item1);
-        System.out.println(tracker.items[tracker.position-1].getName());
-        System.out.println(tracker.findAll().length);
-        //System.out.println(tracker.items[tracker.position-1].getId() + "  " + tracker.items[tracker.position-1].getName() + "  " + tracker.items[tracker.position-1].getDesk() + "   " + tracker.items[tracker.position-1].getCreated());
-        System.out.println("test findByName " + tracker.findByName("zadacha3").length);
-        System.out.println("test findByName вывод id " + tracker.findByName("Задачка2")[0].getId());
+
     }
 }
