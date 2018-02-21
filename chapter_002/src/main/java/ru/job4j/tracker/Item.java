@@ -1,4 +1,4 @@
-package ru.job4j.Tracker;
+package ru.job4j.tracker;
 
 public class Item {
     private String id;
@@ -7,7 +7,7 @@ public class Item {
     private long created;
     private String comments;
 
-    public Item (String name, String desk, long created) {
+    public Item(String name, String desk, long created) {
         this.name = name;
         this.desk = desk;
         this.created = created;

@@ -1,13 +1,13 @@
-package ru.job4j.Tracker;
+package ru.job4j.tracker;
 
 public class StartUI {
-    private static final String add = "0";
-    private static final String showAllItems = "1";
-    private static final String editItem = "2";
-    private static final String deleteItem = "3";
-    private static final String findById = "4";
-    private static final String findByName = "5";
-    private static final String exitProgram = "6";
+    private static final String ADD = "0";
+    private static final String SHOWALLITEMS = "1";
+    private static final String EDITITEM = "2";
+    private static final String DELETEITEM = "3";
+    private static final String FINDBYID = "4";
+    private static final String FINDBYNAME = "5";
+    private static final String EXITPROGRAM = "6";
     ConsoleInput consoleInput = new ConsoleInput();
     Tracker tracker = new Tracker();
 

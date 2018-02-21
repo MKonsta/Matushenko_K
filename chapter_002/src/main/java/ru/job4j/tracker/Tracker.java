@@ -1,4 +1,4 @@
-package ru.job4j.Tracker;
+package ru.job4j.tracker;
 
         import java.util.Date;
         import java.util.Random;
@@ -6,11 +6,11 @@ package ru.job4j.Tracker;
 public class Tracker {
     private Item[] items = new Item[100];
     private int position = 0;
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     private String generateId() {
         Date date = new Date();
-        return String.valueOf(date.getTime()) + String.valueOf(random.nextInt());
+        return String.valueOf(date.getTime()) + String.valueOf(RANDOM.nextInt());
     }
 
     public Item add(Item item) {
@@ -43,9 +43,11 @@ public class Tracker {
             if (r != null) {
                 temp[i] = items[i];
                 i++;
-            } else break;
+            } else {
+                break;
+            }
         }
-        System.arraycopy(items, i+1, temp, i, items.length-i-1);
+        System.arraycopy(items, i + 1, temp, i, items.length - i - 1);
     }
 
     public Item[] findAll() {
