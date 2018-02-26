@@ -51,7 +51,7 @@ public class StartUI {
                 String id = consoleInput.ask("Введите ID заявки, которую Вы хотите удалить");
                 tracker.delete(id);
             } else if (menuNumber.equals("4")) {
-                String id = consoleInput.ask("Введите ID заявки, которую Вы хотите удалить");
+                String id = consoleInput.ask("Введите ID заявки, которую Вы хотите найти");
                 System.out.println(tracker.finfById(id).getName());
             } else if (menuNumber.equals("5")) {
                 String key = consoleInput.ask("Введите ключевое слово, по которому Вы хотите найти заявку");
@@ -64,8 +64,10 @@ public class StartUI {
         }
     }
 
-//    public static void main(String[] args) {
-//        StartUI startUI = new StartUI();
-//        startUI.init();
-//    }
+    public static void main(String[] args) {
+        ConsoleInput cons = new ConsoleInput();
+        Tracker tracker = new Tracker();
+        StartUI ss = new StartUI(cons, tracker);
+        ss.init();
+    }
 }
