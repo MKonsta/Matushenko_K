@@ -31,29 +31,24 @@ public class Tracker {
         }
     }
     public void delete(String id) {
-        Item[] temp = new Item[items.length];
-        int i = 0;
-        for (Item r : items) {
-            if (r != null && id.equals(r.getId())) {
-                r = null;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null && id.equals(items[i].getId())) {
+                items[i] = null;
+                System.arraycopy(items, i + 1, items, i, items.length - i - 1);
+                items[items.length - 1] = null;
                 break;
             }
         }
-        for (Item r : items) {
-            if (r != null) {
-                temp[i] = items[i];
-                i++;
-            } else {
-                break;
-            }
-        }
-        System.arraycopy(items, i + 1, temp, i, items.length - i - 1);
     }
 
     public Item[] findAll() {
-        Item[] result = new Item[this.position];
-        for (int index = 0; index < this.position; index++) {
-            result[index] = this.items[index];
+        int index = 0;
+        while (items[index] != null) {
+            index++;
+        }
+        Item[] result = new Item[index];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = items[i];
         }
         return result;
     }
@@ -91,7 +86,13 @@ public class Tracker {
 
     public static void main(String[] args) {
         Tracker tracker = new Tracker();
-
-
+        Item item = new Item("thrt", "gerg", "4352");
+        Item item1 = new Item("rthe", "tyjr", "7");
+        //tracker.add(item);
+        tracker.add(item1);
+        System.out.println(tracker.findAll().length);
+        tracker.delete(tracker.findAll()[0].getId());
+        System.out.println(tracker.findAll().length);
+        //System.out.println(tracker.findAll()[1].getId());
     }
 }

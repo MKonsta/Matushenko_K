@@ -12,7 +12,7 @@ public class TrackerTest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "testDescription", 123L);
+        Item item = new Item("test1", "testDescription", "123");
         tracker.add(item);
         assertThat(tracker.findAll()[0], is(item));
     }
@@ -20,9 +20,9 @@ public class TrackerTest {
     @Test
     public void whenReplaceOldItemAndChangeItToNew() {
         Tracker tracker = new Tracker();
-        Item item = new Item("Заявка1", "Стол1", 234L);
+        Item item = new Item("Заявка1", "Стол1", "234");
         tracker.add(item);
-        Item nextItem = new Item("Заявка №2", "Стол №2", 234L);
+        Item nextItem = new Item("Заявка №2", "Стол №2", "234");
         tracker.replace(item.getId(), nextItem);
         assertThat(tracker.finfById(item.getId()).getName(), is("Заявка №2"));
     }
@@ -30,7 +30,7 @@ public class TrackerTest {
     @Test
     public void findAllWhenAddOneItem() {
         Tracker tracker = new Tracker();
-        Item item = new Item("Заявка1", "Стол1", 234L);
+        Item item = new Item("Заявка1", "Стол1", "234");
         tracker.add(item);
         assertThat(tracker.findAll().length, is(1));
     }
@@ -38,8 +38,8 @@ public class TrackerTest {
     @Test
     public void findAllWhenAddTwoItems() {
         Tracker tracker = new Tracker();
-        Item item = new Item("Заявка1", "Стол1", 234L);
-        Item item1 = new Item("Заявка2", "Стол2", 284L);
+        Item item = new Item("Заявка1", "Стол1", "234");
+        Item item1 = new Item("Заявка2", "Стол2", "284");
         tracker.add(item);
         tracker.add(item1);
         assertThat(tracker.findAll().length, is(2));
@@ -47,8 +47,8 @@ public class TrackerTest {
     @Test
     public void finByNameWhenAddTwoItemsWithDifferentNames() {
         Tracker tracker = new Tracker();
-        Item item = new Item("Заявка1", "Стол1", 234L);
-        Item item1 = new Item("Заявка2", "Стол2", 284L);
+        Item item = new Item("Заявка1", "Стол1", "234");
+        Item item1 = new Item("Заявка2", "Стол2", "284");
         tracker.add(item);
         tracker.add(item1);
         assertThat(tracker.findByName("Заявка1").length, is(1));
@@ -56,8 +56,8 @@ public class TrackerTest {
     @Test
     public void finByNameWhenAddTwoItemsWithEqualNames() {
         Tracker tracker = new Tracker();
-        Item item = new Item("Заявка1", "Стол1", 234L);
-        Item item1 = new Item("Заявка1", "Стол2", 284L);
+        Item item = new Item("Заявка1", "Стол1", "234");
+        Item item1 = new Item("Заявка1", "Стол2", "284");
         tracker.add(item);
         tracker.add(item1);
         assertThat(tracker.findByName("Заявка1").length, is(2));
@@ -65,10 +65,18 @@ public class TrackerTest {
     @Test
     public void findByIdTest() {
         Tracker tracker = new Tracker();
-        Item item = new Item("Заявка1", "Стол1", 234L);
-        Item item1 = new Item("Заявка2", "Стол2", 284L);
+        Item item = new Item("Заявка1", "Стол1", "234");
+        Item item1 = new Item("Заявка2", "Стол2", "284");
         tracker.add(item);
         tracker.add(item1);
         assertThat(tracker.finfById(item1.getId()).getName(), is("Заявка2"));
+    }
+    @Test
+    public void whenAddTwoItemsAndDeleteFirst() {
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("item1", "desk1", "234"));
+        tracker.add(new Item("item2", "desk2", "879"));
+        tracker.delete(tracker.findAll()[0].getId());
+        assertThat(tracker.findAll().length, is(1));
     }
 }

@@ -8,12 +8,12 @@ public class StartUI {
     private static final String FINDBYID = "4";
     private static final String FINDBYNAME = "5";
     private static final String EXITPROGRAM = "6";
-    ConsoleInput consoleInput = new ConsoleInput();
+    Input input = new ConsoleInput();
     Tracker tracker = new Tracker();
 
-    public StartUI(ConsoleInput consoleInput, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker) {
         this.tracker = tracker;
-        this.consoleInput = consoleInput;
+        this.input = input;
     }
     public void outputStartMmenu() {
         System.out.println("0. Add new Item");
@@ -28,12 +28,12 @@ public class StartUI {
     public void init() {
         for (;;) {
             outputStartMmenu();
-            String menuNumber = consoleInput.ask("Выберите номер опции");
+            String menuNumber = input.ask("Выберите номер опции");
             if (menuNumber.equals("0")) {
-                String name = consoleInput.ask("Введите имя заявки");
-                String desk = consoleInput.ask("Введите название вашего отдела");
-                String time = consoleInput.ask("Введите время поступления заявки");
-                Item item = new Item(name, desk, Long.parseLong(time));
+                String name = input.ask("Введите имя заявки");
+                String desk = input.ask("Введите название вашего отдела");
+                String time = input.ask("Введите время поступления заявки");
+                Item item = new Item(name, desk, time);
                 tracker.add(item);
             } else if (menuNumber.equals("1")) {
                 System.out.println("Список всех заявок: ");
@@ -41,20 +41,20 @@ public class StartUI {
                     System.out.println(item.getName());
                 }
             } else if (menuNumber.equals("2")) {
-                String id = consoleInput.ask("Введите ID изменяемой заявки");
-                String name = consoleInput.ask("Введите имя новой заявки");
-                String desk = consoleInput.ask("Введите название Вашего отдела");
-                String time = consoleInput.ask("Введите время поступления заявки");
-                Item item = new Item(name, desk, Long.parseLong(time));
+                String id = input.ask("Введите ID изменяемой заявки");
+                String name = input.ask("Введите имя новой заявки");
+                String desk = input.ask("Введите название Вашего отдела");
+                String time = input.ask("Введите время поступления заявки");
+                Item item = new Item(name, desk, time);
                 tracker.replace(id, item);
             } else if (menuNumber.equals("3")) {
-                String id = consoleInput.ask("Введите ID заявки, которую Вы хотите удалить");
+                String id = input.ask("Введите ID заявки, которую Вы хотите удалить");
                 tracker.delete(id);
             } else if (menuNumber.equals("4")) {
-                String id = consoleInput.ask("Введите ID заявки, которую Вы хотите найти");
+                String id = input.ask("Введите ID заявки, которую Вы хотите найти");
                 System.out.println(tracker.finfById(id).getName());
             } else if (menuNumber.equals("5")) {
-                String key = consoleInput.ask("Введите ключевое слово, по которому Вы хотите найти заявку");
+                String key = input.ask("Введите ключевое слово, по которому Вы хотите найти заявку");
                 for (Item item : tracker.findByName(key)) {
                     System.out.println(item.getName());
                 }
@@ -65,7 +65,7 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        ConsoleInput cons = new ConsoleInput();
+        Input cons = new ConsoleInput();
         Tracker tracker = new Tracker();
         StartUI ss = new StartUI(cons, tracker);
         ss.init();

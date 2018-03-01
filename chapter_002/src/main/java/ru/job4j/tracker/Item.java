@@ -4,10 +4,10 @@ public class Item {
     private String id;
     private String name;
     private String desk;
-    private long created;
+    private String created;
     private String comments;
 
-    public Item(String name, String desk, long created) {
+    public Item(String name, String desk, String created) {
         this.name = name;
         this.desk = desk;
         this.created = created;
@@ -31,10 +31,10 @@ public class Item {
     public void setDesk(String desk) {
         this.desk = desk;
     }
-    public long getCreated() {
+    public String getCreated() {
         return created;
     }
-    public void setCreated(long created) {
+    public void setCreated(String created) {
         this.created = created;
     }
     public String getComments() {
