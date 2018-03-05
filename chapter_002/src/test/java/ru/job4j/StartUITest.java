@@ -9,7 +9,7 @@ public class StartUITest {
     @Test
     public void whenAddNewItem() {
         Tracker tracker = new Tracker();
-        Input input = new StubInput(new String[]{"0", "новая тестовая заявка", "отдел", "время создания", "6"});
+        Input input = new StubInput(new String[]{"0", "новая тестовая заявка", "отдел", "567", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("новая тестовая заявка"));
     }
@@ -17,9 +17,9 @@ public class StartUITest {
     @Test
     public void whenEditOneItem() {
         Tracker tracker = new Tracker();
-        Item item = new Item("First item name", "first desk", "first time");
+        Item item = new Item("First item name", "first desk", 547L);
         tracker.add(item);
-        Input input = new StubInput(new String[]{"2", item.getId(), "edited item", "edited desk", "edited time", "6"});
+        Input input = new StubInput(new String[]{"2", item.getId(), "edited item", "edited desk", "345", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("edited item"));
     }
@@ -27,7 +27,7 @@ public class StartUITest {
     @Test
     public void whenDeleteOneItem() {
         Tracker tracker = new Tracker();
-        Item item = new Item("name item", "desk name", "timeCreated");
+        Item item = new Item("name item", "desk name", 567L);
         tracker.add(item);
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
         new StartUI(input, tracker).init();

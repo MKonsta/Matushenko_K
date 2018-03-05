@@ -86,13 +86,13 @@ public class Tracker {
 
     public static void main(String[] args) {
         Tracker tracker = new Tracker();
-        Item item = new Item("thrt", "gerg", "4352");
-        Item item1 = new Item("rthe", "tyjr", "7");
+        Item item = new Item("thrt", "gerg", 4352L);
+        Item item1 = new Item("rthe", "tyjr", 7L);
         //tracker.add(item);
         tracker.add(item1);
         System.out.println(tracker.findAll().length);
         tracker.delete(tracker.findAll()[0].getId());
         System.out.println(tracker.findAll().length);
-        //System.out.println(tracker.findAll()[1].getId());
+        System.out.println(tracker.findAll()[1].getId());
     }
 }

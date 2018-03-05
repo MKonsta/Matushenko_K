@@ -33,7 +33,7 @@ public class StartUI {
                 String name = input.ask("Введите имя заявки");
                 String desk = input.ask("Введите название вашего отдела");
                 String time = input.ask("Введите время поступления заявки");
-                Item item = new Item(name, desk, time);
+                Item item = new Item(name, desk, Long.parseLong(time));
                 tracker.add(item);
             } else if (menuNumber.equals("1")) {
                 System.out.println("Список всех заявок: ");
@@ -45,7 +45,7 @@ public class StartUI {
                 String name = input.ask("Введите имя новой заявки");
                 String desk = input.ask("Введите название Вашего отдела");
                 String time = input.ask("Введите время поступления заявки");
-                Item item = new Item(name, desk, time);
+                Item item = new Item(name, desk, Long.parseLong(time));
                 tracker.replace(id, item);
             } else if (menuNumber.equals("3")) {
                 String id = input.ask("Введите ID заявки, которую Вы хотите удалить");
