@@ -1,5 +1,6 @@
 package ru.job4j;
 
+
 import org.junit.Test;
 import ru.job4j.paintshape.Paint;
 import ru.job4j.paintshape.Square;
@@ -66,5 +67,27 @@ public class Paintshapetest {
         str.append(System.lineSeparator());
         assertThat(new String(out.toByteArray()), is(str.toString()));
         System.setOut(stdout); /*Возвратили обратно стандартный вывод на консоль*/
+    }
+    @Test
+    public void paintTestWhenDrawTriangle() {
+        PrintStream stdout = System.out;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        Paint paint = new Paint();
+        Triangle triangle = new Triangle();
+        paint.draw(triangle);
+        StringBuilder str = new StringBuilder();
+        str.append("    *    ");
+        str.append(System.lineSeparator());
+        str.append("   ***   ");
+        str.append(System.lineSeparator());
+        str.append("  *****  ");
+        str.append(System.lineSeparator());
+        str.append(" ******* ");
+        str.append(System.lineSeparator());
+        str.append("*********");
+        str.append(System.lineSeparator());
+        assertThat(new String(out.toByteArray()), is(str.toString()));
+        System.setOut(stdout);
     }
 }
