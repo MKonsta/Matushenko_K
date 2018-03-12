@@ -48,7 +48,7 @@ public class PaintTest {
         str.append(System.lineSeparator());
         str.append("88888");
         str.append(System.lineSeparator());
-        assertThat(new String(out.toString()), is(str.toString()));
+        assertThat(out.toString(), is(str.toString()));
     }
 
     @Test
@@ -68,6 +68,6 @@ public class PaintTest {
         str.append(System.lineSeparator());
         str.append("*********");
         str.append(System.lineSeparator());
-        assertThat(new String(out.toString()), is(str.toString()));
+        assertThat(out.toString(), is(str.toString()));
     }
 }
