@@ -65,9 +65,14 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Input cons = new ConsoleInput();
+//        Input cons = new ConsoleInput();
+//        Tracker tracker = new Tracker();
+//        StartUI ss = new StartUI(cons, tracker);
+//        ss.init();
+        Input input = new StubInput(new String[]{"1", "6"});
         Tracker tracker = new Tracker();
-        StartUI ss = new StartUI(cons, tracker);
+        tracker.add(new Item("name item", "desk name", 567L));
+        StartUI ss = new StartUI(input, tracker);
         ss.init();
     }
 }
