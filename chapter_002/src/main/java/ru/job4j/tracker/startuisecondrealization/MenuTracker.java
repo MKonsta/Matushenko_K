@@ -1,12 +1,14 @@
 package ru.job4j.tracker.startuisecondrealization;
-import ru.job4j.tracker.Input;
-import ru.job4j.tracker.Tracker;
-import ru.job4j.tracker.Item;
 
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
+
     private UserAction[] acttions = new UserAction[6];
+
+    public UserAction[] getActtions() {
+        return acttions;
+    }
 
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -20,6 +22,7 @@ public class MenuTracker {
         this.acttions[3] = new MenuTracker.DeleteItem();
         this.acttions[4] = new MenuTracker.FindItemById();
         this.acttions[5] = new MenuTracker.FindItemName();
+
     }
 
     public void select(int key) {
@@ -121,5 +124,6 @@ public class MenuTracker {
             return this.key() + ". Find item by name";
         }
     }
+
 
 }

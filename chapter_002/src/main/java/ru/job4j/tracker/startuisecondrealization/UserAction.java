@@ -1,6 +1,4 @@
 package ru.job4j.tracker.startuisecondrealization;
-import ru.job4j.tracker.Input;
-import ru.job4j.tracker.Tracker;
 
 public interface UserAction {
 
