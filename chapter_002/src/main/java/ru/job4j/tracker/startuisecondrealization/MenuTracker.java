@@ -16,12 +16,12 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.acttions[0] = this.new AddItem();
-        this.acttions[1] = new MenuTracker.ShowItems();
-        this.acttions[2] = new MenuTracker.EditItem();
-        this.acttions[3] = new MenuTracker.DeleteItem();
-        this.acttions[4] = new MenuTracker.FindItemById();
-        this.acttions[5] = new MenuTracker.FindItemName();
+        this.acttions[0] = this.new AddItem(0, "Add new item");
+        this.acttions[1] = this.new ShowItems(1, "Show all items");
+        this.acttions[2] = this.new EditItem(2, "Edit item");
+        this.acttions[3] = this.new DeleteItem(3, "Delete item");
+        this.acttions[4] = this.new FindItemById(4, "Find item by ID");
+        this.acttions[5] = this.new FindByName(5, "Find items by name");
 
     }
 
@@ -37,93 +37,87 @@ public class MenuTracker {
         }
     }
 
-    private class AddItem implements UserAction {
-        public int key() {
-            return 0;
+    private class AddItem extends BaseAction {
+        public AddItem(int key, String name) {
+            super(key, name);
         }
+        @Override
         public void execute(Input input, Tracker tracker) {
-            String name = input.ask("Please enter the tasks name: ");
-            String desk = input.ask("Please enter the tasks desk: ");
-            String time = input.ask("Please enter the time created: ");
-            Item item = new Item(name, desk, Long.parseLong(time));
-            tracker.add(item);
+            String name = input.ask("Enter name:");
+            String desk = input.ask("Enter desk");
+            String time = input.ask("Enter time created");
+            tracker.add(new Item(name, desk, Long.parseLong(time)));
         }
-        public String info() {
-            return String.valueOf(this.key()) + ". " + "Add the new Item. ";
-        }
+
     }
 
-    private static class ShowItems implements UserAction {
-        public int key() {
-            return 1;
+    private class ShowItems extends BaseAction {
+        ShowItems(int key, String name) {
+            super(key, name);
         }
+        @Override
         public void execute(Input input, Tracker tracker) {
+            tracker.findAll();
             for (Item item : tracker.findAll()) {
                 System.out.println(String.format("%s. %s", item.getId(), item.getName()));
             }
         }
-        public String info() {
-            return String.format("%s. %s", this.key(), "Show all items");
-        }
     }
 
-    class EditItem implements UserAction {
-        public int key() {
-            return 2;
+    class EditItem extends BaseAction {
+
+        protected EditItem(int key, String name) {
+            super(key, name);
         }
+
+        @Override
         public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Введите id задачи, которую нужно изменить");
-            String name = input.ask("Please enter the tasks name: ");
-            String desk = input.ask("Please enter the tasks desk: ");
-            String time = input.ask("Please enter the time created: ");
+            String id = input.ask("Enter items ID, which you want change:");
+            String name = input.ask("Enter new name");
+            String desk = input.ask("Enter new desk");
+            String time = input.ask("Enter new time");
             Item item = new Item(name, desk, Long.parseLong(time));
             tracker.replace(id, item);
         }
-        public String info() {
-            return String.format("%s. %s", this.key(), "Edit the item");
-        }
     }
 
-    class DeleteItem implements UserAction {
-        public int key() {
-            return 3;
+    private class DeleteItem extends BaseAction {
+        protected DeleteItem(int key, String name) {
+            super(key, name);
         }
+        @Override
         public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Введите id задачи, которую нужно удалить");
+            String id = input.ask("Enter items ID which you want delete:");
             tracker.delete(id);
         }
-        public String info() {
-            return String.format("%s. %s", this.key(), "Delete Item");
+    }
+
+    private class FindItemById extends BaseAction {
+
+        protected FindItemById(int key, String name) {
+            super(key, name);
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            String id = input.ask("Enter ID:");
+            System.out.println(String.format("%s, %s", tracker.finfById(id).getId(), tracker.finfById(id).getName()));
         }
     }
 
-    class FindItemById implements UserAction {
-        public int key() {
-            return 4;
-        }
-        public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Введите id искомой задачи");
-            System.out.println(String.format("%s, %s, %s", tracker.finfById(id).getId(), tracker.finfById(id).getName(), String.valueOf(tracker.finfById(id).getCreated())));
-        }
-        public String info() {
-            return this.key() + ". Find item by ID";
-        }
-    }
+    private class FindByName extends BaseAction {
 
-    class FindItemName implements UserAction {
-        public int key() {
-            return 5;
+        protected FindByName(int key, String name) {
+            super(key, name);
         }
+
+        @Override
         public void execute(Input input, Tracker tracker) {
-            String name = input.ask("Введите name искомой задачи");
-            for (Item rr : tracker.findByName(name)) {
-                System.out.println(rr.getId() + "  " + rr.getName());
+            String keyWord = input.ask("Enter key word:");
+            for (Item item : tracker.findByName(keyWord)) {
+                System.out.println(String.format("%s, %s", item.getId(), item.getName()));
             }
         }
-        public String info() {
-            return this.key() + ". Find item by name";
-        }
     }
-
 
 }

@@ -1,7 +1,6 @@
 package ru.job4j.tracker.startuisecondrealization;
 
 public class StartUI {
-    //private int[] range = new int[]{0, 1, 2, 3, 4, 5};
     private int[] range = range();
     private int[] range() {
         Tracker tracker = new Tracker();
@@ -13,7 +12,7 @@ public class StartUI {
         return res;
     }
     private Input input;
-    public StartUI(Input input) {
+    public StartUI(Input input, Tracker tracker) {
         this.input = input;
     }
 
@@ -28,8 +27,11 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        Input input = new ValidateInput();
-        new StartUI(input).init();
+        new StartUI(
+                new ValidateInput(
+                        new ConsoleInput()
+                ),
+                new Tracker()
+        ).init();
     }
-
 }
