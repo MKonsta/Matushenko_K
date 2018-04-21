@@ -3,64 +3,49 @@ package ru.job4j;
 public class CoffeMashine {
     int[] changes(int value, int price) {
         int cha = value - price;
-        int len = 0;
-        int temp_cha = 0;
-        //Сначала высчитываем длинну массива (общее количество монет)
-        if (temp_cha != cha && cha > 9) {
-            while (cha - temp_cha > 9) {
-                temp_cha = temp_cha + 10;
-                len++;
+        int size = 0;
+        while (cha != 0) {
+            if (cha >= 10) {
+                cha -= 10;
+                size++;
+            } else if (cha >= 5) {
+                cha -= 5;
+                size++;
+            } else if (cha >= 2) {
+                cha -= 2;
+                size++;
+            } else if (cha >= 1) {
+                cha -= 1;
+                size++;
             }
         }
-        if (temp_cha != cha && cha % 10 > 4) {
-            temp_cha = temp_cha + 5;
-            len++;
-        }
-        if (temp_cha != cha && cha - temp_cha > 1) {
-            while (cha - temp_cha > 1) {
-                temp_cha = temp_cha + 2;
-                len++;
-            }
-        }
-        if (temp_cha != cha && cha - temp_cha == 1) {
-            temp_cha = temp_cha + 1;
-            len++;
-        }
-
-        int[] temp = new int[len];
-        temp_cha = 0;
+        int[] coins = new int[size];
+        cha = value - price;
         int index = 0;
-
-        //Теперь используя теже циклы заполняем наш массив номиналами монет 10, 5, 2, и 1
-        if (temp_cha != cha && cha > 9) {
-            while (cha - temp_cha > 9) {
-                temp_cha = temp_cha + 10;
-                temp[index] = 10;
+        while (cha != 0) {
+            if (cha >= 10) {
+                coins[index] = 10;
+                cha -= 10;
                 index++;
+            } else if (cha >= 5) {
+                coins[index] = 5;
+                cha -= 5;
+                index++;
+            } else if (cha >= 2) {
+                coins[index] = 2;
+                cha -= 2;
+                index++;
+            } else if (cha >= 1) {
+                coins[index] = 1;
+                cha -= 1;
             }
         }
-        if (temp_cha != cha && cha % 10 > 4) {
-            temp_cha = temp_cha + 5;
-            temp[index] = 5;
-            index++;
-        }
-        if (temp_cha != cha && cha - temp_cha > 1) {
-            while (cha - temp_cha > 1) {
-                temp_cha = temp_cha + 2;
-                temp[index] = 2;
-                index++;
-            }
-        }
-        if (temp_cha != cha && cha - temp_cha == 1) {
-            //temp_cha = temp_cha + 1;
-            temp[index] = 1;
-        }
-        return temp;
+        return coins;
     }
 
     public static void main(String[] args) {
         CoffeMashine coffeMashine = new CoffeMashine();
-        for (int i : coffeMashine.changes(50, 31)) {
+        for (int i : coffeMashine.changes(50, 2)) {
             System.out.println(i);
         }
     }
