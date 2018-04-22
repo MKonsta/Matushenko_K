@@ -1,7 +1,7 @@
 package ru.job4j.chessboardframe;
 
 public class Bishop extends Figure {
-    Bishop(Cell position) {
+    public Bishop(Cell position) {
         super(position);
     }
 
@@ -11,33 +11,12 @@ public class Bishop extends Figure {
             throw new ImpossibleMoveException("Bishop cannot move there");
         }
         Cell[] road = new Cell[Math.abs(source.getX() - dest.getX())];
-        if (source.getX() < dest.getX() && source.getY() < dest.getY()) {
-            for (int i = 0; i < road.length; i++) {
-                road[i] = new Cell(source.getX() + 1, source.getY() + 1);
-                source.setX(source.getX()+1);
-                source.setY(source.getY()+1);
-            }
-        }
-        else if (source.getX() < dest.getX() && source.getY() > dest.getY()) {
-            for (int i = 0; i < road.length; i++) {
-                road[i] = new Cell(source.getX() + 1, source.getY() - 1);
-                source.setX(source.getX() + 1);
-                source.setY(source.getY() - 1);
-            }
-        }
-        else if (source.getX() > dest.getX() && source.getY() > dest.getY()) {
-            for (int i = 0; i < road.length; i++) {
-                road[i] = new Cell(source.getX() - 1, source.getY() - 1);
-                source.setX(source.getX() - 1);
-                source.setY(source.getY() - 1);
-            }
-        }
-        else if (source.getX() > dest.getX() && source.getY() < dest.getY()) {
-            for (int i = 0; i < road.length; i++) {
-                road[i] = new Cell(source.getX() - 1, source.getY() + 1);
-                source.setX(source.getX() - 1);
-                source.setY(source.getY() + 1);
-            }
+//        int deltaX = dest.getX() - source.getX();
+//        int deltaY = dest.getY() - source.getY();
+        for (int i = 0; i < road.length; i++) {
+            road[i] = new Cell(source.getX() + Integer.compare(dest.getX(), source.getX()), source.getY() + Integer.compare(dest.getY(), source.getY()));
+            source.setX(source.getX() + Integer.compare(dest.getX(), source.getX()));
+            source.setY(source.getY() + Integer.compare(dest.getY(), source.getY()));
         }
         return road;
     }
@@ -49,9 +28,8 @@ public class Bishop extends Figure {
 
     public static void main(String[] args) throws ImpossibleMoveException {
         Bishop bishop = new Bishop(new Cell(3, 4));
-        for (Cell e : bishop.way(bishop.position, new Cell(7, 8))) {
+        for (Cell e : bishop.way(new Cell(3, 4), new Cell(6, 1))) {
             System.out.println("X: " + e.getX() + "      " + "Y: " + e.getY());
         }
-
     }
 }

@@ -1,7 +1,7 @@
 package ru.job4j.chessboardframe;
 
 public abstract class Figure {
-    final Cell position;
+    public final Cell position;
 
      Figure(Cell position) {
         this.position = position;

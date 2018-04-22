@@ -8,37 +8,27 @@ public class Board {
         i++;
     }
 
-    boolean move(Cell sourse, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
+    public boolean move(Cell sourse, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         boolean res = true;
         if (!exist(sourse)) {
             throw new FigureNotFoundException();
         }
-        int index = 0;
-        while (figures[index].position.getX() != sourse.getX() && figures[index].position.getY() != sourse.getY()){
-            index++;
-        }
-
-
-        for (Cell cell : figures[index].way(sourse, dest)) {
-            int i = 0;
-            while (figures[i] != null) {
-                //System.out.println(cell.getX()+ " " + cell.getY() + " к.фигуры " + figures[i].position.getX() + " " + figures[i].position.getY());
-                if (cell.getX() == figures[i].position.getX() && cell.getY() == figures[i].position.getY()) {
+        for (Cell cell : figures[indexOf(sourse)].way(sourse, dest)) {
+            for (Figure figure : figures) {
+                if (figure != null && figure.position.getX() == cell.getX() && figure.position.getY() == cell.getY()) {
                     res = false;
                     throw new OccupiedWayException();
                 }
-                i++;
             }
         }
-        if (res) {
-            figures[index] = figures[index].copy(dest);
-
+        if (res == true) {
+            figures[indexOf(sourse)] = figures[indexOf(sourse)].copy(dest); //тут ошибка java.lang.ArrayIndexOutOfBoundsException: -1
+            System.out.println(indexOf(sourse));
         }
-
         return res;
     }
 
-    boolean exist(Cell sourse) {
+    public boolean exist(Cell sourse) {
         boolean res = false;
         for (Figure figure : figures) {
             if (figure != null && figure.position.getX() == sourse.getX() && figure.position.getY() == sourse.getY()) {
@@ -48,6 +38,15 @@ public class Board {
         return res;
     }
 
+    public int indexOf(Cell cell) {
+        int index = -1;
+        for (int i = 0; i < figures.length; i++) {
+            if (figures[i] != null && figures[i].position.getX() == cell.getX() && figures[i].position.getY() == cell.getY()) {
+                index = i;
+            }
+        }
+        return index;
+    }
 
     public static void main(String[] args) throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
@@ -55,11 +54,12 @@ public class Board {
         board.add(new Bishop(new Cell(1, 6)));
         board.add(new Bishop(new Cell(3, 4)));
         board.add(new Bishop(new Cell(3, 1)));
-        board.move(new Cell(3, 1), new Cell(7,5));
-        int i = 0;
-        while (board.figures[i] != null) {
-            System.out.println(board.figures[i].position.getX() + "  " + board.figures[i].position.getY());
-            i++;
+        board.move(new Cell(1, 6), new Cell(2,5));
+
+        for (Figure figure : board.figures) {
+            if (figure != null) {
+                System.out.println(board.indexOf(figure.position) + "  " + figure.position.getX() + " " + figure.position.getY());
+            }
         }
 
 
