@@ -15,8 +15,7 @@ public class Bishop extends Figure {
 //        int deltaY = dest.getY() - source.getY();
         for (int i = 0; i < road.length; i++) {
             road[i] = new Cell(source.getX() + Integer.compare(dest.getX(), source.getX()), source.getY() + Integer.compare(dest.getY(), source.getY()));
-            source.setX(source.getX() + Integer.compare(dest.getX(), source.getX()));
-            source.setY(source.getY() + Integer.compare(dest.getY(), source.getY()));
+            source = new Cell(source.getX() + Integer.compare(dest.getX(), source.getX()), source.getY() + Integer.compare(dest.getY(), source.getY()));
         }
         return road;
     }
