@@ -7,8 +7,8 @@ import static org.hamcrest.core.Is.is;
 public class UpArrayTest {
     @Test
     public void testOne() {
-        int[] a = {5, 10, 15, 20, 50,};
-        int[] b = {6, 7,  8,  18, 19, 23, 48, 63,};
+        int[] a = {5, 10, 15, 20, 50};
+        int[] b = {6, 7,  8,  18, 19, 23, 48, 63};
         UpArray upArray = new UpArray();
         int[] result = upArray.arr(a, b);
         int[] expect = {5, 6, 7, 8, 10, 15, 18, 19, 20, 23, 48, 50, 63};

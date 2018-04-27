@@ -21,7 +21,7 @@ public class Board {
                 }
             }
         }
-        if (res == true) {
+        if (res) {
             figures[indexOf(sourse)] = figures[indexOf(sourse)].copy(dest); //тут ошибка java.lang.ArrayIndexOutOfBoundsException: -1
             //System.out.println(indexOf(sourse));
         }
@@ -54,7 +54,7 @@ public class Board {
         board.add(new Bishop(new Cell(1, 6)));
         board.add(new Bishop(new Cell(3, 4)));
         board.add(new Bishop(new Cell(3, 1)));
-        board.move(new Cell(3, 4), new Cell(6,7));
+        board.move(new Cell(3, 4), new Cell(6, 7));
 
         for (Figure figure : board.figures) {
             if (figure != null) {

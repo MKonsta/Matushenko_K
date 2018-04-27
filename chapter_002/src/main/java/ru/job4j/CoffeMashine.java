@@ -10,7 +10,9 @@ public class CoffeMashine {
             if (cha >= coins[i]) {
                 cha -= coins[i];
                 size++;
-            } else i++;
+            } else {
+                i++;
+            }
         }
         int[] changeArray = new int[size];
         cha = value - price;
@@ -21,7 +23,9 @@ public class CoffeMashine {
                 cha -= coins[i];
                 changeArray[index] = coins[i];
                 index++;
-            } else i++;
+            } else {
+                i++;
+            }
         }
         return changeArray;
     }

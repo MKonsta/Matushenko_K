@@ -23,7 +23,7 @@ public class UpArray {
                 index++;
                 oneLength++;
             }
-        } else if (twoLength < two.length){
+        } else if (twoLength < two.length) {
             while (index < res.length) {
                 res[index] = two[twoLength];
                 index++;

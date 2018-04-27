@@ -39,7 +39,7 @@ public class BoardTests {
     public void whenBishopMoveFrom34To61() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         Board board = new Board();
         board.add(new Bishop(new Cell(3, 4)));
-        board.move(new Cell(3,4), new Cell(6, 1));
+        board.move(new Cell(3, 4), new Cell(6, 1));
         assertThat(board.exist(new Cell(6, 1)), is(true));
     }
 }
