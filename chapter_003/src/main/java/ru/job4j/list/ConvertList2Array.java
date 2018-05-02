@@ -23,6 +23,8 @@ public class ConvertList2Array {
                 if (!list.isEmpty()) {
                     array[i][j] = list.get(0);
                     list.remove(0);
+                } else {
+                    break;
                 }
             }
         }
