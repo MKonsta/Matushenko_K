@@ -7,7 +7,19 @@ public class PrioriytQueue {
     private LinkedList<Task> tasks = new LinkedList<>();
 
     public void put(Task task) {
-        if (tasks.size() != 0) {
+        int index = 0;
+        for (Task task1 : tasks) {
+            if (task.getPriority() <= task1.getPriority()) {
+                index = tasks.indexOf(task1);
+                break;
+            } else if (task1.equals(tasks.getLast())) {
+                index = tasks.indexOf(tasks.getLast());
+                break;
+            }
+        }
+        tasks.add(index, task);
+
+        /*if (tasks.size() != 0) { //Также рабочий цикл
             for (Task task1 : tasks) {
                 if (task.getPriority() <= task1.getPriority()) {
                   tasks.add(tasks.indexOf(task1), task);
@@ -19,7 +31,7 @@ public class PrioriytQueue {
             }
         } else {
             tasks.addFirst(task);
-        }
+        }*/
     }
 
     public Task take() {
