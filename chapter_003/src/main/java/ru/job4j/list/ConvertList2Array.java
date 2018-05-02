@@ -17,17 +17,13 @@ public class ConvertList2Array {
      */
     public int[][] toArray(List<Integer> list, int rows) {
         int cells = (int) Math.ceil((list.size() / (double)rows)); //получили количество столбцов
-        int delta = rows * cells - list.size();
-        while (delta != 0) {//добавили нули, если необходимо
-            list.add(0);
-            delta--;
-        }
-
         int[][] array = new int[rows][cells]; //Создали ммассив для возвращения и в цикле заполнили его
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cells; j++) {
-                array[i][j] = list.get(0);
-                list.remove(0);
+                if (!list.isEmpty()) {
+                    array[i][j] = list.get(0);
+                    list.remove(0);
+                }
             }
         }
         return array;
