@@ -57,10 +57,13 @@ public class MenuTracker {
         }
         @Override
         public void execute(Input input, Tracker tracker) {
-            tracker.findAll();
-            for (Item item : tracker.findAll()) {
+            for (Item item : tracker.getItems()) {
                 System.out.println(String.format("%s. %s", item.getId(), item.getName()));
             }
+            /*tracker.findAll();
+            for (Item item : tracker.findAll()) {
+                System.out.println(String.format("%s. %s", item.getId(), item.getName()));
+            }*/
         }
     }
 

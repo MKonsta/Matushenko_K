@@ -1,0 +1,38 @@
+package ru.job4j.trackerSecondRealisationTest;
+
+import org.junit.Test;
+import ru.job4j.tracker.*;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+
+public class StartUITest {
+    @Test
+    public void whenAddNewItem() {
+        Tracker tracker = new Tracker();
+        Input input = new StubInput(new String[]{"0", "новая тестовая заявка", "отдел", "567", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(tracker.findAll()[0].getName(), is("новая тестовая заявка"));
+    }
+
+    @Test
+    public void whenEditOneItem() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("First item name", "first desk", 547L);
+        tracker.add(item);
+        Input input = new StubInput(new String[]{"2", item.getId(), "edited item", "edited desk", "345", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(tracker.findAll()[0].getName(), is("edited item"));
+    }
+
+    @Test
+    public void whenDeleteOneItem() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("name item", "desk name", 567L);
+        tracker.add(item);
+        Input input = new StubInput(new String[]{"3", item.getId(), "6"});
+        new StartUI(input, tracker).init();
+        assertThat(tracker.findAll().length, is(0));
+    }
+
+}
