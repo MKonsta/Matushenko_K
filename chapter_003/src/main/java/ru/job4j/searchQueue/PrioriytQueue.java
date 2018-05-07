@@ -1,6 +1,11 @@
 package ru.job4j.searchQueue;
 
 import java.util.LinkedList;
+import java.util.Objects;
+
+/**
+ * Очередь с приоритетом на LinkedList
+ */
 
 public class PrioriytQueue {
 

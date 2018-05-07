@@ -1,5 +1,7 @@
 package ru.job4j.searchQueue;
 
+import java.util.Objects;
+
 public class Task {
     private String desk;
     private int priority;
@@ -15,5 +17,20 @@ public class Task {
 
     public int getPriority() {
         return priority;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task1 = (Task) o;
+        return priority == task1.priority &&
+                Objects.equals(desk, task1.desk);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(desk, priority);
     }
 }
