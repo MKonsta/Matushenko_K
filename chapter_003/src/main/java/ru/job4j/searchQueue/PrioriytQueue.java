@@ -18,7 +18,7 @@ public class PrioriytQueue {
                 index = tasks.indexOf(task1);
                 break;
             } else if (task1.equals(tasks.getLast())) {
-                index = tasks.indexOf(tasks.getLast());
+                index = tasks.indexOf(tasks.getLast()) + 1;
                 break;
             }
         }
@@ -53,7 +53,7 @@ public class PrioriytQueue {
         prioriytQueue.put(new Task("ohrana", 1));
 
         for (Task task : prioriytQueue.tasks) {
-            System.out.println(task.getPriority() + " " + task.getDesk());
+            System.out.println(task);
         }
     }
 }

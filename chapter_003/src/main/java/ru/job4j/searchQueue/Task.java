@@ -33,4 +33,12 @@ public class Task {
 
         return Objects.hash(desk, priority);
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "desk='" + desk + '\'' +
+                ", priority=" + priority +
+                '}';
+    }
 }
