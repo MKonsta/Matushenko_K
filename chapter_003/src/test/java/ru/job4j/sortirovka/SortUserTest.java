@@ -31,6 +31,11 @@ public class SortUserTest {
                 )
         );
         SortUser sortUser = new SortUser();
-        assertThat(expect, is(sortUser.sort(list)));
+        //assertThat(expect, is(sortUser.sort(list)));
+        //assertThat(sortUser.sort(list).containsAll(expect));
+        for (User user : sortUser.sort(list)) {
+            user.equals(expect.get(0));
+            expect.remove(0);
+        }
     }
 }
