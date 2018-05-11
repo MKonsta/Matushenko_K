@@ -18,11 +18,12 @@ public class ConvertList2Array {
     public int[][] toArray(List<Integer> list, int rows) {
         int cells = (int) Math.ceil((list.size() / (double)rows)); //получили количество столбцов
         int[][] array = new int[rows][cells]; //Создали ммассив для возвращения и в цикле заполнили его
+        int index = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cells; j++) {
-                if (!list.isEmpty()) {
-                    array[i][j] = list.get(0);
-                    list.remove(0);
+                if (index < list.size()) {
+                    array[i][j] = list.get(index);
+                    index++;
                 } else {
                     break;
                 }
