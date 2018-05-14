@@ -32,11 +32,12 @@ public class ListCompare implements Comparator<String> {
         int result = 0;
         for (int i = 0; i < left.length() && i < right.length(); i++) {
             if (Character.compare(left.charAt(i), right.charAt(i)) != 0) {
-                return Character.compare(left.charAt(i), right.charAt(i));
+                result = Character.compare(left.charAt(i), right.charAt(i));
+                break;
             }
         }
-        if (Integer.compare(left.length(), right.length()) != 0) {
-            return Integer.compare(left.length(), right.length());
+        if (result == 0 && Integer.compare(left.length(), right.length()) != 0) {
+            result = Integer.compare(left.length(), right.length());
         }
         return result;
     }
