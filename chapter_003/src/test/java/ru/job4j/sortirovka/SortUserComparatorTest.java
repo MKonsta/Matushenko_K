@@ -1,8 +1,8 @@
 package ru.job4j.sortirovka;
 
 import org.junit.Test;
-import ru.job4j.sortirovka.sortirovka_comparator.SortUser;
-import ru.job4j.sortirovka.sortirovka_comparator.User;
+import ru.job4j.sortirovka.sortirovkacomparator.SortUser;
+import ru.job4j.sortirovka.sortirovkacomparator.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +59,6 @@ public class SortUserComparatorTest {
         );
 
         SortUser sortUser = new SortUser();
-        assertThat(sortUser.sortNameLength(users), is(expect));
+        assertThat(sortUser.sortByAllFields(users), is(expect));
     }
 }

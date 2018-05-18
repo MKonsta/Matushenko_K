@@ -1,9 +1,9 @@
-package ru.job4j.sortirovka.sortirovka_comparator;
+package ru.job4j.sortirovka.sortirovkacomparator;
 
 import java.util.*;
 
 /**
- * 2. Сортировка User с использованием Comparator [#10036]
+ * 2. Сортировка User с использованием сomparator [#10036]
  */
 
 public class SortUser {

@@ -1,4 +1,4 @@
-package ru.job4j.sortirovka.sortirovka_comparator;
+package ru.job4j.sortirovka.sortirovkacomparator;
 
 import java.util.Comparator;
 
