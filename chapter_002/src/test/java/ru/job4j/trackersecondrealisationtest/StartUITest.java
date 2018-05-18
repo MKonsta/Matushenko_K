@@ -1,4 +1,4 @@
-package ru.job4j.trackerSecondRealisationTest;
+package ru.job4j.trackersecondrealisationtest;
 
 import org.junit.Test;
 import ru.job4j.tracker.*;

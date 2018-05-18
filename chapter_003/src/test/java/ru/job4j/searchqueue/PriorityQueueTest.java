@@ -1,8 +1,8 @@
-package ru.job4j;
+package ru.job4j.searchqueue;
 
 import org.junit.Test;
-import ru.job4j.searchQueue.PrioriytQueue;
-import ru.job4j.searchQueue.Task;
+import ru.job4j.searchqueue.PrioriytQueue;
+import ru.job4j.searchqueue.Task;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

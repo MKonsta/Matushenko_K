@@ -1,4 +1,4 @@
-package ru.job4j.searchQueue;
+package ru.job4j.searchqueue;
 
 import java.util.Objects;
 
@@ -21,11 +21,15 @@ public class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Task task1 = (Task) o;
-        return priority == task1.priority &&
-                Objects.equals(desk, task1.desk);
+        return priority == task1.priority
+                && Objects.equals(desk, task1.desk);
     }
 
     @Override
@@ -36,9 +40,9 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "desk='" + desk + '\'' +
-                ", priority=" + priority +
-                '}';
+        return "Task{"
+                + "desk='" + desk + '\''
+                + ", priority=" + priority
+                + '}';
     }
 }

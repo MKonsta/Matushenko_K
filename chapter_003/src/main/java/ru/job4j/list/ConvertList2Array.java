@@ -16,7 +16,7 @@ public class ConvertList2Array {
      * @return Возвращает двумерный массив типа int[][]
      */
     public int[][] toArray(List<Integer> list, int rows) {
-        int cells = (int) Math.ceil((list.size() / (double)rows)); //получили количество столбцов
+        int cells = (int) Math.ceil((list.size() / (double) rows)); //получили количество столбцов
         int[][] array = new int[rows][cells]; //Создали ммассив для возвращения и в цикле заполнили его
         int index = 0;
         for (int i = 0; i < rows; i++) {
