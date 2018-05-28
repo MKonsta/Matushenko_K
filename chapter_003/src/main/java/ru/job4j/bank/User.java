@@ -24,14 +24,13 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return Objects.equals(name, user.name)
-                && Objects.equals(passport, user.passport);
+        return Objects.equals(passport, user.passport);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, passport);
+        return Objects.hash(passport);
     }
 
     @Override
