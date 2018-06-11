@@ -51,12 +51,18 @@ public class PrimeIt implements Iterator {
     }
 
     public Integer next() {
-        if (hasNext()) {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        index++;
+        return numbers[index - 1];
+
+        /*if (hasNext()) {
             index++;
             return numbers[index - 1];
         } else {
             throw new NoSuchElementException();
-        }
+        }*/
     }
 
     public void remove() {
