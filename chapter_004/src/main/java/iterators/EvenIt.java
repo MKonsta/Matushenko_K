@@ -34,12 +34,11 @@ public class EvenIt implements Iterator {
     }
 
     public Integer next() {
-        if (hasNext()) {
-            index++;
-            return numbers[index - 1];
-        } else {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
+        index++;
+        return numbers[index - 1];
     }
 
     public void remove() {
