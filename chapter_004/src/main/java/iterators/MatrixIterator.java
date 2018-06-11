@@ -42,12 +42,11 @@ public class MatrixIterator implements Iterator {
     }
 
     public Integer next() {
-        if (hasNext()) {
-            j++;
-            return values[i][j - 1];
-        } else {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
+        j++;
+        return values[i][j - 1];
     }
 
     public void remove() {
