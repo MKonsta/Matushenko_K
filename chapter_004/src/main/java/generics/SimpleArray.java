@@ -10,11 +10,15 @@ import java.util.NoSuchElementException;
  * @param <T>
  */
 public class SimpleArray<T> implements Iterable<T> {
-    Object[] array;
+    private Object[] array;
 
     private int index = 0;
     public SimpleArray(int size) {
         this.array = new Object[size];
+    }
+
+    public Object[] getArray() {
+        return Arrays.copyOf(this.array, this.array.length);
     }
 
     public void add(T model) {
@@ -63,28 +67,5 @@ public class SimpleArray<T> implements Iterable<T> {
         };
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SimpleArray<?> that = (SimpleArray<?>) o;
-        return Arrays.equals(array, that.array);
-    }
-
-    @Override
-    public int hashCode() {
-        return Arrays.hashCode(array);
-    }
-
-    @Override
-    public String toString() {
-        return Arrays.toString(array);
-    }
-
-    public static void main(String[] args) {
-        SimpleArray<String> ss = new SimpleArray(5);
-        ss.add("DDDDDDDD");
-        System.out.println(ss);
-    }
 }
 
