@@ -17,8 +17,8 @@ public class SimpleArray<T> implements Iterable<T> {
         this.array = new Object[size];
     }
 
-    public Object[] getArray() {
-        return Arrays.copyOf(this.array, this.array.length);
+    public T[] getArray() {
+        return (T[]) Arrays.copyOf(this.array, this.array.length);
     }
 
     public void add(T model) {
