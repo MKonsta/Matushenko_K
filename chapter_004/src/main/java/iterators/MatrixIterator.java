@@ -21,22 +21,34 @@ public class MatrixIterator implements Iterator {
     private int i = 0;
     private int j = 0;
 
-    public MatrixIterator(int[][] valies) {
-        this.values = valies;
+    public MatrixIterator(int[][] values) {
+        this.values = values;
     }
 
 
     public boolean hasNext() {
         boolean result = false;
-        if (i < values.length && j < values[i].length) {
+        if (j < values[i].length) {
             result = true;
-        } else if (i < values.length - 1 && j == values[i].length) {
+        } else while (i < values.length - 1) {
             i++;
-            j = 0;
-            result = true;
-        } else if (i == values.length - 1 && j == values[i].length - 1) {
-            result = false;
+            if (0 < values[i].length) {
+                j = 0;
+                result = true;
+                break;
+            }
         }
+
+        //=============================================== Старый вариант
+//        if (i < values.length && j < values[i].length) {
+//            result = true;
+//        } else if (i < values.length - 1 && j == values[i].length) {
+//            i++;
+//            j = 0;
+//            result = true;
+//        } else if (i == values.length - 1 && j == values[i].length - 1) {
+//            result = false;
+//        }
 
         return result;
     }
@@ -51,5 +63,13 @@ public class MatrixIterator implements Iterator {
 
     public void remove() {
         throw new UnsupportedOperationException();
+    }
+
+    public static void main(String[] args) {
+        MatrixIterator it = new MatrixIterator(new int[][]{{1, 2}, {3, 4, 5}, {}, {}, {88, 77}});
+
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
 }
