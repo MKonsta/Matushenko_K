@@ -45,12 +45,23 @@ public class Converter {
                 boolean result = false;
                 if (itIn.hasNext()) {
                     result = true;
-                } else if (it.hasNext()) {
+                } else while (it.hasNext()) {
                     itIn = it.next();
                     if (itIn.hasNext()) {
                         result = true;
+                        break;
                     }
                 }
+
+                //==============Старый рабочий вариант===========
+//                if (itIn.hasNext()) {
+//                    result = true;
+//                } else if (it.hasNext()) {
+//                    itIn = it.next();
+//                    if (itIn.hasNext()) {
+//                        result = true;
+//                    }
+//                }
                 return result;
             }
 
