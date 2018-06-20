@@ -1,5 +1,6 @@
 package iterators;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -17,7 +18,6 @@ import java.util.NoSuchElementException;
 
 public class MatrixIterator implements Iterator {
     private final int[][] values;
-
     private int i = 0;
     private int j = 0;
 
@@ -25,10 +25,10 @@ public class MatrixIterator implements Iterator {
         this.values = values;
     }
 
-
     public boolean hasNext() {
         boolean result = false;
-        if (j < values[i].length) {
+
+        if (values.length > 0 && j < values[i].length) {
             result = true;
         } else while (i < values.length - 1) {
             i++;
@@ -38,23 +38,11 @@ public class MatrixIterator implements Iterator {
                 break;
             }
         }
-
-        //=============================================== Старый вариант
-//        if (i < values.length && j < values[i].length) {
-//            result = true;
-//        } else if (i < values.length - 1 && j == values[i].length) {
-//            i++;
-//            j = 0;
-//            result = true;
-//        } else if (i == values.length - 1 && j == values[i].length - 1) {
-//            result = false;
-//        }
-
         return result;
     }
 
     public Integer next() {
-        if (!hasNext()) {
+        if (hasNext() == false) {
             throw new NoSuchElementException();
         }
         j++;
@@ -63,13 +51,5 @@ public class MatrixIterator implements Iterator {
 
     public void remove() {
         throw new UnsupportedOperationException();
-    }
-
-    public static void main(String[] args) {
-        MatrixIterator it = new MatrixIterator(new int[][]{{1, 2}, {3, 4, 5}, {}, {}, {88, 77}});
-
-        while (it.hasNext()) {
-            System.out.println(it.next());
-        }
     }
 }
