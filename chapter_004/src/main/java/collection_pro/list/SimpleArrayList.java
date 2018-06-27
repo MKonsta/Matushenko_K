@@ -1,66 +1,91 @@
-
 package collection_pro.list;
 
-/**
- *5.3.0 Создать метод delete для односвязного списка [#51424]
- * В этом задании необходимо реализовать метод delete для односвязного списка.
- */
+import java.util.Arrays;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
- * Класс SimpleArrayList.
- */
-public class SimpleArrayList<E> {
+ * 5.3.1. Создать динамический список на базе массива. [#158]
+ Необходимо создать динамический контейнер с методами:
 
-    private int size;
-    private Node<E> first;
+ 1) add(E value);
 
-/**
- * Метод вставляет в начало списка данные.
+ 2) E get(int index);
+
+ 3) реализовать интерфейс Iterable<E>.
+
+ Внутри контейнер должен базироваться на массиве (Object[] container). Использовать стандартные коллекции JDK (ArrayList, LinkedList и т.д.) запрещено.
+ Контейнер должен быть динамическим, т.е. при полном заполнении увеличиваться.
+
+ Итератор должен реализовывать fail-fast поведение, т.е. если с момента создания итератора коллекция подверглась структурному изменению,
+ итератор должен кидать ConcurrentModificationException.
+ Это достигается через введение счетчика изменений - modCount. Каждая операция, которая структурно модифицирует коллекцию должна инкрементировать этот счетчик.
+ В свою очередь итератор запоминает значение этого счетчика на момент своего создания (expectedModCount), а затем на каждой итерации сравнивает сохраненное значение,
+ с текущим значением поля modCount, если они отличаются, то генерируется исключение.
+
+ * @param <E>
  */
-    public void add(E date) {
-        Node<E> newLink = new Node<>(date);
-        newLink.next = this.first;
-        this.first = newLink;
-        this.size++;
+public class SimpleArrayList<E> implements Iterable<E> {
+    /**
+     * Счетчик количества элементов в массиве.
+     */
+    private int counter = 0;
+
+    /**
+     * Котнтейнер для добавления объектов.
+     */
+    private Object[] container = new Object[2];
+
+    /**
+     * Метод добавления новых объектов. При заполнении массива, Контейнер расширяется
+     * @param value
+     */
+    public void add(E value) {
+        if (counter == container.length) {
+            Object[] tempContainer = Arrays.copyOf(container, container.length + 2);
+            container = tempContainer;
+        }
+        container[counter] = value;
+        counter++;
     }
 
-/**
- * Реализовать метод удаления первого элемент в списке.
- */
-    public E delete() {
-        first = first.next;
-        size--;
-        return null;
-    }
-
-/**
- * Метод получения элемента по индексу.
- */
+    /**
+     * Метод получения объектов из контейнера по индексу
+     * @param index
+     * @return
+     */
     public E get(int index) {
-        Node<E> result = this.first;
-        for (int i = 0; i < index; i++) {
-            result = result.next;
-        }
-        return result.date;
+        return (E) container[index];
     }
 
-/**
- * Метод получения размера коллекции.
- */
-    public int getSize() {
-        return this.size;
+    /**
+     * Итератор контейнера. Если во время итерации массив как-то модифицируется, то выбрасывается исключение ConcurrentModificationException
+     * @return
+     */
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private int modCount = counter;
+            private int pos = 0;
+            @Override
+            public boolean hasNext() {
+                if (modCount != counter) {
+                    throw new ConcurrentModificationException();
+                }
+                return pos < counter;
+            }
+
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException("nooooooooooo");
+                } else if (modCount != counter) {
+                    throw new ConcurrentModificationException();
+                }
+                return (E) container[pos++];
+            }
+        };
     }
 
-/**
- * Класс предназначен для хранения данных.
- */
-    private static class Node<E> {
-
-        E date;
-        Node<E> next;
-
-        Node(E date) {
-            this.date = date;
-        }
-    }
 }
