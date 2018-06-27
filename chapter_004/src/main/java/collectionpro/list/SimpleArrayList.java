@@ -1,4 +1,4 @@
-package collection_pro.list;
+package collectionpro.list;
 
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;

@@ -71,7 +71,7 @@ public class Org {
         return result;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         Org org = new Org();
         String[] str = {"K2\\SK1\\SSK2", "K1\\SK1", "K1\\SK2", "K1\\SK1\\SSK1", "K1\\SK1\\SSK2", "K2", "K2\\SK1\\SSK1"};
         //System.out.println(org.sortByIncreasing(str));

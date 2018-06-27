@@ -1,6 +1,6 @@
 package generics.base;
 
-public interface Store <T extends Base> {
+public interface Store<T extends Base> {
     void add(T model);
 
     boolean replase(String id, T model);

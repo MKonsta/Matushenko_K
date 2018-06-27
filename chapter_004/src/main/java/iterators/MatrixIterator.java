@@ -30,7 +30,8 @@ public class MatrixIterator implements Iterator {
 
         if (values.length > 0 && j < values[i].length) {
             result = true;
-        } else while (i < values.length - 1) {
+        } else {
+            while (i < values.length - 1) {
             i++;
             if (0 < values[i].length) {
                 j = 0;
@@ -38,11 +39,12 @@ public class MatrixIterator implements Iterator {
                 break;
             }
         }
+        }
         return result;
     }
 
     public Integer next() {
-        if (hasNext() == false) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         j++;

@@ -45,11 +45,13 @@ public class Converter {
                 boolean result = false;
                 if (itIn.hasNext()) {
                     result = true;
-                } else while (it.hasNext()) {
-                    itIn = it.next();
-                    if (itIn.hasNext()) {
-                        result = true;
-                        break;
+                } else {
+                    while (it.hasNext()) {
+                        itIn = it.next();
+                        if (itIn.hasNext()) {
+                            result = true;
+                            break;
+                        }
                     }
                 }
 
