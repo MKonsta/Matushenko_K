@@ -1,18 +1,18 @@
 package collectionpro.map;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
- * 2. Не перекрывать equals hashCode [#1005]
- *
+ *3. Переопределить только hashCode [#1003]
  *
  * Мы добавляем в карту два элемента, по сути с одинаковыми ключами. И они не затирают друг друга. Это происходит по тому,
  * что в кдассе юзер не переопределены методы hashCode и equals. Эти методы напрямую используются из класса Object.
  * Java сравнивает их не по содержанию полей, а просто как разные ссылки в памяти. Поэтому они определяются как разные,
- * и добавляютя в мэп  в качестве ключей
+ * и добавляютя в мэп  в качестве ключей.
+ *В данном случае мы переопределили только хэшкод. Теперь одинаковые объекты по хэшкоду равны. Но для добавления в мапу
+ * этого недостаточно. После того как Джва установила что хэши одинаковы, потом еще проверяет по ивкэлс.
+ * А иквелс у нас не переопределен, и этот метод показывает что объекты разные. По умолчанию в классе Object иквелс проверяет
+ * ссылается ли новый объект на таекущий, и все. Поэтому в мэп добавились оба объекта.
  */
 class User {
         private String name;
@@ -25,13 +25,17 @@ class User {
             this.birthday = birthday;
         }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, birthday);
+    }
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", children=" + children +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", children=" + children
+                + '}';
     }
 
     public static void main(String[] args) {
@@ -43,6 +47,6 @@ class User {
         for (Map.Entry<User, Object> entry : map.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
-        System.out.println(map);
+
     }
 }
