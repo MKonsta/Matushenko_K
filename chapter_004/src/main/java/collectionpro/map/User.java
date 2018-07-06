@@ -3,11 +3,11 @@ package collectionpro.map;
 import java.util.*;
 
 /**
- *4. Переопределить только equals [#1004]
+ *5. Перекрывать и equals и hashCode [#1002]
  *
- * Теперь мыпереопределили только equels. Хеши не переопредоелили. И Хэшкоды у нас остаются разными. Джава видит что хэши разные,
- * и это гарантирует что объекты тоже разные. До метода иквелс (который в данном сдучае верно определил бы что объекты идентичны)
- * очередь не доходит. И оба объекта вставляются в мап
+ *Теперь переопределили и equals и hashCode. При вставке в map хэшы получились одинаковыми, затем идет проверка по иквелс.
+ * Иквелс подтверждает что обьекты одинаковы. И первай элемент мэпа затирается вторым, так как ключт одинаковы.
+ * На консоль выводится один элемент
  */
 class User {
         private String name;
@@ -28,9 +28,16 @@ class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         User user = (User) o;
         return Objects.equals(name, user.name)
                 && Objects.equals(birthday, user.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, birthday);
     }
 
     @Override
