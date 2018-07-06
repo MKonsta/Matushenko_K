@@ -3,16 +3,11 @@ package collectionpro.map;
 import java.util.*;
 
 /**
- *3. Переопределить только hashCode [#1003]
+ *4. Переопределить только equals [#1004]
  *
- * Мы добавляем в карту два элемента, по сути с одинаковыми ключами. И они не затирают друг друга. Это происходит по тому,
- * что в кдассе юзер не переопределены методы hashCode и equals. Эти методы напрямую используются из класса Object.
- * Java сравнивает их не по содержанию полей, а просто как разные ссылки в памяти. Поэтому они определяются как разные,
- * и добавляютя в мэп  в качестве ключей.
- *В данном случае мы переопределили только хэшкод. Теперь одинаковые объекты по хэшкоду равны. Но для добавления в мапу
- * этого недостаточно. После того как Джва установила что хэши одинаковы, потом еще проверяет по ивкэлс.
- * А иквелс у нас не переопределен, и этот метод показывает что объекты разные. По умолчанию в классе Object иквелс проверяет
- * ссылается ли новый объект на таекущий, и все. Поэтому в мэп добавились оба объекта.
+ * Теперь мыпереопределили только equels. Хеши не переопредоелили. И Хэшкоды у нас остаются разными. Джава видит что хэши разные,
+ * и это гарантирует что объекты тоже разные. До метода иквелс (который в данном сдучае верно определил бы что объекты идентичны)
+ * очередь не доходит. И оба объекта вставляются в мап
  */
 class User {
         private String name;
@@ -26,17 +21,25 @@ class User {
         }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name, birthday);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(name, user.name)
+                && Objects.equals(birthday, user.birthday);
     }
 
     @Override
-    public String toString() {
-        return "User{"
-                + "name='" + name + '\''
-                + ", children=" + children
-                + '}';
-    }
+        public String toString() {
+            return "User{"
+                    + "name='" + name + '\''
+                    + ", children=" + children
+                    + '}';
+        }
 
     public static void main(String[] args) {
         User user = new User("Ivan", 2, new GregorianCalendar(1980, 4, 8));
