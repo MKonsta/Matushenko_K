@@ -1,6 +1,5 @@
 package collectionpro.map;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -48,7 +47,7 @@ public class SimpleHashMap<K, V> implements Iterable<Entry<K, V>> {
     /**
      * Функция увеличивает массив вдвое и возвращает его. (Все элементы сохраняются)
      */
-    private void reSize() {
+    private void resize() {
         Entry[] temp = new Entry[entrySet.length * 2];
         System.arraycopy(entrySet, 0, temp, 0, entrySet.length);
         entrySet = temp;
@@ -61,17 +60,15 @@ public class SimpleHashMap<K, V> implements Iterable<Entry<K, V>> {
      * @return
      */
     public boolean insert(K key, V value) {
-        for (Entry entry : entrySet) {
-            if (entry != null && entry.getKey().hashCode() == key.hashCode() && entry.getKey().equals(key)) {
-                return false;
+        if (entrySet[hash(key)] == null) {
+            if (size / entrySet.length >= 0.8) {
+                resize();
             }
+            entrySet[hash(key)] = new Entry(key, value);
+            size++;
+            return true;
         }
-        if (size / entrySet.length >= 0.8) {
-            reSize();
-        }
-        entrySet[hash(key)] = new Entry(key, value);
-        size++;
-        return true;
+        return false;
     }
 
     /**
@@ -80,12 +77,11 @@ public class SimpleHashMap<K, V> implements Iterable<Entry<K, V>> {
      * @return
      */
     public V get(K key) {
-        for (Entry<K, V> entry : entrySet) {
-            if (entry != null && entry.getKey().hashCode() == key.hashCode() && entry.getKey().equals(key)) {
-                return entry.getValue();
-            }
+        if (entrySet[hash(key)] != null) {
+            return (V) entrySet[hash(key)].getValue();
         }
-        throw new NoSuchElementException();
+        return null;
+
     }
 
     /**
@@ -94,12 +90,10 @@ public class SimpleHashMap<K, V> implements Iterable<Entry<K, V>> {
      * @return
      */
     public boolean delete(K key) {
-        for (int i = 0; i < entrySet.length; i++) {
-            if (entrySet[i] != null && entrySet[i].getKey().hashCode() == key.hashCode() && entrySet[i].getKey().equals(key)) {
-                entrySet[i] = null;
-                size--;
-                return true;
-            }
+        if (entrySet[hash(key)] != null) {
+            entrySet[hash(key)] = null;
+            size--;
+            return true;
         }
         return false;
     }
@@ -110,10 +104,8 @@ public class SimpleHashMap<K, V> implements Iterable<Entry<K, V>> {
      * @return
      */
     public boolean contains(K key) {
-        for (Entry<K, V> entry : entrySet) {
-            if (entry != null && entry.getKey().hashCode() == key.hashCode() && entry.getKey().equals(key)) {
-                return true;
-            }
+        if (entrySet[hash(key)] != null) {
+            return true;
         }
         return false;
     }
