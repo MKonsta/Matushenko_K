@@ -33,11 +33,15 @@ public class ExampleOverridingHashCode {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ExampleOverridingHashCode that = (ExampleOverridingHashCode) o;
-        return birthday == that.birthday &&
-                Objects.equals(name, that.name);
+        return birthday == that.birthday
+                && Objects.equals(name, that.name);
     }
 
     @Override
