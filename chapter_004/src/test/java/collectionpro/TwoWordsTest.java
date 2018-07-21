@@ -10,8 +10,8 @@ public class TwoWordsTest {
     @Test
     public void whenTwoEqualWords() {
         TwoWords tw = new TwoWords();
-        String a = "mobile";
-        String b = "mobeil";
+        String a = "мама";
+        String b = "аамм";
         assertThat(tw.comp(a, b), is(true));
     }
 

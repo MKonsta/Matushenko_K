@@ -10,22 +10,30 @@ import java.util.Map;
 public class TwoWords {
 
     public boolean comp(String a, String b) {
-        char[] chA = a.toCharArray();
-
-        Map<Character, Integer> bMap = new HashMap<>();
-        char[] chB = b.toCharArray();
-        for (char cha : chB) {
-            bMap.put(cha, null);
-        }
-
-        for (char ch : chA) {
-            if (bMap.containsKey(ch)) {
-                bMap.remove(ch);
-            } else {
-                return false;
+        boolean result = false;
+        if (a.length() == b.length()) {
+            Map<Character, Integer> aMap = new HashMap<>();
+            char[] aChar = a.toCharArray();
+            for (char ch : aChar) {
+                Integer absent = aMap.putIfAbsent(ch, 1);
+                if (absent != null) {
+                    aMap.put(ch, aMap.get(ch) + 1);
+                }
             }
-        }
-        return (bMap.size() == 0);
-    }
 
+            char[] bChar = b.toCharArray();
+            for (char ch : bChar) {
+                if (aMap.get(ch) == null) {
+                    break;
+                }
+                if (aMap.get(ch) > 1) {
+                    aMap.put(ch, aMap.get(ch) - 1);
+                } else {
+                    aMap.remove(ch);
+                }
+            }
+            result = aMap.size() == 0;
+        }
+        return result;
+    }
 }
