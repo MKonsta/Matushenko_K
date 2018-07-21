@@ -8,38 +8,47 @@ import java.util.*;
  */
 
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
+    /**
+     * Корень дерева
+     */
     private Node<E> root;
-    private int size;
 
     public Tree(E value) {
         this.root = new Node<>(value);
     }
 
+    /**
+     * Метод находит узел, и добавлет в его потомки дочерний элемент
+     * @param parent parent.
+     * @param child child.
+     * @return
+     */
     @Override
     public boolean add(E parent, E child) {
+
         boolean result = false;
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> element = data.poll();
-            if (element.getValue().compareTo(parent) == 0) {
-                for (Node<E> leaf : element.leaves()) {
-                    if (leaf.eqValue(child)) {
-                        return false;
-                    }
+        boolean dubl = false;
+        Optional<Node<E>> parentNode = this.findBy(parent);
+        if (parentNode.isPresent()) {
+            for (Node<E> node : parentNode.get().leaves()) {
+                if (node.eqValue(child)) {
+                    dubl = true;
                 }
-                element.add(new Node<>(child));
-                size++;
-                result = true;
-                break;
             }
-            for (Node<E> leaf : element.leaves()) {
-                data.offer(leaf);
+            if (!dubl) {
+                Node<E> childNode = new Node<>(child);
+                parentNode.get().add(childNode);
+                result = true;
             }
         }
         return result;
     }
 
+    /**
+     * Поиск значения по дереву
+     * @param value
+     * @return
+     */
     @Override
     public Optional<Node<E>> findBy(E value) {
         Optional<Node<E>> rsl = Optional.empty();
@@ -58,41 +67,38 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return rsl;
     }
 
-    private Queue<Node<E>> treeToList() {
-        Queue<Node<E>> data = new LinkedList<>();
-        Queue<Node<E>> result = new LinkedList<>();
-        data.offer(this.root);
-        result.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> element = data.poll();
-            for (Node<E> child : element.leaves()) {
-                data.offer(child);
-                result.offer(child);
-            }
-        }
-        return result;
-    }
-
     @Override
     public Iterator iterator() {
-        return new Iterator() {
-            Queue<Node<E>> allElements = treeToList();
-            int count = size;
+        return new SimpleIterator();
+    }
 
-            @Override
-            public boolean hasNext() {
-                return count > 0;
-            }
+    private class SimpleIterator implements Iterator<E> {
+        private Queue<Node<E>> queue = new LinkedList<>();
 
-            @Override
-            public Object next() {
-                if (hasNext()) {
-                    count--;
-                    return allElements.poll().getValue();
-                } else {
-                    throw  new NoSuchElementException();
+        SimpleIterator() {
+            queue.offer(root);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !queue.isEmpty();
+        }
+
+        @Override
+        public E next() {
+            E result;
+            if (hasNext()) {
+                Node<E> nextNode = queue.poll();
+                if (!nextNode.leaves().isEmpty()) {
+                    for (Node<E> child : nextNode.leaves()) {
+                        queue.add(child);
+                    }
                 }
+                result = nextNode.getValue();
+            } else {
+                throw new NoSuchElementException();
             }
-        };
+            return result;
+        }
     }
 }
