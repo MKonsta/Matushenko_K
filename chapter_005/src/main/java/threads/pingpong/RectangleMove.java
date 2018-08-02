@@ -13,7 +13,8 @@ public class RectangleMove implements Runnable {
     public void run() {
         int deltaX = 1;
         int deltaY = 1;
-        while (true) {
+        Thread current = Thread.currentThread();
+        while (!current.isInterrupted()) {
 
             if (this.rect.getX() == 300) {
                 deltaX = -1;
