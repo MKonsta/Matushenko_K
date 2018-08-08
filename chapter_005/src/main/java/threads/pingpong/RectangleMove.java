@@ -16,16 +16,12 @@ public class RectangleMove implements Runnable {
         Thread current = Thread.currentThread();
         while (!current.isInterrupted()) {
 
-            if (this.rect.getX() == 300) {
-                deltaX = -1;
-            } else if (this.rect.getX() == 0) {
-                deltaX = 1;
+            if (this.rect.getX() == 300 || this.rect.getX() == 0) {
+                deltaX *= -1;
             }
 
-            if (this.rect.getY() == 300) {
-                deltaY = -1;
-            } else if (this.rect.getY() == 0) {
-                deltaY = 1;
+            if (this.rect.getY() == 300 || this.rect.getY() == 0) {
+                deltaY *= -1;
             }
 
             this.rect.setX(this.rect.getX() + deltaX);
