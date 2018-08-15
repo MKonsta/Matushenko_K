@@ -33,7 +33,12 @@ public class UserStorageTest {
         Thread threadB = new Thread() {
             @Override
             public void run() {
-                userStorage.delete(new User(45, 0));
+                try {
+                    threadA.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(userStorage.delete(new User(45, 0)));
             }
         };
 
@@ -41,8 +46,7 @@ public class UserStorageTest {
         threadB.start();
         threadA.join();
         threadB.join();
-        System.out.println(userStorage.getUsers());
-        assertThat(userStorage.getUsers().size(), is(1)); // тут тест ИНОГДА падает, показывает что имеется 2 юзера
+        assertThat(userStorage.getUsers().size(), is(1));
     }
 
     @Test
@@ -59,13 +63,18 @@ public class UserStorageTest {
         Thread threadB = new Thread() {
             @Override
             public void run() {
+                try {
+                    threadA.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 userStorage.transfer(8, 5, 5);
             }
         };
 
         threadA.start();
         threadB.start();
-        threadA.join();
+
         threadB.join();
 
         assertThat(userStorage.getUsers().get(0).getAmount(), is(55));
