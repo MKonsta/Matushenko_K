@@ -20,6 +20,10 @@ public class UserStorage {
     @GuardedBy("this")
     private List<User> store = new ArrayList<>();
 
+    public synchronized List<User> getUsers() {
+        return this.store;
+    }
+
     /**
      * Метод для добавления юзеров в хранилище
      * @param user
