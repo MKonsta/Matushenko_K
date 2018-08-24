@@ -24,8 +24,8 @@ public class ArrayAndLinkedCompozition {
     /**
      * Создаем объект LinkedList'а
      */
-    @GuardedBy("this")
-    private SimpleLinkedListContainer<Integer> linkedListContainer = new SimpleLinkedListContainer<>();
+//    @GuardedBy("this")
+//    private SimpleLinkedListContainer<Integer> linkedListContainer = new SimpleLinkedListContainer<>();
 
     /**
      * Метод добавления элементов в ArrayList
@@ -44,20 +44,20 @@ public class ArrayAndLinkedCompozition {
         return arrayList.get(index);
     }
 
-    /**
-     * Метод добавления элементов в LinkedList
-     * @param val
-     */
-    public synchronized void addToLinked(Integer val) {
-        linkedListContainer.add(val);
-    }
+//    /**
+//     * Метод добавления элементов в LinkedList
+//     * @param val
+//     */
+//    public synchronized void addToLinked(Integer val) {
+//        linkedListContainer.add(val);
+//    }
 
-    /**
-     * Метод получения элементов по индексу из LinkedList'а
-     * @param index
-     * @return
-     */
-    public synchronized Integer getValOfLinked(int index) {
-        return linkedListContainer.get(index);
-    }
+//    /**
+//     * Метод получения элементов по индексу из LinkedList'а
+//     * @param index
+//     * @return
+//     */
+//    public synchronized Integer getValOfLinked(int index) {
+//        return linkedListContainer.get(index);
+//    }
 }
