@@ -28,7 +28,7 @@ public class SimpleBlockingQueue<T> {
      */
     private final int limit = 3;
     @GuardedBy("this")
-    private Queue<T> queue = new LinkedList<>();
+    private final Queue<T> queue = new LinkedList<>();
 
     /**
      * Метод добавления элементов в очередь
