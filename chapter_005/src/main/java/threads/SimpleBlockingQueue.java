@@ -35,14 +35,13 @@ public class SimpleBlockingQueue<T> {
      * @param value
      * @throws InterruptedException
      */
-    public synchronized void offer(T value) throws InterruptedException {
+    public void offer(T value) throws InterruptedException {
         synchronized (lock) {
-            if (queue.size() == limit) {
-                System.out.println("produser wait");
-                this.lock.wait();
+            while (queue.size() == limit) {
+                lock.wait();
             }
             queue.offer(value);
-            this.lock.notify();
+            lock.notify();
         }
     }
 
@@ -51,33 +50,26 @@ public class SimpleBlockingQueue<T> {
      * @return
      * @throws InterruptedException
      */
-    public synchronized T poll() throws InterruptedException {
-        T result;
+    public T poll() throws InterruptedException {
         synchronized (lock) {
-            if (queue.size() == 0) {
-                System.out.println("customer wait");
-                this.lock.wait();
+            while (queue.isEmpty()) {
+                lock.wait();
             }
-            result = queue.poll();
-            this.lock.notify();
+            T result = queue.poll();
+            lock.notify();
             return result;
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
         SimpleBlockingQueue<Integer> sq = new SimpleBlockingQueue<>();
-        Random random = new Random();
 
-        /**
-         * Создаем поток для заполнения очереди. Заполняться будет в цикле (10 итераций) рандомными значениями (0 - 100)
-         */
-        Thread produser = new Thread() {
+        Thread producer = new Thread() {
             @Override
             public void run() {
                 for (int i = 0; i < 10; i++) {
                     try {
-                        sq.offer(random.nextInt(100));
-                        System.out.println("produser queue size: " + sq.queue.size());
+                        sq.offer(i);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -85,15 +77,12 @@ public class SimpleBlockingQueue<T> {
             }
         };
 
-        /**
-         * Поток для "доставания" элементов из очереди. Взятие элементов выполняется в бесконечном цикле
-         */
-        Thread customer = new Thread() {
+        Thread consumer = new Thread() {
             @Override
             public void run() {
-                while (true) {
+                for (int i = 0; i < 9; i++) {
                     try {
-                        System.out.println("customer value: " + sq.poll());
+                        sq.poll();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -101,11 +90,12 @@ public class SimpleBlockingQueue<T> {
             }
         };
 
-        produser.start();
-        customer.start();
+        producer.start();
+        consumer.start();
 
-        produser.join();
-        customer.join();
+        producer.join();
+        consumer.join();
+        System.out.println("finish");
     }
 }
 
