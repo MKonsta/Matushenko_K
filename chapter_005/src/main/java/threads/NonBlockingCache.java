@@ -20,7 +20,11 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class NonBlockingCache {
-    ConcurrentHashMap<Integer, Base> map = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer, Base> map = new ConcurrentHashMap<>();
+
+    public ConcurrentHashMap<Integer, Base> getMap() {
+        return this.map;
+    }
 
     /**
      * Метод добавления элементов в коллекцию
@@ -72,7 +76,7 @@ public class NonBlockingCache {
         thread.start();
         thread.join();
 
-        System.out.println(nb.map);
+        System.out.println(nb.getMap());
     }
 }
 

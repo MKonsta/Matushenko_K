@@ -33,7 +33,7 @@ public class NonBlockingCacheTest {
         thread1.join();
         thread2.join();
 
-        System.out.println(nbc.map);
-        assertThat(nbc.map.get(1).getVersion(), is(2));
+        System.out.println(nbc.getMap());
+        assertThat(nbc.getMap().get(1).getVersion(), is(2));
     }
 }
