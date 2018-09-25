@@ -3,13 +3,10 @@ package threads;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-<<<<<<< HEAD
-=======
 /**
  * 2. ExecutorService рассылка почты. [#63097]
  */
 
->>>>>>> origin/master
 public class EmailNotification {
 
     private ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
