@@ -11,7 +11,7 @@ public class EmailNotification {
 
     private ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-    public synchronized void executeNotification() {
+    public void executeNotification() {
         pool.execute(new Runnable() {
             @Override
             public void run() {
