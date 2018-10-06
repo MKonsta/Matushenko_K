@@ -25,7 +25,7 @@ public class DeadLockWithCountDownLutch {
 
 }
 
-class DeadLocker implements Runnable{
+class DeadLocker implements Runnable {
     private CountDownLatch countDownLatch;
     private final Object lock1;
     private final Object lock2;
