@@ -35,7 +35,7 @@ public class Tracker implements AutoCloseable {
     public Tracker() {
 
         try {
-            inputStream = new FileInputStream("app.properties");
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("app.properties");
             properties.load(inputStream);
             url = properties.getProperty("url");
             login = properties.getProperty("login");
@@ -54,7 +54,18 @@ public class Tracker implements AutoCloseable {
 
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sqlCommand = "create table tracker(id serial primary key, name varchar(200), desk varchar(200), created timestamp, comment varchar(2000))";
+            String sqlCommand = "";
+            try {
+                inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("createtable.properties");
+                properties.load(inputStream);
+                sqlCommand = properties.getProperty("create");
+            } catch (IOException ex) {
+                ex.getMessage();
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            }
             Statement statement = conn.createStatement();
             statement.executeUpdate(sqlCommand);
             System.out.println("new table succesful created");
@@ -72,7 +83,12 @@ public class Tracker implements AutoCloseable {
     public Item add(Item item) {
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sql = "insert into tracker(name, desk, created, comment) values(?, ?, ?, ?)";
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("insert.properties");
+            properties.load(inputStream);
+            String sql = properties.getProperty("insert");
+            if (inputStream != null) {
+                inputStream.close();
+            }
             PreparedStatement prepSt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prepSt.setString(1, item.getName());
             prepSt.setString(2, item.getDesk());
@@ -99,7 +115,10 @@ public class Tracker implements AutoCloseable {
     public void update(int id, Item item) {
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sql = "update tracker set name = ?, desk = ?, comment = ? where id = ?";
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("update.properties");
+            properties.load(inputStream);
+            String sql = properties.getProperty("update");
+            inputStream.close();
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, item.getDesk());
@@ -121,7 +140,10 @@ public class Tracker implements AutoCloseable {
     public void delete(int id) {
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sql = "delete from tracker where id = ?";
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("delete.properties");
+            properties.load(inputStream);
+            String sql = properties.getProperty("delete");
+            inputStream.close();
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -141,7 +163,10 @@ public class Tracker implements AutoCloseable {
         List<Item> items = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sql = "select * from tracker";
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("find.properties");
+            properties.load(inputStream);
+            String sql = properties.getProperty("findall");
+            inputStream.close();
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
@@ -166,7 +191,10 @@ public class Tracker implements AutoCloseable {
         Item item = null;
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sql = "select * from tracker where id = ?";
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("find.properties");
+            properties.load(inputStream);
+            String sql = properties.getProperty("findbyid");
+            inputStream.close();
             PreparedStatement prepSt = conn.prepareStatement(sql);
             prepSt.setInt(1, idOfItem);
             prepSt.executeQuery();
@@ -209,9 +237,9 @@ public class Tracker implements AutoCloseable {
 //        }
 //        tracker.update(2, new Item("mouse", "bujjjhg", "мышь не ездит"));
 //        tracker.update(2, new Item("mouse", "вохр", "тоже не ездит"));
-//        tracker.delete(3);
+//        tracker.delete(2);
 //        tracker.delete(4);
 
-        System.out.println(tracker.findById(3));
+        System.out.println(tracker.findById(1));
     }
 }
