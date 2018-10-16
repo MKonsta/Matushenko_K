@@ -3,7 +3,13 @@ package ru.job4j.tracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * 4.1. Трекер [#1734]
@@ -18,30 +24,55 @@ import java.sql.*;
 public class Tracker implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(Tracker.class);
+    private final Properties properties = new Properties();
+    private InputStream inputStream = null;
 
-    private final String url = "jdbc:postgresql://localhost:5432/java_a_from_z";
-    private final String login = "postgres";
-    private final String password = "kozemir";
+    private String url;
+    private String login;
+    private String password;
     private Connection conn = null;
 
     public Tracker() {
+
+        try {
+            inputStream = new FileInputStream("app.properties");
+            properties.load(inputStream);
+            url = properties.getProperty("url");
+            login = properties.getProperty("login");
+            password = properties.getProperty("password");
+        } catch (IOException ex) {
+            ex.getMessage();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sqlCommand = "create table tracker(id serial primary key, name varchar(200), out_desk varchar(200), created timestamp, comment varchar(2000))";
+            String sqlCommand = "create table tracker(id serial primary key, name varchar(200), desk varchar(200), created timestamp, comment varchar(2000))";
             Statement statement = conn.createStatement();
             statement.executeUpdate(sqlCommand);
             System.out.println("new table succesful created");
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            closeResourse();
+            try {
+                close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void add(Item item) {
+    public Item add(Item item) {
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sql = "insert into tracker(name, out_desk, created, comment) values(?, ?, ?, ?)";
+            String sql = "insert into tracker(name, desk, created, comment) values(?, ?, ?, ?)";
             PreparedStatement prepSt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prepSt.setString(1, item.getName());
             prepSt.setString(2, item.getDesk());
@@ -50,19 +81,25 @@ public class Tracker implements AutoCloseable {
             prepSt.executeUpdate();
             ResultSet generatedKeys = prepSt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                System.out.println("Item added, id = " + generatedKeys.getInt(1));
+                item.setId(generatedKeys.getInt("id"));
+                item.setCreated(generatedKeys.getString("created"));
             }
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            closeResourse();
+            try {
+                close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return item;
     }
 
     public void update(int id, Item item) {
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sql = "update tracker set name = ?, out_desk = ?, comment = ? where id = ?";
+            String sql = "update tracker set name = ?, desk = ?, comment = ? where id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, item.getDesk());
@@ -73,7 +110,11 @@ public class Tracker implements AutoCloseable {
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            closeResourse();
+            try {
+                close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -88,55 +129,67 @@ public class Tracker implements AutoCloseable {
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            closeResourse();
+            try {
+                close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void findAll() {
+    public List<Item> findAll() {
+        List<Item> items = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(url, login, password);
             String sql = "select * from tracker";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String desk = rs.getString("out_desk");
-                Timestamp created = rs.getTimestamp("created");
-                String comment = rs.getString("comment");
-                System.out.printf("%d %s %s %tF %tT %s \n", id, name, desk, created, created, comment);
+                Item item = new Item(rs.getString("name"), rs.getString("desk"), rs.getString("comment"));
+                item.setId(rs.getInt("id"));
+                item.setCreated(rs.getString("created"));
+                items.add(item);
             }
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            closeResourse();
+            try {
+                close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return items;
     }
 
-    public void findById(int idOfItem) {
+    public Item findById(int idOfItem) {
+        Item item = null;
         try {
             conn = DriverManager.getConnection(url, login, password);
             String sql = "select * from tracker where id = ?";
             PreparedStatement prepSt = conn.prepareStatement(sql);
             prepSt.setInt(1, idOfItem);
-            ResultSet rs = prepSt.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String desk = rs.getString("out_desk");
-                Timestamp created = rs.getTimestamp("created");
-                String comment = rs.getString("comment");
-                System.out.printf("%d %s %s %tF %tT %s \n", id, name, desk, created, created, comment);
+            prepSt.executeQuery();
+            ResultSet rs = prepSt.getResultSet();
+            if (rs.next()) {
+                item = new Item(rs.getString("name"), rs.getString("desk"), rs.getString("comment"));
+                item.setId(rs.getInt("id"));
+                item.setCreated(rs.getString("created"));
             }
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            closeResourse();
+            try {
+                close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        return item;
     }
 
     @Override
-    public void closeResourse() {
+    public void close() throws Exception {
         if (this.conn != null) {
             try {
                 conn.close();
@@ -146,13 +199,19 @@ public class Tracker implements AutoCloseable {
         }
     }
 
-//    public static void main(String[] args) {
-//        Tracker tracker = new Tracker();
+    public static void main(String[] args) {
+        Tracker tracker = new Tracker();
 //        tracker.add(new Item("printer", "otk", "принтер не печатает"));
 //        tracker.add(new Item("mouse", "buhg", "мыш не ездит"));
+//        tracker.add(new Item("monitor", "buhg", "monitor dont work"));
+//        for (Item item : tracker.findAll()) {
+//            System.out.println(item);
+//        }
 //        tracker.update(2, new Item("mouse", "bujjjhg", "мышь не ездит"));
 //        tracker.update(2, new Item("mouse", "вохр", "тоже не ездит"));
 //        tracker.delete(3);
 //        tracker.delete(4);
-//    }
+
+        System.out.println(tracker.findById(3));
+    }
 }
