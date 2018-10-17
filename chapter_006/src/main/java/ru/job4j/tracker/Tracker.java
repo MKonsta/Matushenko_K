@@ -3,7 +3,6 @@ package ru.job4j.tracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -20,13 +19,54 @@ import java.util.Properties;
  * Все ресурсы необходимо закрывай через try-with-resources
  * В классе трекер появляется новое поле private Connection connection. Его нужно закрывать через AutoCloseable.
  */
-
+//Класс оверрайдит метод close из Autocloseable. Этот метод просто закрывает Connectin conn после завершения работы с базой.
 public class Tracker implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(Tracker.class);
-    private final Properties properties = new Properties();
+    private final Properties appProperties = new Properties(); //сюда подключается файл со скриптами app.properties
+    private final Properties createTableProperties = new Properties(); //в это и следующее поле также соответствующие файлы
+    private final Properties quwryProperties = new Properties();
     private InputStream inputStream = null;
 
+    /**
+     * Метод подгружает в поля Properties файлы со скриптами
+     * Потом этот метод запускается в конструкторе
+     */
+    private void loadScrips() {
+        try {
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("app.properties");
+            appProperties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("createtable.properties");
+            createTableProperties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("query.properties");
+            quwryProperties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Поля для для подключения к базе
+     */
     private String url;
     private String login;
     private String password;
@@ -34,38 +74,14 @@ public class Tracker implements AutoCloseable {
 
     public Tracker() {
 
-        try {
-            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("app.properties");
-            properties.load(inputStream);
-            url = properties.getProperty("url");
-            login = properties.getProperty("login");
-            password = properties.getProperty("password");
-        } catch (IOException ex) {
-            ex.getMessage();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        loadScrips();
+        url = appProperties.getProperty("url");
+        login = appProperties.getProperty("login");
+        password = appProperties.getProperty("password");
 
         try {
             conn = DriverManager.getConnection(url, login, password);
-            String sqlCommand = "";
-            try {
-                inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("createtable.properties");
-                properties.load(inputStream);
-                sqlCommand = properties.getProperty("create");
-            } catch (IOException ex) {
-                ex.getMessage();
-            } finally {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            }
+            String sqlCommand = createTableProperties.getProperty("create");
             Statement statement = conn.createStatement();
             statement.executeUpdate(sqlCommand);
             System.out.println("new table succesful created");
@@ -83,12 +99,7 @@ public class Tracker implements AutoCloseable {
     public Item add(Item item) {
         try {
             conn = DriverManager.getConnection(url, login, password);
-            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("insert.properties");
-            properties.load(inputStream);
-            String sql = properties.getProperty("insert");
-            if (inputStream != null) {
-                inputStream.close();
-            }
+            String sql = quwryProperties.getProperty("insert");
             PreparedStatement prepSt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prepSt.setString(1, item.getName());
             prepSt.setString(2, item.getDesk());
@@ -115,10 +126,7 @@ public class Tracker implements AutoCloseable {
     public void update(int id, Item item) {
         try {
             conn = DriverManager.getConnection(url, login, password);
-            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("update.properties");
-            properties.load(inputStream);
-            String sql = properties.getProperty("update");
-            inputStream.close();
+            String sql = quwryProperties.getProperty("update");
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, item.getDesk());
@@ -140,10 +148,7 @@ public class Tracker implements AutoCloseable {
     public void delete(int id) {
         try {
             conn = DriverManager.getConnection(url, login, password);
-            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("delete.properties");
-            properties.load(inputStream);
-            String sql = properties.getProperty("delete");
-            inputStream.close();
+            String sql = quwryProperties.getProperty("delete");
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -163,10 +168,7 @@ public class Tracker implements AutoCloseable {
         List<Item> items = new ArrayList<>();
         try {
             conn = DriverManager.getConnection(url, login, password);
-            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("find.properties");
-            properties.load(inputStream);
-            String sql = properties.getProperty("findall");
-            inputStream.close();
+            String sql = quwryProperties.getProperty("findall");
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
@@ -191,10 +193,7 @@ public class Tracker implements AutoCloseable {
         Item item = null;
         try {
             conn = DriverManager.getConnection(url, login, password);
-            inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("find.properties");
-            properties.load(inputStream);
-            String sql = properties.getProperty("findbyid");
-            inputStream.close();
+            String sql = quwryProperties.getProperty("findbyid");
             PreparedStatement prepSt = conn.prepareStatement(sql);
             prepSt.setInt(1, idOfItem);
             prepSt.executeQuery();
@@ -235,11 +234,11 @@ public class Tracker implements AutoCloseable {
 //        for (Item item : tracker.findAll()) {
 //            System.out.println(item);
 //        }
-//        tracker.update(2, new Item("mouse", "bujjjhg", "мышь не ездит"));
+//        tracker.update(3, new Item("mouse", "bujjjhg", "мышь не ездит"));
 //        tracker.update(2, new Item("mouse", "вохр", "тоже не ездит"));
 //        tracker.delete(2);
 //        tracker.delete(4);
 
-        System.out.println(tracker.findById(1));
+//        System.out.println(tracker.findById(1));
     }
 }
