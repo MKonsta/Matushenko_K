@@ -12,8 +12,10 @@ public class StartUI {
         return res;
     }
     private Input input;
-    public StartUI(Input input, Tracker tracker) {
+    private final ITracker tracker;
+    public StartUI(Input input, ITracker tracker) {
         this.input = input;
+        this.tracker = tracker;
     }
 
     public void init() {

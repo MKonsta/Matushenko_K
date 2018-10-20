@@ -104,7 +104,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter ID:");
-            System.out.println(String.format("%s, %s", tracker.finfById(id).getId(), tracker.finfById(id).getName()));
+            System.out.println(String.format("%s, %s", tracker.findById(id).getId(), tracker.findById(id).getName()));
         }
     }
 

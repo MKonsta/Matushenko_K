@@ -13,6 +13,20 @@ public class Item {
         this.created = created;
     }
 
+    @Override
+    public String toString() {
+        return "Item{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", desk='" + desk + '\'' + ", created=" + created
+                + ", comments='" + comments + '\'' + '}';
+    }
+
+    public Item(String name, String desk, long created, String comments) {
+        this.id = id;
+        this.name = name;
+        this.desk = desk;
+        this.created = created;
+        this.comments = comments;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
