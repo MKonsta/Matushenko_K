@@ -43,12 +43,6 @@ public class TrackerSQL implements ITracker, Closeable {
             System.out.println("new table succesful created");
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            try {
-                close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -72,14 +66,6 @@ public class TrackerSQL implements ITracker, Closeable {
            quwryProperties.load(inputStream);
        } catch (IOException e) {
            e.printStackTrace();
-       } finally {
-           if (conn != null) {
-               try {
-                   conn.close();
-               } catch (SQLException e) {
-                   e.printStackTrace();
-               }
-           }
        }
        return this.conn != null;
    }
@@ -87,7 +73,6 @@ public class TrackerSQL implements ITracker, Closeable {
     @Override
     public Item add(Item item) {
         try {
-            conn = DriverManager.getConnection(url, login, password);
             String sql = quwryProperties.getProperty("insert");
             PreparedStatement prepSt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prepSt.setString(1, item.getName());
@@ -101,12 +86,6 @@ public class TrackerSQL implements ITracker, Closeable {
             }
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            try {
-                close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return item;
     }
@@ -114,7 +93,6 @@ public class TrackerSQL implements ITracker, Closeable {
     @Override
     public void replace(String id, Item item) {
         try {
-            conn = DriverManager.getConnection(url, login, password);
             String sql = quwryProperties.getProperty("update");
             PreparedStatement prepSt = conn.prepareStatement(sql);
             prepSt.setString(1, item.getName());
@@ -124,31 +102,18 @@ public class TrackerSQL implements ITracker, Closeable {
             prepSt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            try {
-                close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     @Override
     public void delete(String id) {
         try {
-            conn = DriverManager.getConnection(url, login, password);
             String sql = quwryProperties.getProperty("delete");
             PreparedStatement prepSt = conn.prepareStatement(sql);
             prepSt.setInt(1, Integer.parseInt(id));
             prepSt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            try {
-                close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -156,7 +121,6 @@ public class TrackerSQL implements ITracker, Closeable {
     public Item[] findAll() {
         Item[] items = null;
         try {
-            conn = DriverManager.getConnection(url, login, password);
             String sql = quwryProperties.getProperty("numrows"); //находим длинну массива (количество всех строк в таблице)
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -175,12 +139,6 @@ public class TrackerSQL implements ITracker, Closeable {
             }
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            try {
-                close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return items;
     }
@@ -189,7 +147,6 @@ public class TrackerSQL implements ITracker, Closeable {
     public Item[] findByName(String key) {
         Item[] items = null;
         try {
-            conn = DriverManager.getConnection(url, login, password);
             String sql = quwryProperties.getProperty("numrowswithname"); //находим длинну массива (количество строк с данным именем)
             PreparedStatement prepSt = conn.prepareStatement(sql);
             prepSt.setString(1, key);
@@ -210,12 +167,6 @@ public class TrackerSQL implements ITracker, Closeable {
             }
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            try {
-                close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return items;
     }
@@ -224,7 +175,6 @@ public class TrackerSQL implements ITracker, Closeable {
     public Item findById(String id) {
         Item item = null;
         try {
-            conn = DriverManager.getConnection(url, login, password);
             String sql = quwryProperties.getProperty("findbyid");
             PreparedStatement prepSt = conn.prepareStatement(sql);
             prepSt.setInt(1, Integer.parseInt(id));
@@ -236,12 +186,6 @@ public class TrackerSQL implements ITracker, Closeable {
             }
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-            try {
-                close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return item;
     }
@@ -272,6 +216,6 @@ public class TrackerSQL implements ITracker, Closeable {
 //            System.out.println(dd[i]);
 //        }
 //
-//        System.out.println(trackerSQL.findById("4"));
+//        System.out.println(trackerSQL.findById("1"));
     }
 }
