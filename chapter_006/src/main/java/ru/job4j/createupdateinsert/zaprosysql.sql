@@ -18,7 +18,7 @@ select count(*) from product where type_id = 2;
 select count(*) from product where type_id = 1 or type_id = 3;
 
 --7. Написать запрос, который выводит тип продуктов, которых осталось меньше 10 штук.
--- не знаю как написать. select type.name from product, type where (....) < 10; как-то так, но не соображу до конца
+select type.name, sum(product.number) from product join type on type.id = product.type_id group by type.name having sum(product.number) < 10;
 
 --8. Вывести все продукты и их тип.
 select product.name as product_name, type.name as type_name from product, type where product.type_id = type.id;
