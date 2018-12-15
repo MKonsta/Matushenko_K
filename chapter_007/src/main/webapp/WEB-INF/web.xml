@@ -5,11 +5,58 @@
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
     <servlet>
-        <servlet-name>EchoServlet</servlet-name>
-        <servlet-class>ru.job4j.servlets.EchoServlet</servlet-class>
+        <servlet-name>addUserServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webapparchitecture.addUserServlet</servlet-class>
+        <init-param>
+        <param-name>debug</param-name>
+        <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EchoServlet</servlet-name>
-        <url-pattern>/echo</url-pattern>
+        <servlet-name>addUserServlet</servlet-name>
+        <url-pattern>/add</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>SelectAllServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webapparchitecture.SelectAllServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SelectAllServlet</servlet-name>
+        <url-pattern>/select</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>UpdateServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webapparchitecture.UpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateServlet</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webapparchitecture.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>SelectByIdServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webapparchitecture.SelectByIdServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SelectByIdServlet</servlet-name>
+        <url-pattern>/selectone</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
