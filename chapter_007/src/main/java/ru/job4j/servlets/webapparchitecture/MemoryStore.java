@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MemoryStore implements Store{
+public class MemoryStore implements Store {
     private static String url = "jdbc:postgresql://localhost:5432/userstore";
     private static String username = "postgres";
     private static String password = "kozemir";
@@ -13,13 +13,13 @@ public class MemoryStore implements Store{
     //==================Обеспечиваем Singletone==================================
     private static MemoryStore memoryStore;
     public static MemoryStore getMemoryStore() {
-        try(Connection connection = DriverManager.getConnection(url, username, password)){
-            String sqlCreateTable = "create table if not exists users(" +
-                    "id serial primary key," +
-                    " name varchar(30) not null," +
-                    " login varchar(30)," +
-                    " email varchar(30)," +
-                    " createdate varchar(30));";
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            String sqlCreateTable = "create table if not exists users("
+                    + "id serial primary key,"
+                    + " name varchar(30) not null,"
+                    + " login varchar(30),"
+                    + " email varchar(30),"
+                    + " createdate varchar(30));";
             Statement statement = connection.createStatement();
             statement.executeUpdate(sqlCreateTable);
         } catch (SQLException e) {
@@ -39,7 +39,7 @@ public class MemoryStore implements Store{
     @Override
     public synchronized User add(User user) {
         User resultUser = user;
-        try(Connection connection = DriverManager.getConnection(url, username, password)) {
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
             String sql = "insert into users (name, login, email, createdate) values(?, ?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getName());
@@ -60,7 +60,7 @@ public class MemoryStore implements Store{
 
     @Override
     public synchronized boolean update(int id, User user) {
-        try(Connection connection = DriverManager.getConnection(url, username, password)) {
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
             String sql = "update users set name = ?, login = ?, email = ? where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
@@ -76,7 +76,7 @@ public class MemoryStore implements Store{
 
     @Override
     public synchronized boolean delete(int id) {
-        try(Connection connection = DriverManager.getConnection(url, username, password)) {
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
             String sql = "delete from users where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -90,7 +90,7 @@ public class MemoryStore implements Store{
     @Override
     public synchronized List<User> findAll() {
         List<User> users = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection(url, username, password)) {
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
             String sql = "select * from users";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -113,7 +113,7 @@ public class MemoryStore implements Store{
     @Override
     public User findById(int id) {
         User user = null;
-        try(Connection connection = DriverManager.getConnection(url, username, password)) {
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
             String sql = "select * from users where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);

@@ -5,8 +5,8 @@
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
     <servlet>
-        <servlet-name>addUserServlet</servlet-name>
-        <servlet-class>ru.job4j.servlets.webapparchitecture.addUserServlet</servlet-class>
+        <servlet-name>AddUserServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webapparchitecture.AddUserServlet</servlet-class>
         <init-param>
         <param-name>debug</param-name>
         <param-value>true</param-value>
@@ -14,7 +14,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>addUserServlet</servlet-name>
+        <servlet-name>AddUserServlet</servlet-name>
         <url-pattern>/add</url-pattern>
     </servlet-mapping>
 
