@@ -1,6 +1,6 @@
 package ru.job4j.servlets.webarchitecture.presentation;
 
-import ru.job4j.servlets.webarchitecture.logic.MemoryStore;
+import ru.job4j.servlets.webarchitecture.logic.DBStore;
 import ru.job4j.servlets.webarchitecture.model.User;
 
 import javax.servlet.ServletException;
@@ -24,7 +24,7 @@ public class addUserServlet extends HttpServlet {
 
         try {
             writer.println("<h2>id: " + id + "; name: " + name + "; login: " + login + "; email: " + email + "; createDate: " + date + "</h2>");
-            MemoryStore.addUser(new User(Integer.parseInt(id), name, login, email, date));
+            DBStore.addUser(new User(Integer.parseInt(id), name, login, email, date));
         } finally {
             writer.close();
         }
