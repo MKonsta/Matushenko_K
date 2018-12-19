@@ -4,6 +4,8 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
+
+    <!--?????????????? ?????????? WebAppArchitecture ? ??-->
     <servlet>
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>ru.job4j.servlets.webapparchitecture.AddUserServlet</servlet-class>
@@ -56,6 +58,18 @@
     <servlet-mapping>
         <servlet-name>SelectByIdServlet</servlet-name>
         <url-pattern>/selectone</url-pattern>
+    </servlet-mapping>
+
+
+    <!--?????? ??????????? Web App Architecture c ?????????? ?????? ??-->
+
+    <servlet>
+        <servlet-name>addUserServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webarchitecture.presentation.addUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addUserServlet</servlet-name>
+        <url-pattern>/addu</url-pattern>
     </servlet-mapping>
 
 
