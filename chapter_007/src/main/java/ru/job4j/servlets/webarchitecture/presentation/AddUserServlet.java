@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class addUserServlet extends HttpServlet {
+public class AddUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -24,7 +24,7 @@ public class addUserServlet extends HttpServlet {
 
         try {
             writer.println("<h2>id: " + id + "; name: " + name + "; login: " + login + "; email: " + email + "; createDate: " + date + "</h2>");
-            DBStore.addUser(new User(Integer.parseInt(id), name, login, email, date));
+//            DBStore.addUser(new User(Integer.parseInt(id), name, login, email, date));
         } finally {
             writer.close();
         }

@@ -11,14 +11,6 @@ public class User {
     private String email;
     private String createDate;
 
-    public User(int id, String name, String login, String email, String createDate) {
-        this.id = id;
-        this.name = name;
-        this.login = login;
-        this.email = email;
-        this.createDate = createDate;
-    }
-
     public User(String name, String login, String email, String createDate) {
         this.name = name;
         this.login = login;
@@ -68,15 +60,18 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return id == user.id;
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 

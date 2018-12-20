@@ -65,7 +65,7 @@
 
     <servlet>
         <servlet-name>addUserServlet</servlet-name>
-        <servlet-class>ru.job4j.servlets.webarchitecture.presentation.addUserServlet</servlet-class>
+        <servlet-class>ru.job4j.servlets.webarchitecture.presentation.AddUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addUserServlet</servlet-name>
