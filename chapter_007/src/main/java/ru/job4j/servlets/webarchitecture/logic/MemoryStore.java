@@ -8,8 +8,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Этот класс для работы с базой пользователей
+ */
 public class MemoryStore {
 
+    //============================Singletone================================
     private static MemoryStore memoryStore;
 
     private static Map<Integer, User> userMap = new ConcurrentHashMap<>();
@@ -22,6 +26,7 @@ public class MemoryStore {
     }
 
     private MemoryStore() { }
+    //===========================================================================
 
     public static Map<Integer, User> getUserMap() {
         return userMap;
@@ -29,27 +34,19 @@ public class MemoryStore {
     private AtomicInteger id = new AtomicInteger(0);
 
     public boolean addUser(User user) {
-        if (ValidateService.getValidateService().addValid(user.getEmail(), user.getLogin())) {
-            user.setId(id.getAndIncrement());
-            userMap.put(user.getId(), user);
-            return true;
-        }
-        return false;
+        user.setId(id.getAndIncrement());
+        userMap.put(user.getId(), user);
+        return true;
     }
 
     public boolean updateUser(int id, User user) {
-        if (userMap.containsKey(id)) {
-            if (ValidateService.getValidateService().updateValid(id, user)) {
-                user.setId(id);
-                userMap.put(id, user);
-                return true;
-            }
-        }
-        return false;
+        userMap.put(id, user);
+        return true;
     }
 
     public boolean deleteUser(int id) {
-        return userMap.remove(id) != null;
+        userMap.remove(id);
+        return true;
     }
 
     public List<User> findAll() {
@@ -62,7 +59,4 @@ public class MemoryStore {
         return userMap.get(id);
     }
 
-    public static void main(String[] args) {
-        MemoryStore.getMemoryStore().addUser(new User("Ivan", "Vano", "rrr", "555"));
-    }
 }
