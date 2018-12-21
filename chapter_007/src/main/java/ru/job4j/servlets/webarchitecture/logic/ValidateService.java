@@ -88,7 +88,7 @@ public class ValidateService {
      * @param login
      * @return
      */
-    public boolean addValid(String email, String login) {
+    private boolean addValid(String email, String login) {
         boolean res = true;
         for (User user : MemoryStore.getUserMap().values()) {
             if (user.getEmail().equals(email) || user.getLogin().equals(login)) {
@@ -106,7 +106,7 @@ public class ValidateService {
      * @param login
      * @return
      */
-    public boolean updateValid(int id, String email, String login) {
+    private boolean updateValid(int id, String email, String login) {
         boolean res = true;
         for (User user : MemoryStore.getUserMap().values()) {
             if (user.getEmail().equals(email) && user.getId() != id
