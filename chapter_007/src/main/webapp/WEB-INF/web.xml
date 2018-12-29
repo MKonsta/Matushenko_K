@@ -61,7 +61,7 @@
     </servlet-mapping>
 
 
-    <!--?????? ??????????? Web App Architecture c ?????????? ?????? ??-->
+    <!--?????? ??????????? Web Architecture ?????????? ?????? ??-->
 
     <servlet>
         <servlet-name>addUserServlet</servlet-name>
@@ -69,7 +69,27 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>addUserServlet</servlet-name>
-        <url-pattern>/addu</url-pattern>
+        <url-pattern>/create</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>UserUpdateServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webarchitecture.presentation.UserUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserUpdateServlet</servlet-name>
+        <url-pattern>/edit</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>UsersServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.webarchitecture.presentation.UsersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
     </servlet-mapping>
 
 

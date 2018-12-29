@@ -10,45 +10,40 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class AddUserServlet extends HttpServlet {
-
+public class UserUpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
 
-        StringBuilder stringBuilder = new StringBuilder("<table>");
-        for (User user : ValidateService.getValidateService().findAll()) {
-            stringBuilder.append("<tr><td>" + user + "</tr></td>");
-        }
-        stringBuilder.append("</table>");
+        String id = req.getParameter("id");
 
         writer.append("<!DOCTYPE html>"
                 + "<html lang=\"en\">"
                 + "<head>"
                 + "    <meta charset=\"UTF-8\">"
-                + "    <title>Title</title>"
+                + "    <title>Update User</title>"
                 + "</head>"
                 + "<body>"
-                + "<form action='" + req.getContextPath() + "/create' method='post'>"
-                + "Name : <input type='text' name='name'/>"
-                + "Login : <input type='text' name='login'/>"
-                + "e-mail : <input type='text' name='email'/>"
-                + "Create date : <input type=text' name='date'/>"
+                + "<form action='" + req.getContextPath() + "/edit?id='id'' method=post>"
+                + "Name : <input type='text' name='name' value='" + ValidateService.getValidateService().findById(Integer.parseInt(id)).getName() + "'/>"
+                + "Login : <input type='text' name='login' value='" + ValidateService.getValidateService().findById(Integer.parseInt(id)).getLogin() + "'/>"
+                + "e-mail : <input type='text' name='email' value='" + ValidateService.getValidateService().findById(Integer.parseInt(id)).getEmail() + "'/>"
+                + "Create date : <input type=text' name='date' value='" + ValidateService.getValidateService().findById(Integer.parseInt(id)).getCreateDate() + "'/>"
                 + "<input type='submit'>"
                 + "</form>"
-                + "</br>"
-                + stringBuilder.toString()
                 + "</body>"
                 + "</html>");
         writer.flush();
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        ValidateService.getValidateService().add(new User(req.getParameter("name"), req.getParameter("login"),
-                req.getParameter("email"), req.getParameter("date")));
+        ValidateService.getValidateService().update(Integer.parseInt(req.getParameter("id")),
+                new User(req.getParameter("name"), req.getParameter("login"),
+                        req.getParameter("email"), req.getParameter("date")));
         doGet(req, resp);
     }
 }

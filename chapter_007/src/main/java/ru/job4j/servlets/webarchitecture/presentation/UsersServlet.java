@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class AddUserServlet extends HttpServlet {
-
+public class UsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        PrintWriter writer = resp.getWriter();
 
         StringBuilder stringBuilder = new StringBuilder("<table>");
         for (User user : ValidateService.getValidateService().findAll()) {
@@ -30,25 +29,9 @@ public class AddUserServlet extends HttpServlet {
                 + "    <title>Title</title>"
                 + "</head>"
                 + "<body>"
-                + "<form action='" + req.getContextPath() + "/create' method='post'>"
-                + "Name : <input type='text' name='name'/>"
-                + "Login : <input type='text' name='login'/>"
-                + "e-mail : <input type='text' name='email'/>"
-                + "Create date : <input type=text' name='date'/>"
-                + "<input type='submit'>"
-                + "</form>"
-                + "</br>"
                 + stringBuilder.toString()
                 + "</body>"
                 + "</html>");
         writer.flush();
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        ValidateService.getValidateService().add(new User(req.getParameter("name"), req.getParameter("login"),
-                req.getParameter("email"), req.getParameter("date")));
-        doGet(req, resp);
     }
 }
