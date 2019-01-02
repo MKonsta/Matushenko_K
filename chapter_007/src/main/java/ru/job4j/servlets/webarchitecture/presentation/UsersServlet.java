@@ -18,7 +18,12 @@ public class UsersServlet extends HttpServlet {
 
         StringBuilder stringBuilder = new StringBuilder("<table>");
         for (User user : ValidateService.getValidateService().findAll()) {
-            stringBuilder.append("<tr><td>" + user + "</tr></td>");
+            stringBuilder.append("<tr>"
+                    + "<td>" + user + "</td>"
+                    + "<td><form><button type='submit' action='" + req.getContextPath()
+                    + "/edit?id='" + user.getId() + "' method='post'>edit</button></form>"
+                    + "</td>"
+                    + "</tr>");
         }
         stringBuilder.append("</table>");
 

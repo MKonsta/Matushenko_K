@@ -11,12 +11,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class UserUpdateServlet extends HttpServlet {
+    private ValidateService service = ValidateService.getValidateService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
 
         String id = req.getParameter("id");
+        User byID = service.findById(Integer.valueOf(id));
 
         writer.append("<!DOCTYPE html>"
                 + "<html lang=\"en\">"
@@ -26,10 +29,10 @@ public class UserUpdateServlet extends HttpServlet {
                 + "</head>"
                 + "<body>"
                 + "<form action='" + req.getContextPath() + "/edit?id='id'' method=post>"
-                + "Name : <input type='text' name='name' value='" + ValidateService.getValidateService().findById(Integer.parseInt(id)).getName() + "'/>"
-                + "Login : <input type='text' name='login' value='" + ValidateService.getValidateService().findById(Integer.parseInt(id)).getLogin() + "'/>"
-                + "e-mail : <input type='text' name='email' value='" + ValidateService.getValidateService().findById(Integer.parseInt(id)).getEmail() + "'/>"
-                + "Create date : <input type=text' name='date' value='" + ValidateService.getValidateService().findById(Integer.parseInt(id)).getCreateDate() + "'/>"
+                + "Name : <input type='text' name='name' value='" + byID.getName() + "'/>"
+                + "Login : <input type='text' name='login' value='" + byID.getLogin() + "'/>"
+                + "e-mail : <input type='text' name='email' value='" + byID.getEmail() + "'/>"
+                + "Create date : <input type=text' name='date' value='" + byID.getCreateDate() + "'/>"
                 + "<input type='submit'>"
                 + "</form>"
                 + "</body>"

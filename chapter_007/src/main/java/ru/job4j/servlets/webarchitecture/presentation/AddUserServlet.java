@@ -38,7 +38,6 @@ public class AddUserServlet extends HttpServlet {
                 + "<input type='submit'>"
                 + "</form>"
                 + "</br>"
-                + stringBuilder.toString()
                 + "</body>"
                 + "</html>");
         writer.flush();
@@ -47,8 +46,18 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        ValidateService.getValidateService().add(new User(req.getParameter("name"), req.getParameter("login"),
-                req.getParameter("email"), req.getParameter("date")));
-        doGet(req, resp);
+        if (ValidateService.getValidateService().add(new User(req.getParameter("name"), req.getParameter("login"),
+                req.getParameter("email"), req.getParameter("date")))) {
+            UsersServlet usersServlet = new UsersServlet();
+            usersServlet.doGet(req, resp);
+        } else {
+            PrintWriter writer = resp.getWriter();
+            try {
+                writer.println("Login or E-mail is wrong!");
+            } finally {
+                writer.close();
+            }
+        }
+
     }
 }
