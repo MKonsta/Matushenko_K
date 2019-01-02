@@ -28,7 +28,7 @@ public class UserUpdateServlet extends HttpServlet {
                 + "    <title>Update User</title>"
                 + "</head>"
                 + "<body>"
-                + "<form action='" + req.getContextPath() + "/edit?id='id'' method=post>"
+                + "<form action='" + req.getContextPath() + "/edit?id='id'' method='post'>"
                 + "Name : <input type='text' name='name' value='" + byID.getName() + "'/>"
                 + "Login : <input type='text' name='login' value='" + byID.getLogin() + "'/>"
                 + "e-mail : <input type='text' name='email' value='" + byID.getEmail() + "'/>"
@@ -44,7 +44,7 @@ public class UserUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        ValidateService.getValidateService().update(Integer.parseInt(req.getParameter("id")),
+        ValidateService.getValidateService().update(Integer.valueOf(req.getParameter("id")),
                 new User(req.getParameter("name"), req.getParameter("login"),
                         req.getParameter("email"), req.getParameter("date")));
         doGet(req, resp);
