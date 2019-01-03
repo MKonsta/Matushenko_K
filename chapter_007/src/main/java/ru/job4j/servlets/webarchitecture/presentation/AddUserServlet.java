@@ -48,8 +48,8 @@ public class AddUserServlet extends HttpServlet {
         resp.setContentType("text/html");
         if (ValidateService.getValidateService().add(new User(req.getParameter("name"), req.getParameter("login"),
                 req.getParameter("email"), req.getParameter("date")))) {
-            UsersServlet usersServlet = new UsersServlet();
-            usersServlet.doGet(req, resp);
+            String path = req.getContextPath() + "/list";
+            resp.sendRedirect(path);
         } else {
             PrintWriter writer = resp.getWriter();
             try {
