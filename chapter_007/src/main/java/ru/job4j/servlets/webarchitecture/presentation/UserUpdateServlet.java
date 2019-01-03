@@ -22,23 +22,24 @@ public class UserUpdateServlet extends HttpServlet {
         User byID = service.findById(Integer.valueOf(id));
 
         writer.append("<!DOCTYPE html>"
-                + "<html lang=\"en\">"
-                + "<head>"
-                + "    <meta charset=\"UTF-8\">"
-                + "    <title>Update User</title>"
-                + "</head>"
-                + "<body>"
-                + "<form action='" + req.getContextPath() + "/edit?id='id'' method='post'>"
-                + "Name : <input type='text' name='name' value='" + byID.getName() + "'/>"
-                + "Login : <input type='text' name='login' value='" + byID.getLogin() + "'/>"
-                + "e-mail : <input type='text' name='email' value='" + byID.getEmail() + "'/>"
-                + "Create date : <input type=text' name='date' value='" + byID.getCreateDate() + "'/>"
-                + "<input type='submit'>"
-                + "</form>"
-                + "</body>"
-                + "</html>");
+            + "<html lang=\"en\">"
+            + "<head>"
+            + "    <meta charset=\"UTF-8\">"
+            + "    <title>Update User</title>"
+            + "</head>"
+            + "<body>"
+            + "<form action='" + req.getContextPath() + "/edit' method='post'>"
+            + "<input type='hidden' name='id' value='" + byID.getId() + "'>"
+            + "Name : <input type='text' name='name' value='" + byID.getName() + "'/>"
+            + "Login : <input type='text' name='login' value='" + byID.getLogin() + "'/>"
+            + "e-mail : <input type='text' name='email' value='" + byID.getEmail() + "'/>"
+            + "Create date : <input type=text' name='date' value='" + byID.getCreateDate() + "'/>"
+            + "<input type='submit'>"
+            + "</form>"
+            + "</body>"
+            + "</html>"
+        );
         writer.flush();
-
     }
 
     @Override
