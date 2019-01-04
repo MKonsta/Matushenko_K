@@ -45,9 +45,19 @@ public class UserUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        ValidateService.getValidateService().update(Integer.valueOf(req.getParameter("id")),
+        if (ValidateService.getValidateService().update(Integer.valueOf(req.getParameter("id")),
                 new User(req.getParameter("name"), req.getParameter("login"),
-                        req.getParameter("email"), req.getParameter("date")));
+                        req.getParameter("email"), req.getParameter("date")))) {
+            String path = req.getContextPath() + "/list";
+            resp.sendRedirect(path);
+        } else {
+            PrintWriter writer = resp.getWriter();
+            try {
+                writer.append("<h1>Login or E-mail is wrong</h1>");
+            } finally {
+                writer.close();
+            }
+        }
         doGet(req, resp);
     }
 }
