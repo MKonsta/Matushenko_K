@@ -20,12 +20,8 @@ public class UsersServlet extends HttpServlet {
         for (User user : ValidateService.getValidateService().findAll()) {
             stringBuilder.append("<tr>"
                     + "<td>" + user + "</td>"
-                    + "     <td><a href='" + req.getContextPath()
-                    + "     /edit?id=" + user.getId() + "'>edit</a>"
-                    + "</td>"
-                    + "<td><a href='" + req.getContextPath()
-                    + "     /delete?id=" + user.getId() + "'>delete</a>"
-                    + "</td>"
+                    + "<td><a href='" + req.getContextPath() + "/edit?id=" + user.getId() + "'>edit</a>" + "</td>"
+                    + "<td><a href='" + req.getContextPath() + "/delete?id=" + user.getId() + "'>delete</a>" + "</td>"
                     + "</tr>");
         }
         stringBuilder.append("</table>");
