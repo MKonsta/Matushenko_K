@@ -10,34 +10,40 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class AddUserServlet extends HttpServlet {
+public class DeleteUserServlet extends HttpServlet {
+    private ValidateService service = ValidateService.getValidateService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
 
-        StringBuilder stringBuilder = new StringBuilder("<table>");
-        for (User user : ValidateService.getValidateService().findAll()) {
-            stringBuilder.append("<tr><td>" + user + "</tr></td>");
-        }
-        stringBuilder.append("</table>");
+        String id = req.getParameter("id");
+        User byId = service.findById(Integer.valueOf(id));
 
         writer.append("<!DOCTYPE html>"
                 + "<html lang=\"en\">"
                 + "<head>"
                 + "    <meta charset=\"UTF-8\">"
-                + "    <title>Create user</title>"
+                + "    <title>Delete User</title>"
                 + "</head>"
                 + "<body>"
-                + "<form action='" + req.getContextPath() + "/create' method='post'>"
-                + "Name : <input type='text' name='name'/>"
-                + " Login : <input type='text' name='login'/>"
-                + " e-mail : <input type='text' name='email'/>"
-                + " Create date : <input type=text' name='date'/>"
-                + "<input type='submit'>"
-                + "</form>"
-                + "</br>"
+                + "<h1 align='center'>Delete user with id: " + req.getParameter("id") + "?</h1>"
+                + "<table align='center'>"
+                + "     <tr>"
+                + "         <td>"
+                + "             <form action='" + req.getContextPath() + "/delete' method='post'>"
+                + "             <input type='hidden' name='id' value='" + req.getParameter("id") + "'>"
+                + "             <button type='submit'>Yes</button>"
+                + "             </form>"
+                + "         </td>"
+                + "         <td>"
+                + "             <form action='" + req.getContextPath() + "/list'>"
+                + "             <button type='submit'>No</button>"
+                + "             </form>"
+                + "         </td>"
+                + "     </tr>"
+                + "</table>"
                 + "</body>"
                 + "</html>");
         writer.flush();
@@ -46,17 +52,18 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        if (ValidateService.getValidateService().add(new User(req.getParameter("name"), req.getParameter("login"),
-                req.getParameter("email"), req.getParameter("date")))) {
+        if (ValidateService.getValidateService().delete(Integer.valueOf(req.getParameter("id")))) {
             String path = req.getContextPath() + "/list";
             resp.sendRedirect(path);
         } else {
             PrintWriter writer = resp.getWriter();
             try {
-                writer.println("<h1>Login or E-mail is wrong!<>/h1");
+                writer.println("<h1>Error</h1>");
             } finally {
                 writer.close();
             }
         }
+
+        doGet(req, resp);
     }
 }
