@@ -33,6 +33,12 @@
         <td><%=user.getEmail()%></td>
         <td><%=user.getCreateDate()%></td>
         <td><a href="<%=request.getContextPath()%>/editjsp?id=<%=user.getId()%>">edit</a></td>
+        <td>
+        <form method="post" action="<%=request.getContextPath()%>/deletejsp" style="display: inline"/>
+        <input type="hidden" name="id" value="<%=user.getId()%>">
+        <input type="submit" value="Delete">
+        </form>
+        </td>
     </tr>
     <%}%>
 </table>
