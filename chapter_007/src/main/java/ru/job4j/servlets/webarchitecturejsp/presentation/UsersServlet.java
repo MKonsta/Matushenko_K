@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * После запускаа TomCat Приложение можно запустить вбив в браузер http://localhost:8082/chapter_007/usersjsp
+ */
 @WebServlet("/usersjsp")
 public class UsersServlet extends HttpServlet {
     @Override
