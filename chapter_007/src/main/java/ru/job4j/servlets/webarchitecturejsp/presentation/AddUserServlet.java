@@ -24,7 +24,11 @@ public class AddUserServlet extends HttpServlet {
         String email = req.getParameter("email");
         String date = req.getParameter("date");
         User user = new User(name, login, email, date);
-        ValidateService.getValidateService().add(user);
-        resp.sendRedirect(req.getContextPath() + "/usersjsp");
+        if (ValidateService.getValidateService().add(user)) {
+            resp.sendRedirect(req.getContextPath() + "/usersjsp");
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+        }
+
     }
 }

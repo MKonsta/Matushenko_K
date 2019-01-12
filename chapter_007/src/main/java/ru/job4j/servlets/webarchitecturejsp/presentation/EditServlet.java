@@ -32,7 +32,11 @@ public class EditServlet extends HttpServlet {
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         String date = req.getParameter("date");
-        ValidateService.getValidateService().update(id, new User(name, login, email, date));
-        resp.sendRedirect(req.getContextPath() + "/usersjsp");
+        if (ValidateService.getValidateService().update(id, new User(name, login, email, date))) {
+            resp.sendRedirect(req.getContextPath() + "/usersjsp");
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+        }
+
     }
 }
