@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBStore {
+public class DBStore implements AutoCloseable{
     private static final BasicDataSource SOURCE = new BasicDataSource();
     private static final DBStore INSTANCE = new DBStore();
 
@@ -133,5 +133,10 @@ public class DBStore {
 //        DBStore.getInstance().addUser(new User("Stepan", "step", "ggg@", "ggg"));
 //        DBStore.getInstance().updateUser(2, new User("Stepan", "stepuha", "ggg@", "ggg"));
         System.out.println(DBStore.getInstance().deleteUser(2));
+    }
+
+    @Override
+    public void close() throws Exception {
+        SOURCE.close();
     }
 }

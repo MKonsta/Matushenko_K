@@ -1,5 +1,7 @@
 package ru.job4j.servlets.webarchitecturejsp.presentation;
 
+import ru.job4j.servlets.webarchitecturejsp.logic.DBStore;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,5 +17,14 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            DBStore.getInstance().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
