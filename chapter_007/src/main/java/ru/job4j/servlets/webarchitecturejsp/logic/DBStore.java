@@ -50,10 +50,11 @@ public class DBStore implements AutoCloseable, Store {
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getCreateDate());
             preparedStatement.executeUpdate();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     public boolean updateUser(int id, User user) {
