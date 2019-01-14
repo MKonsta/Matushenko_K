@@ -1,5 +1,6 @@
 <%@ page import="ru.job4j.servlets.webarchitecturejsp.logic.ValidateService" %>
-<%@ page import="ru.job4j.servlets.webarchitecturejsp.model.User" %><%--
+<%@ page import="ru.job4j.servlets.webarchitecturejsp.model.User" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><%--
   Created by IntelliJ IDEA.
   User: Konstantin
   Date: 06.01.2019
@@ -25,22 +26,31 @@
         <th>Edit user</th>
         <th>Delete user</th>
     </tr>
-    <%for (User user : ValidateService.getValidateService().findAll()) {%>
+    <%--<%for (User user : ValidateService.getValidateService().findAll()) {%>--%>
+    <c:forEach items="${users}" var="user">
     <tr>
-        <td><%=user.getId()%></td>
-        <td><%=user.getName()%></td>
-        <td><%=user.getLogin()%></td>
-        <td><%=user.getEmail()%></td>
-        <td><%=user.getCreateDate()%></td>
-        <td><a href="<%=request.getContextPath()%>/editjsp?id=<%=user.getId()%>">edit</a></td>
+        <td><c:out value="${user.id}"></c:out></td>
+        <td><c:out value="${user.name}"></c:out></td>
+        <td><c:out value="${user.login}"></c:out></td>
+        <td><c:out value="${user.email}"></c:out></td>
+        <td><c:out value="${user.createDate}"></c:out></td>
+        <%--<td><%=user.getId()%></td>--%>
+        <%--<td><%=user.getName()%></td>--%>
+        <%--<td><%=user.getLogin()%></td>--%>
+        <%--<td><%=user.getEmail()%></td>--%>
+        <%--<td><%=user.getCreateDate()%></td>--%>
+        <%--<td><a href="<%=request.getContextPath()%>/editjsp?id=<%=user.getId()%>">edit</a></td>--%>
+        <td><a href="<%=request.getContextPath()%>/editjsp?id=<c:out value="${user.id}"></c:out>">edit</a></td>
         <td>
         <form method="get" action="<%=request.getContextPath()%>/deletejsp" style="display: inline"/>
-        <input type="hidden" name="id" value="<%=user.getId()%>">
+            <input type="hidden" name="id" value="<c:out value="${user.id}"></c:out>">
+        <%--<input type="hidden" name="id" value="<%=user.getId()%>">--%>
         <input type="submit" value="Delete">
         </form>
         </td>
     </tr>
-    <%}%>
+    </c:forEach>
+    <%--<%}%>--%>
 </table>
 </body>
 </html>

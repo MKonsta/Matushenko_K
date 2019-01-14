@@ -1,6 +1,7 @@
 package ru.job4j.servlets.webarchitecturejsp.presentation;
 
 import ru.job4j.servlets.webarchitecturejsp.logic.DBStore;
+import ru.job4j.servlets.webarchitecturejsp.logic.ValidateService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class UsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("users", ValidateService.getValidateService().findAll());
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(req, resp);
     }
 

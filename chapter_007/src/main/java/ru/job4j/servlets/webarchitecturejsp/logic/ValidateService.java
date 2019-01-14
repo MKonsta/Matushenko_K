@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class ValidateService {
 
+    private DBStore store = DBStore.getInstance();
+
     //==========================Singletone======================================
     private static ValidateService validateService;
 
@@ -37,7 +39,7 @@ public class ValidateService {
      */
     private boolean addValid(String email, String login) {
         boolean res = true;
-        for (User user : DBStore.getInstance().findAll()) {
+        for (User user : store.findAll()) {
             if (user.getEmail().equals(email) || user.getLogin().equals(login)) {
                 res = false;
                 break;
@@ -56,7 +58,7 @@ public class ValidateService {
      */
     private boolean updateValid(int id, String email, String login) {
         boolean res = true;
-        for (User user : DBStore.getInstance().findAll()) {
+        for (User user : store.findAll()) {
             if (user.getEmail().equals(email) && user.getId() != id
                     || user.getLogin().equals(login) && user.getId() != id) {
                 res = false;
@@ -75,7 +77,7 @@ public class ValidateService {
      */
     public boolean add(User user) {
         if (addValid(user.getEmail(), user.getLogin())) {
-            DBStore.getInstance().addUser(user);
+            store.addUser(user);
             return true;
         }
         return false;
@@ -89,10 +91,10 @@ public class ValidateService {
      * @return
      */
     public boolean update(int id, User user) {
-        for (User user1 : DBStore.getInstance().findAll()) {
+        for (User user1 : store.findAll()) {
             if (user1.getId() == id) {
                 if (updateValid(id, user.getEmail(), user.getLogin())) {
-                    DBStore.getInstance().updateUser(id, user);
+                    store.updateUser(id, user);
                     return true;
                 }
             }
@@ -108,9 +110,9 @@ public class ValidateService {
      */
     public boolean delete(int id) {
         boolean res = false;
-        for (User user : DBStore.getInstance().findAll()) {
+        for (User user : store.findAll()) {
             if (user.getId() == id) {
-                DBStore.getInstance().deleteUser(id);
+                store.deleteUser(id);
                 res = true;
             }
         }
@@ -122,8 +124,8 @@ public class ValidateService {
      * @return
      */
     public List<User> findAll () {
-        if (DBStore.getInstance().findAll().size() > 0) {
-            return DBStore.getInstance().findAll();
+        if (store.findAll().size() > 0) {
+            return store.findAll();
         }
         return null;
     }
@@ -134,9 +136,9 @@ public class ValidateService {
      * @return
      */
     public User findById (int id){
-        for (User user : DBStore.getInstance().findAll()) {
+        for (User user : store.findAll()) {
             if (user.getId() == id) {
-                return DBStore.getInstance().findById(id);
+                return store.findById(id);
             }
         }
         return null;
