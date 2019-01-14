@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Этот класс для работы с базой пользователей
  */
-public class MemoryStore {
+public class MemoryStore implements Store {
 
     //============================Singletone================================
     private static MemoryStore memoryStore;

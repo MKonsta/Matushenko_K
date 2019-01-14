@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ValidateService {
 
-    private DBStore store = DBStore.getInstance();
+    private MemoryStore store = MemoryStore.getMemoryStore();
 
     //==========================Singletone======================================
     private static ValidateService validateService;

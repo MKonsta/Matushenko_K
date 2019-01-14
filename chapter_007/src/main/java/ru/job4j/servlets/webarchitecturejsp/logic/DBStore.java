@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBStore implements AutoCloseable{
+public class DBStore implements AutoCloseable, Store {
     private static final BasicDataSource SOURCE = new BasicDataSource();
     private static final DBStore INSTANCE = new DBStore();
 
@@ -30,8 +30,8 @@ public class DBStore implements AutoCloseable{
             String sqlCreateTable = "create table if not exists users("
                     + " id serial primary key,"
                     + " name varchar(30) not null,"
-                    + " login varchar(30),"
-                    + " email varchar(30),"
+                    + " login varchar(30) unique,"
+                    + " email varchar(30) unique,"
                     + " createdate varchar(30));";
             statement.executeUpdate(sqlCreateTable);
         } catch (Exception e) {
