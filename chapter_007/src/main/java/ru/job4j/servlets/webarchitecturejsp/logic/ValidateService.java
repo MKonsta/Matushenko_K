@@ -5,11 +5,16 @@ import ru.job4j.servlets.webarchitecturejsp.model.User;
 import java.util.List;
 
 /**
+ * Программа может работать и с БД(DBStore) и с коллекцией(MemoryStore)
+ * Чтобы запустить приложение, необходимо после запуска TomCat вбить в браузер http://localhost:8082/chapter_007/usersjsp
+ *
  * В данном классе для работы с базой пользователей во всех методах проходит сначала валидация данных,
  * а затем используются методы из класса ValidateService
  */
 public class ValidateService {
 
+    //Тут сейчас используется коллекция.
+    // Для того, чтобы использовать БД нужно изменить строку на следующую: private DBStore store = DBStore.getInstance();
     private MemoryStore store = MemoryStore.getMemoryStore();
 
     //==========================Singletone======================================
