@@ -28,6 +28,8 @@ public class ValidateService {
     }
 
     private ValidateService() {
+        store.addUser(new User("Uriy", "admin", "1", "ura@mail.ru", "1111", "admin"));
+        store.addUser(new User("Ivan", "user", "1", "ivan@mail.ru", "1111", "user"));
     }
     //============================================================================
 
@@ -147,6 +149,26 @@ public class ValidateService {
             }
         }
         return null;
+    }
+
+    public User findByLogin(String login) {
+        for (User user : store.findAll()) {
+            if (user.getLogin().equals(login)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public boolean isCredentional(String login, String password) {
+        boolean exist = false;
+        for (User user : findAll()) {
+            if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+                exist = true;
+                break;
+            }
+        }
+        return exist;
     }
 
 }

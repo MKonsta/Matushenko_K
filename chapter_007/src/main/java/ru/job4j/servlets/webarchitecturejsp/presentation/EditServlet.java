@@ -21,8 +21,10 @@ public class EditServlet extends HttpServlet {
         req.setAttribute("id", id);
         req.setAttribute("name", user.getName());
         req.setAttribute("login", user.getLogin());
+        req.setAttribute("password", user.getPassword());
         req.setAttribute("email", user.getEmail());
         req.setAttribute("date", user.getCreateDate());
+        req.setAttribute("role", user.getRole());
         getServletContext().getRequestDispatcher("/WEB-INF/edit.jsp").forward(req, resp);
     }
 
@@ -31,9 +33,11 @@ public class EditServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         String login = req.getParameter("login");
+        String password = req.getParameter("password");
         String email = req.getParameter("email");
         String date = req.getParameter("date");
-        if (ValidateService.getValidateService().update(id, new User(name, login, email, date))) {
+        String role = req.getParameter("role");
+        if (ValidateService.getValidateService().update(id, new User(name, login, password, email, date, role))) {
             resp.sendRedirect(req.getContextPath() + "/usersjsp");
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);

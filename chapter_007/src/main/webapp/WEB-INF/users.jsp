@@ -15,14 +15,17 @@
 <body>
 <p><h2>Users List</h2></p>
 <p><a href="<%=request.getContextPath()%>/addjsp">new User</a></p>
+<p><a href="<%=request.getContextPath()%>/signout">sign Out</a></p>
 
 <table style="border: 1px solid black;" cellpadding="1"; border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Login</th>
+        <th>Password</th>
         <th>E-mail</th>
         <th>Create date</th>
+        <th>Role</th>
         <th>Edit user</th>
         <th>Delete user</th>
     </tr>
@@ -32,8 +35,10 @@
         <td><c:out value="${user.id}"></c:out></td>
         <td><c:out value="${user.name}"></c:out></td>
         <td><c:out value="${user.login}"></c:out></td>
+        <td><c:out value="${user.password}"></c:out></td>
         <td><c:out value="${user.email}"></c:out></td>
         <td><c:out value="${user.createDate}"></c:out></td>
+        <td><c:out value="${user.role}"></c:out></td>
         <%--<td><%=user.getId()%></td>--%>
         <%--<td><%=user.getName()%></td>--%>
         <%--<td><%=user.getLogin()%></td>--%>

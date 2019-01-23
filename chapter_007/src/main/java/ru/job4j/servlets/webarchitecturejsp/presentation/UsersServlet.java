@@ -2,12 +2,14 @@ package ru.job4j.servlets.webarchitecturejsp.presentation;
 
 import ru.job4j.servlets.webarchitecturejsp.logic.DBStore;
 import ru.job4j.servlets.webarchitecturejsp.logic.ValidateService;
+import ru.job4j.servlets.webarchitecturejsp.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -18,7 +20,13 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users", ValidateService.getValidateService().findAll());
-        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(req, resp);
+        HttpSession session = req.getSession();
+        String login = ValidateService.getValidateService().findByLogin((String) session.getAttribute("login")).getLogin();
+        if (login.equals("admin")) {
+            getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(req, resp);
+        } else if (login.equals("user")) {
+            getServletContext().getRequestDispatcher("/WEB-INF/usersLimited.jsp").forward(req, resp);
+        }
     }
 
     @Override

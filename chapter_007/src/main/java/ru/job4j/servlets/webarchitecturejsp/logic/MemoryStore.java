@@ -25,7 +25,9 @@ public class MemoryStore implements Store {
         return memoryStore;
     }
 
-    private MemoryStore() { }
+    private MemoryStore() {
+
+    }
     //===========================================================================
 
     public static Map<Integer, User> getUserMap() {

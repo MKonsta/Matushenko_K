@@ -17,10 +17,14 @@
     <input name="name" /><br><br>
     <label>Login</label><br>
     <input name="login" /><br><br>
+    <label>Password</label><br>
+    <input name="password"><br><br>
     <label>E-mail</label><br>
     <input name="email" /><br><br>
     <label>Create date</label><br>
     <input name="date" /><br><br>
+    <label>Role</label><br>
+    <input name="role" /><br><br>
     <input type="submit" value="add">
 </form>
 </body>

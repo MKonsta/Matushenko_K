@@ -31,8 +31,10 @@ public class DBStore implements AutoCloseable, Store {
                     + " id serial primary key,"
                     + " name varchar(30) not null,"
                     + " login varchar(30) unique,"
+                    + " password varchar(30) unique,"
                     + " email varchar(30) unique,"
-                    + " createdate varchar(30));";
+                    + " createdate varchar(30)),"
+                    + " role varchar(30));";
             statement.executeUpdate(sqlCreateTable);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,12 +45,14 @@ public class DBStore implements AutoCloseable, Store {
     public boolean addUser(User user) {
 
         try (Connection connection = SOURCE.getConnection()){
-            String sql = "insert into users (name, login, email, createdate) values(?, ?, ?, ?);";
+            String sql = "insert into users (name, login, password, email, createdate, role) values(?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getCreateDate());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getCreateDate());
+            preparedStatement.setString(6, user.getRole());
             preparedStatement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -59,13 +63,15 @@ public class DBStore implements AutoCloseable, Store {
 
     public boolean updateUser(int id, User user) {
         try (Connection connection = SOURCE.getConnection()) {
-            String sql = "update users set name = ?, login = ?, email = ?, createdate = ? where id = ?";
+            String sql = "update users set name = ?, login = ?, password = ?, email = ?, createdate = ?, role = ? where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getCreateDate());
-            preparedStatement.setInt(5, id);
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getCreateDate());
+            preparedStatement.setString(6, user.getRole());
+            preparedStatement.setInt(7, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,9 +101,11 @@ public class DBStore implements AutoCloseable, Store {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
                 String login = resultSet.getString(3);
-                String email = resultSet.getString(4);
-                String createDate = resultSet.getString(5);
-                User user = new User(name, login, email, createDate);
+                String password = resultSet.getString(4);
+                String email = resultSet.getString(5);
+                String createDate = resultSet.getString(6);
+                String role = resultSet.getString(7);
+                User user = new User(name, login, password, email, createDate, role);
                 user.setId(id);
                 result.add(user);
             }
@@ -118,9 +126,11 @@ public class DBStore implements AutoCloseable, Store {
                 int userId = resultSet.getInt(1);
                 String name = resultSet.getString(2);
                 String login = resultSet.getString(3);
-                String email = resultSet.getString(4);
-                String date = resultSet.getString(5);
-                resultUser = new User(name, login, email, date);
+                String password = resultSet.getString(4);
+                String email = resultSet.getString(5);
+                String date = resultSet.getString(6);
+                String role = resultSet.getString(7);
+                resultUser = new User(name, login, password, email, date, role);
                 resultUser.setId(userId);
             }
         } catch (Exception e) {

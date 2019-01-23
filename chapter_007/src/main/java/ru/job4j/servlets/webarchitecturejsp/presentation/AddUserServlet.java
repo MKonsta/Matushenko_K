@@ -22,9 +22,11 @@ public class AddUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
+        String password = req.getParameter("password");
         String email = req.getParameter("email");
         String date = req.getParameter("date");
-        User user = new User(name, login, email, date);
+        String role = req.getParameter("role");
+        User user = new User(name, login, password, email, date, role);
         if (ValidateService.getValidateService().add(user)) {
             resp.sendRedirect(req.getContextPath() + "/usersjsp");
         } else {
