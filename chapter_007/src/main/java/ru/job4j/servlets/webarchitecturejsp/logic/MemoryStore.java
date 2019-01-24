@@ -42,6 +42,7 @@ public class MemoryStore implements Store {
     }
 
     public boolean updateUser(int id, User user) {
+        user.setId(id);
         userMap.put(id, user);
         return true;
     }

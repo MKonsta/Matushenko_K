@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/editjsp")
@@ -25,7 +26,13 @@ public class EditServlet extends HttpServlet {
         req.setAttribute("email", user.getEmail());
         req.setAttribute("date", user.getCreateDate());
         req.setAttribute("role", user.getRole());
-        getServletContext().getRequestDispatcher("/WEB-INF/edit.jsp").forward(req, resp);
+        HttpSession session = req.getSession();
+        String role = ValidateService.getValidateService().findByLogin((String) session.getAttribute("login")).getRole();
+        if (role.equals("admin")) {
+            getServletContext().getRequestDispatcher("/WEB-INF/edit.jsp").forward(req, resp);
+        } else if (role.equals("user")) {
+            getServletContext().getRequestDispatcher("/WEB-INF/editLimited.jsp").forward(req, resp);
+        }
     }
 
     @Override

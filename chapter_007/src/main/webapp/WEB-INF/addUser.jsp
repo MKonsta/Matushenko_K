@@ -24,7 +24,10 @@
     <label>Create date</label><br>
     <input name="date" /><br><br>
     <label>Role</label><br>
-    <input name="role" /><br><br>
+    <select name="role">
+        <option value="admin">admin</option>
+        <option value="user">user</option>
+    </select> <br><br>
     <input type="submit" value="add">
 </form>
 </body>

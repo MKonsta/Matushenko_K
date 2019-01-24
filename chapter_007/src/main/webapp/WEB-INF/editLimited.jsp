@@ -1,13 +1,15 @@
-<%@ page import="ru.job4j.servlets.webarchitecturejsp.model.User" %>
-<%@ page import="ru.job4j.servlets.webarchitecturejsp.logic.ValidateService" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Konstantin
-  Date: 06.01.2019
-  Time: 18:16
+  Date: 24.01.2019
+  Time: 14:53
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<head>
+    <title>Title</title>
+</head>
 <head>
     <title>Edit User</title>
 </head>
@@ -25,11 +27,8 @@
     <input name="email" value="<%=request.getAttribute("email")%>" /><br><br>
     <label>Create date</label><br>
     <input name="date" value="<%=request.getAttribute("date")%>" /><br><br>
-    <label>Role</label><br>
-    <select name="role">
-        <option value="admin">admin</option>
-        <option value="user">user</option>
-    </select> <br><br>
+    <input type="hidden" value="<%=request.getAttribute("role")%>" name="role">
+     <br><br>
     <input type="submit" value="Send" />
 </form>
 </body>

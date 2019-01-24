@@ -21,10 +21,10 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users", ValidateService.getValidateService().findAll());
         HttpSession session = req.getSession();
-        String login = ValidateService.getValidateService().findByLogin((String) session.getAttribute("login")).getLogin();
-        if (login.equals("admin")) {
+        String role = ValidateService.getValidateService().findByLogin((String) session.getAttribute("login")).getRole();
+        if (role.equals("admin")) {
             getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(req, resp);
-        } else if (login.equals("user")) {
+        } else if (role.equals("user")) {
             getServletContext().getRequestDispatcher("/WEB-INF/usersLimited.jsp").forward(req, resp);
         }
     }
