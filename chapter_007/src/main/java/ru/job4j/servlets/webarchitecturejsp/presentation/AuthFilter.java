@@ -1,9 +1,7 @@
 package ru.job4j.servlets.webarchitecturejsp.presentation;
 
-import com.sun.deploy.net.HttpResponse;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

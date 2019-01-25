@@ -11,7 +11,7 @@
     <title>Delete user</title>
 </head>
 <body>
-<h1 align="center">Delete user with id<%=request.getAttribute("id")%>?</h1>
+<h1 align="center">Delete user with id <%=request.getAttribute("id")%>?</h1>
 <table align="center">
     <tr>
         <td>

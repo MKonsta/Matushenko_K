@@ -2,7 +2,6 @@ package ru.job4j.servlets.webarchitecturejsp.presentation;
 
 import ru.job4j.servlets.webarchitecturejsp.logic.DBStore;
 import ru.job4j.servlets.webarchitecturejsp.logic.ValidateService;
-import ru.job4j.servlets.webarchitecturejsp.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

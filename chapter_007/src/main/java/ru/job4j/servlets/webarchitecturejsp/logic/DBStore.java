@@ -31,9 +31,9 @@ public class DBStore implements AutoCloseable, Store {
                     + " id serial primary key,"
                     + " name varchar(30) not null,"
                     + " login varchar(30) unique,"
-                    + " password varchar(30) unique,"
+                    + " password varchar(30),"
                     + " email varchar(30) unique,"
-                    + " createdate varchar(30)),"
+                    + " createdate varchar(30),"
                     + " role varchar(30));";
             statement.executeUpdate(sqlCreateTable);
         } catch (Exception e) {
@@ -139,11 +139,53 @@ public class DBStore implements AutoCloseable, Store {
         return resultUser;
     }
 
+    public User findByLogin(String login) {
+        User result = null;
+        try (Connection connection = SOURCE.getConnection()){
+            String sql = "select * from users where login = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String userLogin = resultSet.getString(3);
+                String password = resultSet.getString(4);
+                String email = resultSet.getString(5);
+                String date = resultSet.getString(6);
+                String role = resultSet.getString(7);
+                result = new User(name, userLogin, password, email, date, role);
+                result.setId(id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean isCredentional(String login, String password) {
+        boolean result = false;
+        try (Connection connection = SOURCE.getConnection()){
+            String sql = "select * from users where login = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getString(4).equals(password)) {
+                    result = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
-//        DBStore.getInstance().addUser(new User("Ivan", "vano", "www@ddd", "dddd"));
+        DBStore.getInstance().addUser(new User("Ivan", "vano", "111", "dddd", "1111", "admin"));
 //        DBStore.getInstance().addUser(new User("Stepan", "step", "ggg@", "ggg"));
 //        DBStore.getInstance().updateUser(2, new User("Stepan", "stepuha", "ggg@", "ggg"));
-        System.out.println(DBStore.getInstance().deleteUser(2));
+//        System.out.println(DBStore.getInstance().deleteUser(2));
     }
 
     @Override

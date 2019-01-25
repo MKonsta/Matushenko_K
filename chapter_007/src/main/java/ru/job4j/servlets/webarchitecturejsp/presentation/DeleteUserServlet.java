@@ -2,7 +2,6 @@ package ru.job4j.servlets.webarchitecturejsp.presentation;
 
 import ru.job4j.servlets.webarchitecturejsp.logic.DBStore;
 import ru.job4j.servlets.webarchitecturejsp.logic.ValidateService;
-import ru.job4j.servlets.webarchitecturejsp.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/deletejsp")
 public class DeleteUserServlet extends HttpServlet {

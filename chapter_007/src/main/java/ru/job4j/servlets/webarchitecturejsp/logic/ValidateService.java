@@ -7,20 +7,20 @@ import java.util.List;
 /**
  * Программа может работать и с БД(DBStore) и с коллекцией(MemoryStore)
  * Чтобы запустить приложение, необходимо после запуска TomCat вбить в браузер http://localhost:8082/chapter_007/usersjsp
+ * Login admin passwod 1
  *
- * В данном классе для работы с базой пользователей во всех методах проходит сначала валидация данных,
- * а затем используются методы из класса ValidateService
- */
+ *  */
 public class ValidateService {
 
     //Тут сейчас используется коллекция.
-    // Для того, чтобы использовать БД нужно изменить строку на следующую: private DBStore store = DBStore.getInstance();
     private MemoryStore store = MemoryStore.getMemoryStore();
+    //Для работы с БД нужно раскомментировать следующую строку, и закомментировать предидущую
+//    private DBStore store = DBStore.getInstance();
 
     //==========================Singletone======================================
     private static ValidateService validateService;
 
-    public static synchronized ValidateService getValidateService() {
+    public static ValidateService getValidateService() {
         if (validateService == null) {
             validateService = new ValidateService();
         }
@@ -34,96 +34,35 @@ public class ValidateService {
     //============================================================================
 
 
-    //==============Методы для проверки(валидации) MemoryStore (используется ConcurrentHashMap)===================
-
     /**
-     * Вспомогательный метод для проверки - есть ли уже в мапе пользователи с заданными именем и email'ом
-     * Данный метод используется в методе add(User user) данного класса
-     *
-     * @param email
-     * @param login
-     * @return
-     */
-    private boolean addValid(String email, String login) {
-        boolean res = true;
-        for (User user : store.findAll()) {
-            if (user.getEmail().equals(email) || user.getLogin().equals(login)) {
-                res = false;
-                break;
-            }
-        }
-        return res;
-    }
-
-    /**
-     * Вспомогательный метод для валидации данных при добавлении и редактировании пользователя
-     *
-     * @param id
-     * @param email
-     * @param login
-     * @return
-     */
-    private boolean updateValid(int id, String email, String login) {
-        boolean res = true;
-        for (User user : store.findAll()) {
-            if (user.getEmail().equals(email) && user.getId() != id
-                    || user.getLogin().equals(login) && user.getId() != id) {
-                res = false;
-                break;
-            }
-        }
-        return res;
-    }
-
-    /**
-     * Метод для добавления пользователя. Вначале проходит валидация с помощью метода addValid.
-     * И если валидация пройдена, вызывается метод addUser из класса MemoryStore, который добавляет юзера в мапу
+     * Метод для добавления пользователя.
      *
      * @param user
      * @return
      */
     public boolean add(User user) {
-        if (addValid(user.getEmail(), user.getLogin())) {
-            store.addUser(user);
-            return true;
-        }
-        return false;
+        return store.addUser(user);
     }
 
     /**
-     * Метод для обновления данных пользователя. Сначала проходит валидация
+     * Метод для обновления данных пользователя.
      *
      * @param id
      * @param user
      * @return
      */
     public boolean update(int id, User user) {
-        for (User user1 : store.findAll()) {
-            if (user1.getId() == id) {
-                if (updateValid(id, user.getEmail(), user.getLogin())) {
-                    store.updateUser(id, user);
-                    return true;
-                }
-            }
-        }
-        return false;
+        return store.updateUser(id, user);
     }
 
     /**
-     * Метод для удаления пользователя. Вначале проверяет, существует ли пользователь с заданным id
+     * Метод для удаления пользователя.
      *
      * @param id
      * @return
      */
     public boolean delete(int id) {
-        boolean res = false;
-        for (User user : store.findAll()) {
-            if (user.getId() == id) {
-                store.deleteUser(id);
-                res = true;
-            }
-        }
-        return res;
+        return store.deleteUser(id);
     }
 
     /**
@@ -138,37 +77,31 @@ public class ValidateService {
     }
 
     /**
-     * Метод поиска пользователя по id. Сначала проверяет, существует ли пользователь с заданным id
+     * Метод поиска пользователя по id.
      * @param id
      * @return
      */
     public User findById (int id){
-        for (User user : store.findAll()) {
-            if (user.getId() == id) {
-                return store.findById(id);
-            }
-        }
-        return null;
+        return store.findById(id);
     }
 
+    /**
+     * Поиск пользователя по логину.
+     * @param login
+     * @return
+     */
     public User findByLogin(String login) {
-        for (User user : store.findAll()) {
-            if (user.getLogin().equals(login)) {
-                return user;
-            }
-        }
-        return null;
+        return store.findByLogin(login);
     }
 
+    /**
+     * Метод проверяет - существует ли пользователь с данным логином и паролем
+     * @param login
+     * @param password
+     * @return
+     */
     public boolean isCredentional(String login, String password) {
-        boolean exist = false;
-        for (User user : findAll()) {
-            if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
-                exist = true;
-                break;
-            }
-        }
-        return exist;
+        return store.isCredentional(login, password);
     }
 
 }

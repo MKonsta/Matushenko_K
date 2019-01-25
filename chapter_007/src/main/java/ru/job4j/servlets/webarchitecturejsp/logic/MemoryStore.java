@@ -36,20 +36,40 @@ public class MemoryStore implements Store {
     private AtomicInteger id = new AtomicInteger(0);
 
     public boolean addUser(User user) {
+        for (User tempUser : userMap.values()) {
+            if (user.getLogin().equals(tempUser.getLogin()) || user.getEmail().equals(tempUser.getEmail())) {
+                return false;
+            }
+        }
         user.setId(id.getAndIncrement());
         userMap.put(user.getId(), user);
         return true;
+        //        user.setId(id.getAndIncrement());
+//        userMap.put(user.getId(), user);
+//        return true;
     }
 
     public boolean updateUser(int id, User user) {
-        user.setId(id);
-        userMap.put(id, user);
-        return true;
+        if (userMap.containsKey(id)) {
+            for (User tempUser : userMap.values()) {
+                if (user.getLogin().equals(tempUser.getLogin()) && tempUser.getId() != id ||
+                        user.getEmail().equals(tempUser.getEmail()) && tempUser.getId() != id) {
+                    return false;
+                }
+            }
+            user.setId(id);
+            userMap.put(id, user);
+            return true;
+        }
+        return false;
+
+        //        user.setId(id);
+//        userMap.put(id, user);
+//        return true;
     }
 
     public boolean deleteUser(int id) {
-        userMap.remove(id);
-        return true;
+        return (userMap.remove(id) != null);
     }
 
     public List<User> findAll() {
@@ -60,6 +80,30 @@ public class MemoryStore implements Store {
 
     public User findById(int id) {
         return userMap.get(id);
+    }
+
+    public User findByLogin(String login) {
+        User result = null;
+        for (User user : userMap.values()) {
+            if (user.getLogin().equals(login)) {
+                result = user;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public boolean isCredentional(String login, String password) {
+        boolean result = false;
+        for (User user : userMap.values()) {
+            if (user.getLogin().equals(login)) {
+                if (user.getPassword().equals(password)) {
+                    result = true;
+                }
+                break;
+            }
+        }
+        return result;
     }
 
 }
