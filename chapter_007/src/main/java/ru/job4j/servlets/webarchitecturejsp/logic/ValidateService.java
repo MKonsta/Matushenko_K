@@ -20,11 +20,12 @@ public class ValidateService {
     //==========================Singletone======================================
     private static ValidateService validateService;
 
+    private static final class Holder {
+        private static final ValidateService SERVICE = new ValidateService();
+    }
+
     public static ValidateService getValidateService() {
-        if (validateService == null) {
-            validateService = new ValidateService();
-        }
-        return validateService;
+        return Holder.SERVICE;
     }
 
     private ValidateService() {
