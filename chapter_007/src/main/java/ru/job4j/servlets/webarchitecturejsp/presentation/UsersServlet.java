@@ -17,7 +17,7 @@ import java.io.IOException;
 @WebServlet("/usersjsp")
 public class UsersServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users", ValidateService.getValidateService().findAll());
         HttpSession session = req.getSession();
         String role = ValidateService.getValidateService().findByLogin((String) session.getAttribute("login")).getRole();

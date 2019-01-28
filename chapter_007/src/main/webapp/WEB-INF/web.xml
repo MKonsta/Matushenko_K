@@ -6,59 +6,59 @@
          version="2.4">
 
     <!--&lt;!&ndash;?????????????? ?????????? WebAppArchitecture ? ??&ndash;&gt;-->
-    <!--<servlet>-->
-        <!--<servlet-name>AddUserServlet</servlet-name>-->
-        <!--<servlet-class>ru.job4j.servlets.webapparchitecture.AddUserServlet</servlet-class>-->
+    <!--<servlets>-->
+        <!--<servlets-name>AddUserServlet</servlets-name>-->
+        <!--<servlets-class>ru.job4j.servlets.webapparchitecture.AddUserServlet</servlets-class>-->
         <!--<init-param>-->
         <!--<param-name>debug</param-name>-->
         <!--<param-value>true</param-value>-->
         <!--</init-param>-->
         <!--<load-on-startup>1</load-on-startup>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>AddUserServlet</servlet-name>-->
+    <!--</servlets>-->
+    <!--<servlets-mapping>-->
+        <!--<servlets-name>AddUserServlet</servlets-name>-->
         <!--<url-pattern>/add</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <!--</servlets-mapping>-->
 
 
-    <!--<servlet>-->
-        <!--<servlet-name>SelectAllServlet</servlet-name>-->
-        <!--<servlet-class>ru.job4j.servlets.webapparchitecture.SelectAllServlet</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>SelectAllServlet</servlet-name>-->
+    <!--<servlets>-->
+        <!--<servlets-name>SelectAllServlet</servlets-name>-->
+        <!--<servlets-class>ru.job4j.servlets.webapparchitecture.SelectAllServlet</servlets-class>-->
+    <!--</servlets>-->
+    <!--<servlets-mapping>-->
+        <!--<servlets-name>SelectAllServlet</servlets-name>-->
         <!--<url-pattern>/select</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <!--</servlets-mapping>-->
 
 
-    <!--<servlet>-->
-        <!--<servlet-name>UpdateServlet</servlet-name>-->
-        <!--<servlet-class>ru.job4j.servlets.webapparchitecture.UpdateServlet</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>UpdateServlet</servlet-name>-->
+    <!--<servlets>-->
+        <!--<servlets-name>UpdateServlet</servlets-name>-->
+        <!--<servlets-class>ru.job4j.servlets.webapparchitecture.UpdateServlet</servlets-class>-->
+    <!--</servlets>-->
+    <!--<servlets-mapping>-->
+        <!--<servlets-name>UpdateServlet</servlets-name>-->
         <!--<url-pattern>/update</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <!--</servlets-mapping>-->
 
 
-    <!--<servlet>-->
-        <!--<servlet-name>DeleteServlet</servlet-name>-->
-        <!--<servlet-class>ru.job4j.servlets.webapparchitecture.DeleteServlet</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>DeleteServlet</servlet-name>-->
+    <!--<servlets>-->
+        <!--<servlets-name>DeleteServlet</servlets-name>-->
+        <!--<servlets-class>ru.job4j.servlets.webapparchitecture.DeleteServlet</servlets-class>-->
+    <!--</servlets>-->
+    <!--<servlets-mapping>-->
+        <!--<servlets-name>DeleteServlet</servlets-name>-->
         <!--<url-pattern>/delete</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <!--</servlets-mapping>-->
 
 
-    <!--<servlet>-->
-        <!--<servlet-name>SelectByIdServlet</servlet-name>-->
-        <!--<servlet-class>ru.job4j.servlets.webapparchitecture.SelectByIdServlet</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>SelectByIdServlet</servlet-name>-->
+    <!--<servlets>-->
+        <!--<servlets-name>SelectByIdServlet</servlets-name>-->
+        <!--<servlets-class>ru.job4j.servlets.webapparchitecture.SelectByIdServlet</servlets-class>-->
+    <!--</servlets>-->
+    <!--<servlets-mapping>-->
+        <!--<servlets-name>SelectByIdServlet</servlets-name>-->
         <!--<url-pattern>/selectone</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <!--</servlets-mapping>-->
 
 
     <!--?????? ??????????? Web Architecture ?????????? ?????? ??-->
