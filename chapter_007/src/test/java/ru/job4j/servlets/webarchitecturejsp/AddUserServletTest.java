@@ -4,6 +4,7 @@ import org.junit.Test;
 import ru.job4j.servlets.webarchitecturejsp.logic.ValidateService;
 import ru.job4j.servlets.webarchitecturejsp.model.User;
 import ru.job4j.servlets.webarchitecturejsp.presentation.AddUserServlet;
+import ru.job4j.servlets.webarchitecturejsp.presentation.EditServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,16 +26,39 @@ public class AddUserServletTest {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
 
-        when(request.getParameter("name")).thenReturn("q");
-        when(request.getParameter("login")).thenReturn("q");
-        when(request.getParameter("password")).thenReturn("q");
-        when(request.getParameter("email")).thenReturn("q");
-        when(request.getParameter("date")).thenReturn("q");
+        when(request.getParameter("name")).thenReturn("Stepan");
+        when(request.getParameter("login")).thenReturn("step");
+        when(request.getParameter("password")).thenReturn("1");
+        when(request.getParameter("email")).thenReturn("st@mail.ru");
+        when(request.getParameter("date")).thenReturn("777");
         when(request.getParameter("role")).thenReturn("user");
 
         addUserServlet.doPost(request, response);
 
         List<User> users = ValidateService.getValidateService().findAll();
-        assertThat(users.get(1).getLogin(), is("q"));
+        assertThat(users.get(2).getLogin(), is("step"));
     }
+
+    @Test
+    public void updateUser() throws ServletException, IOException {
+        EditServlet edit = new EditServlet();
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+
+        when(request.getParameter("id")).thenReturn("1");
+        when(request.getParameter("name")).thenReturn("Ivan");
+        when(request.getParameter("password")).thenReturn("1");
+        when(request.getParameter("email")).thenReturn("eeee");
+        when(request.getParameter("date")).thenReturn("1111");
+        when(request.getParameter("id")).thenReturn("1");
+        when(request.getParameter("role")).thenReturn("user");
+
+        edit.doPost(request, response);
+
+        List<User> users = ValidateService.getValidateService().findAll();
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
+
 }
