@@ -70,7 +70,7 @@ public class ValidateService {
      * Метод возвращает список всех пользователей. Сначала проверяет, есть ли в мапе хотябы 1 пользователь
      * @return
      */
-    public List<User> findAll () {
+    public List<User> findAll() {
         if (store.findAll().size() > 0) {
             return store.findAll();
         }
@@ -82,7 +82,7 @@ public class ValidateService {
      * @param id
      * @return
      */
-    public User findById (int id){
+    public User findById(int id) {
         return store.findById(id);
     }
 

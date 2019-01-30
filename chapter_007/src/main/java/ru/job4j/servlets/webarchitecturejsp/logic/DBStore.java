@@ -26,7 +26,7 @@ public class DBStore implements AutoCloseable, Store {
 
     public static DBStore getInstance() {
         try (Connection connection = SOURCE.getConnection();
-             Statement statement = connection.createStatement()){
+             Statement statement = connection.createStatement()) {
             String sqlCreateTable = "create table if not exists users("
                     + " id serial primary key,"
                     + " name varchar(30) not null,"
@@ -44,7 +44,7 @@ public class DBStore implements AutoCloseable, Store {
 
     public boolean addUser(User user) {
 
-        try (Connection connection = SOURCE.getConnection()){
+        try (Connection connection = SOURCE.getConnection()) {
             String sql = "insert into users (name, login, password, email, createdate, role) values(?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
@@ -117,8 +117,8 @@ public class DBStore implements AutoCloseable, Store {
 
     public User findById(int id) {
         User resultUser = null;
-        try (Connection connection = SOURCE.getConnection()){
-            String sql ="select * from users where id = ?";
+        try (Connection connection = SOURCE.getConnection()) {
+            String sql = "select * from users where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -141,7 +141,7 @@ public class DBStore implements AutoCloseable, Store {
 
     public User findByLogin(String login) {
         User result = null;
-        try (Connection connection = SOURCE.getConnection()){
+        try (Connection connection = SOURCE.getConnection()) {
             String sql = "select * from users where login = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, login);
@@ -165,7 +165,7 @@ public class DBStore implements AutoCloseable, Store {
 
     public boolean isCredentional(String login, String password) {
         boolean result = false;
-        try (Connection connection = SOURCE.getConnection()){
+        try (Connection connection = SOURCE.getConnection()) {
             String sql = "select * from users where login = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, login);

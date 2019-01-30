@@ -65,19 +65,19 @@ public class AddUserServletTest {
 //        }
     }
 
-    @Test
-    public void delete() throws ServletException, IOException {
-        DeleteUserServlet del = new DeleteUserServlet();
-
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-
-        when(request.getParameter("id")).thenReturn("1");
-
-        del.doPost(request, response);
-
-        List<User> users = ValidateService.getValidateService().findAll();
-        assertThat(users.size(), is(1));
-    }
+//    @Test
+//    public void delete() throws ServletException, IOException {
+//        DeleteUserServlet del = new DeleteUserServlet();
+//
+//        HttpServletRequest request = mock(HttpServletRequest.class);
+//        HttpServletResponse response = mock(HttpServletResponse.class);
+//
+//        when(request.getParameter("id")).thenReturn("1");
+//
+//        del.doPost(request, response);
+//
+//        List<User> users = ValidateService.getValidateService().findAll();
+//        assertThat(users.size(), is(1));
+//    }
 
 }

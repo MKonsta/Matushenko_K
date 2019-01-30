@@ -52,8 +52,8 @@ public class MemoryStore implements Store {
     public boolean updateUser(int id, User user) {
         if (userMap.containsKey(id)) {
             for (User tempUser : userMap.values()) {
-                if (user.getLogin().equals(tempUser.getLogin()) && tempUser.getId() != id ||
-                        user.getEmail().equals(tempUser.getEmail()) && tempUser.getId() != id) {
+                if (user.getLogin().equals(tempUser.getLogin()) && tempUser.getId() != id
+                        || user.getEmail().equals(tempUser.getEmail()) && tempUser.getId() != id) {
                     return false;
                 }
             }
