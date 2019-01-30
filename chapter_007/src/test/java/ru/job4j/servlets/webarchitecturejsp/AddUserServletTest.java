@@ -4,6 +4,7 @@ import org.junit.Test;
 import ru.job4j.servlets.webarchitecturejsp.logic.ValidateService;
 import ru.job4j.servlets.webarchitecturejsp.model.User;
 import ru.job4j.servlets.webarchitecturejsp.presentation.AddUserServlet;
+import ru.job4j.servlets.webarchitecturejsp.presentation.DeleteUserServlet;
 import ru.job4j.servlets.webarchitecturejsp.presentation.EditServlet;
 
 import javax.servlet.ServletException;
@@ -47,6 +48,7 @@ public class AddUserServletTest {
 
         when(request.getParameter("id")).thenReturn("1");
         when(request.getParameter("name")).thenReturn("Ivan");
+        when(request.getParameter("login")).thenReturn("Ivan");
         when(request.getParameter("password")).thenReturn("1");
         when(request.getParameter("email")).thenReturn("eeee");
         when(request.getParameter("date")).thenReturn("1111");
@@ -56,9 +58,26 @@ public class AddUserServletTest {
         edit.doPost(request, response);
 
         List<User> users = ValidateService.getValidateService().findAll();
-        for (User user : users) {
-            System.out.println(user);
-        }
+        assertThat(users.get(1).getEmail(), is("eeee"));
+
+//        for (User user : users) {
+//            System.out.println(user);
+//        }
+    }
+
+    @Test
+    public void delete() throws ServletException, IOException {
+        DeleteUserServlet del = new DeleteUserServlet();
+
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletResponse response = mock(HttpServletResponse.class);
+
+        when(request.getParameter("id")).thenReturn("1");
+
+        del.doPost(request, response);
+
+        List<User> users = ValidateService.getValidateService().findAll();
+        assertThat(users.size(), is(1));
     }
 
 }

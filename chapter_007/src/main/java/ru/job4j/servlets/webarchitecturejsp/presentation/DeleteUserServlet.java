@@ -20,7 +20,7 @@ public class DeleteUserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         ValidateService.getValidateService().delete(id);
         resp.sendRedirect(req.getContextPath() + "/usersjsp");
