@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h1>My First html/css Page</h1>
+    <p>This is some text.</p>
+    <h2>Enter user's data:</h2><br><br>
+    <form>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="name" class="form-control" id="name" placeholder="Enter name" name="name">
+        </div><br><br>
+        <div class="form-group">
+            <label for="surname">Surname</label>
+            <input type="surname" class="form-control" id="surname" placeholder="Enter surname" name="surname">
+        </div><br><br>
+        <h2>Choose your gender:</h2>
+        <div class="radio">
+            <label><input type="radio" name="sex" checked>Male</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="sex">Female</label>
+        </div><br><br>
+        <div class="form-group">
+            <label for="discription">Discription:</label>
+            <textarea class="form-control" rows="5" id="discription"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div><br><br>
+<div class="container">
+<h2>Baisc table</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Gender</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Ivan</td>
+            <td>Starkov</td>
+            <td>male</td>
+        </tr>
+        <tr>
+            <td>Anna</td>
+            <td>Frank</td>
+            <td>female</td>
+        </tr>
+        <tr>
+            <td>Igor</td>
+            <td>Sidorov</td>
+            <td>male</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
