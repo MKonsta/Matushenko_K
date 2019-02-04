@@ -18,6 +18,19 @@
             }
             return false;
         }
+        
+        function addRow() {
+            var name = $('#name').val();
+            var surname = $('#surname').val();
+            var gender;
+            if ($('#male') == '') {
+                gender = 'female';
+            } else {
+                gender = 'male';
+            }
+            $('#table tr:last').after('<tr><td>' + name + '</td><td>' + surname + '</td><td>' + gender + '</td></tr>');
+            return true;
+        }
     </script>
 </head>
 <body>
@@ -37,21 +50,22 @@
         </div><br><br>
         <h2>Choose your gender:</h2>
         <div class="radio">
-            <label><input type="radio" name="sex" checked>Male</label>
+            <label><input type="radio" id="male" name="sex" checked>Male</label>
         </div>
         <div class="radio">
-            <label><input type="radio" name="sex">Female</label>
+            <label><input type="radio" id="female" name="sex">Female</label>
         </div><br><br>
         <div class="form-group">
             <label for="discription">Discription:</label>
             <textarea class="form-control" rows="5" id="discription"></textarea>
         </div>
-        <button type="submit" class="btn btn-default" onclick="return validate()">Submit</button>
+        <!--<button type="submit" class="btn btn-default" onclick="return validate()" onclick="addRow()">Submit</button>-->
+        <button type="submit" class="btn btn-default" onclick="addRow()">Submit</button>
     </form>
 </div><br><br>
 <div class="container">
 <h2>Baisc table</h2>
-    <table class="table">
+    <table class="table" id="table">
         <thead>
         <tr>
             <th>Name</th>
@@ -69,11 +83,6 @@
             <td>Anna</td>
             <td>Frank</td>
             <td>female</td>
-        </tr>
-        <tr>
-            <td>Igor</td>
-            <td>Sidorov</td>
-            <td>male</td>
         </tr>
         </tbody>
     </table>
