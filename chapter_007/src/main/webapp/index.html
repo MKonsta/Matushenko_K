@@ -21,7 +21,7 @@
             var name = $('#name').val();
             var surname = $('#surname').val();
             var gender;
-            if ($('#male') == '') {
+            if ($('#male').val() == '') {
                 gender = 'female';
             } else {
                 gender = 'male';
@@ -57,29 +57,17 @@
             <label for="discription">Discription:</label>
             <textarea class="form-control" rows="5" id="discription"></textarea>
         </div>
-        <button type="submit" class="btn btn-default" onclick="addRow()">Submit</button>
+        <button type="button" class="btn btn-default" onclick="addRow()">Submit</button>
     </form>
 </div><br><br>
 <div class="container">
 <h2>Baisc table</h2>
     <table class="table" id="table">
-        <thead>
+        <tbody>
         <tr>
             <th>Name</th>
             <th>Surname</th>
             <th>Gender</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Ivan</td>
-            <td>Starkov</td>
-            <td>male</td>
-        </tr>
-        <tr>
-            <td>Anna</td>
-            <td>Frank</td>
-            <td>female</td>
         </tr>
         </tbody>
     </table>
