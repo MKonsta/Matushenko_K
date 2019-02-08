@@ -21,10 +21,10 @@
             var name = $('#name').val();
             var surname = $('#surname').val();
             var gender;
-            if ($('#male').val() == '') {
-                gender = 'female';
-            } else {
+            if ($('#male').val() == 'male') {
                 gender = 'male';
+            } else {
+                gender = 'female';
             }
             $('#table tr:last').after('<tr><td>' + name + '</td><td>' + surname + '</td><td>' + gender + '</td></tr>');
             return false;
@@ -37,7 +37,7 @@
     <h1>My First html/css Page</h1>
     <p>This is some text.</p>
     <h2>Enter user's data:</h2><br><br>
-    <form>
+    <form method="post" action="jsonservlet">
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="name" class="form-control" id="name" placeholder="Enter name" name="name">
@@ -48,16 +48,17 @@
         </div><br><br>
         <h2>Choose your gender:</h2>
         <div class="radio">
-            <label><input type="radio" id="male" name="sex" checked>Male</label>
+            <label><input type="radio" id="male" name="sex" value="male" checked>Male</label>
         </div>
         <div class="radio">
-            <label><input type="radio" id="female" name="sex">Female</label>
+            <label><input type="radio" id="female" name="sex" value="female">Female</label>
         </div><br><br>
         <div class="form-group">
             <label for="discription">Discription:</label>
-            <textarea class="form-control" rows="5" id="discription"></textarea>
+            <textarea class="form-control" rows="5" id="discription" name="discription"></textarea>
         </div>
-        <button type="button" class="btn btn-default" onclick="addRow()">Submit</button>
+        <input type="submit" value="Submit">
+        <!--<button type="button" class="btn btn-default" onclick="addRow()">Submit</button>-->
     </form>
 </div><br><br>
 <div class="container">
