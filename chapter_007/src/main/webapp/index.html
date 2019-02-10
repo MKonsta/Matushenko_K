@@ -29,6 +29,16 @@
             $('#table tr:last').after('<tr><td>' + name + '</td><td>' + surname + '</td><td>' + gender + '</td></tr>');
             return false;
         }
+
+        $.ajax({
+            type: 'POST',
+            url: 'jsonservlet',
+            data: formData,
+            datatype: 'json',
+            success: function(data) {
+                cosole.log(JSON.parse(data.responseText))
+            }
+        });
     </script>
 </head>
 <body>
@@ -36,31 +46,31 @@
 <div class="container-fluid">
     <h1>My First html/css Page</h1>
     <p>This is some text.</p>
-    <h2>Enter user's data:</h2><br><br>
-    <form method="post" action="jsonservlet">
+    <h2>Enter user's data:</h2><br>
+    <form method="post" action="./jsonservlet">
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="name" class="form-control" id="name" placeholder="Enter name" name="name">
-        </div><br><br>
+        </div>
         <div class="form-group">
             <label for="surname">Surname</label>
             <input type="surname" class="form-control" id="surname" placeholder="Enter surname" name="surname">
-        </div><br><br>
+        </div>
         <h2>Choose your gender:</h2>
         <div class="radio">
             <label><input type="radio" id="male" name="sex" value="male" checked>Male</label>
         </div>
         <div class="radio">
             <label><input type="radio" id="female" name="sex" value="female">Female</label>
-        </div><br><br>
+        </div>
         <div class="form-group">
             <label for="discription">Discription:</label>
             <textarea class="form-control" rows="5" id="discription" name="discription"></textarea>
         </div>
-        <input type="submit" value="Submit">
-        <!--<button type="button" class="btn btn-default" onclick="addRow()">Submit</button>-->
+        <!--<input type="submit" value="Submit">-->
+        <button type="button" class="btn btn-default" onclick="addRow()">Submit</button>
     </form>
-</div><br><br>
+</div><br>
 <div class="container">
 <h2>Baisc table</h2>
     <table class="table" id="table">
