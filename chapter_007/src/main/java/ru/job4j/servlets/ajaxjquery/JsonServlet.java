@@ -1,7 +1,6 @@
 package ru.job4j.servlets.ajaxjquery;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,11 +18,30 @@ public class JsonServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/json");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
-        String str = reader.readLine();
+//        resp.setContentType("text/json");
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
+//        String str = reader.readLine();
+//        PrintWriter writer = resp.getWriter();
+//        writer.print(str);
 
-        PrintWriter writer = resp.getWriter();
-        writer.print(str);
+        BufferedReader reader = req.getReader();
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<Integer, Person> personMap = new ConcurrentHashMap<>();
+        Person person = objectMapper.readValue(sb.toString(), Person.class);
+        personMap.put(personMap.size() + 1, person);
+
+        String toJson = objectMapper.writeValueAsString(personMap);
+        resp.setContentType("text/json");
+        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        System.out.println(toJson);
+        writer.append(toJson);
+        writer.flush();
     }
+
 }
