@@ -26,6 +26,14 @@
             } else {
                 gender = 'female';
             }
+            var discription = $('#discription').val();
+
+            var person = {
+                name: name,
+                surname: surname,
+                gender: gender,
+                discription: discription,
+            }
             $('#table tr:last').after('<tr><td>' + name + '</td><td>' + surname + '</td><td>' + gender + '</td></tr>');
             return false;
         }
@@ -33,7 +41,7 @@
         $.ajax({
             type: 'POST',
             url: 'jsonservlet',
-            data: formData,
+            data: person,
             datatype: 'json',
             success: function(data) {
                 cosole.log(JSON.parse(data.responseText))
