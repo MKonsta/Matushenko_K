@@ -2,16 +2,9 @@ package ru.job4j.servlets.ajaxjquery;
 
 public class Person {
     private String name;
-    private String surname;
+    private String lastName;
     private String gender;
     private String discription;
-
-    public Person(String name, String surname, String gender, String discription) {
-        this.name = name;
-        this.surname = surname;
-        this.gender = gender;
-        this.discription = discription;
-    }
 
     public Person() {
     }
@@ -24,12 +17,12 @@ public class Person {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getGender() {
@@ -52,7 +45,7 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", discription='" + discription + '\'' +
                 '}';
