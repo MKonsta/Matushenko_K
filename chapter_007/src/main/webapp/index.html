@@ -43,21 +43,22 @@
             return false;
         }
 
-        function loadMap() {
+        $(document).ready(function () {
+            getUsers();
+        });
+
+        function getUsers() {
             $.ajax({
-                type: 'get',
-                url: 'jsonservlet',
-                data: JSON.stringify(person),
-                datatype: 'json',
-                success: function(data) {
-                    cosole.log(JSON.parse(data.responseText))
-                }
+                method: 'GET',
+                url: '/jsonservlet',
+                contentType: "application/json",
+                success: function(data){}
             });
         }
 
     </script>
 </head>
-<body onload="loadMap()">
+<body onload="getUsers()">
 
 <div class="container-fluid">
     <h1>My First html/css Page</h1>

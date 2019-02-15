@@ -10,16 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @WebServlet("/jsonservlet")
 public class JsonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Set<Person> set = new HashSet<>();
+        for (Person person : PersonStorage.getMap().values()) {
+            set.add(person);
+        }
         ObjectMapper objectMapper = new ObjectMapper();
-        String toJson = objectMapper.writeValueAsString(PersonStorage.getMap());
-        req.setAttribute("personMap", toJson);
+        String toJson = objectMapper.writeValueAsString(set);
+        req.setAttribute("personSat", toJson);
     }
 
     @Override
