@@ -15,6 +15,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @WebServlet("/jsonservlet")
 public class JsonServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String toJson = objectMapper.writeValueAsString(PersonStorage.getMap());
+        req.setAttribute("personMap", toJson);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,10 +31,9 @@ public class JsonServlet extends HttpServlet {
             sb.append(line);
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<Integer, Person> personMap = new ConcurrentHashMap<>();
+//        Map<Integer, Person> personMap = new ConcurrentHashMap<>();
         Person person = objectMapper.readValue(sb.toString(), Person.class);
-        System.out.println(person);
-        personMap.put(personMap.size() + 1, person);
+        PersonStorage.getMap().put(PersonStorage.getMap().size() + 1, person);
 
 //        String toJson = objectMapper.writeValueAsString(personMap);
 //        resp.setContentType("text/json");

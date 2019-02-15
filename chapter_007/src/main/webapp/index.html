@@ -43,9 +43,21 @@
             return false;
         }
 
+        function loadMap() {
+            $.ajax({
+                type: 'get',
+                url: 'jsonservlet',
+                data: JSON.stringify(person),
+                datatype: 'json',
+                success: function(data) {
+                    cosole.log(JSON.parse(data.responseText))
+                }
+            });
+        }
+
     </script>
 </head>
-<body>
+<body onload="loadMap()">
 
 <div class="container-fluid">
     <h1>My First html/css Page</h1>
