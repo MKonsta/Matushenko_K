@@ -9,11 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 @WebServlet("/jsonservlet")
 public class JsonServlet extends HttpServlet {
@@ -25,7 +22,9 @@ public class JsonServlet extends HttpServlet {
         }
         ObjectMapper objectMapper = new ObjectMapper();
         String toJson = objectMapper.writeValueAsString(set);
-        req.setAttribute("personSat", toJson);
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json");
+        resp.getWriter().write(toJson);
     }
 
     @Override
