@@ -36,12 +36,16 @@
                 datatype: 'json',
                 success: function(data) {
                     // console.log(JSON.parse(data.responseText))
-                    getUsers();
+                    // getUsers();
                 }
             });
+            $('#table tr:last').after('<tr><td>' + name + '</td><td>' + lastName + '</td><td>' + gender + '</td></tr>');
             return false;
         }
 
+        /**
+         * Для того, чтобы функция вызывалась в запросе автоматом, пишем такой скрипт:
+         */
         $(document).ready(function () {
             getUsers();
         });
