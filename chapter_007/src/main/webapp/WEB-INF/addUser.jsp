@@ -9,12 +9,19 @@
 <html>
 <head>
     <title>Add new user</title>
+    <script>
+        function validate() {
+            if ($('#name').val() == '')
+                alert('enter name!');
+            return false;
+        }
+    </script>
 </head>
 <body>
 <h1>Add new User</h1>
 <form method="post">
-    <label>Name</label><br>
-    <input name="name" /><br><br>
+    <label for="name">Name</label><br>
+    <input type="name" name="name" id="name" /><br><br>
     <label>Login</label><br>
     <input name="login" /><br><br>
     <label>Password</label><br>
@@ -28,7 +35,16 @@
         <option value="admin">admin</option>
         <option value="user">user</option>
     </select> <br><br>
-    <input type="submit" value="add">
+    <label>Country</label><br>
+    <select name="country">
+        <option value="France">France</option>
+        <option value="Russia">Russia</option>
+        <option value="China">China</option>
+        <option value="India">India</option>
+    </select><br><br>
+    <label>City</label><br>
+    <input name="city" /><br><br>
+    <input type="submit" onclick="validate()" value="add">
 </form>
 </body>
 </html>

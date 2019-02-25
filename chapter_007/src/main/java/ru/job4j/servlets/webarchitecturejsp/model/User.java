@@ -11,14 +11,18 @@ public class User {
     private String email;
     private String createDate;
     private String role;
+    private String country;
+    private String city;
 
-    public User(String name, String login, String password, String email, String createDate, String role) {
+    public User(String name, String login, String password, String email, String createDate, String role, String country, String city) {
         this.name = name;
         this.login = login;
         this.password = password;
         this.email = email;
         this.createDate = createDate;
         this.role = role;
+        this.country = country;
+        this.city = city;
     }
 
     public int getId() {
@@ -75,6 +79,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

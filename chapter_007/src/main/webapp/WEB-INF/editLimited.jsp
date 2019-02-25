@@ -27,8 +27,18 @@
     <input name="email" value="<%=request.getAttribute("email")%>" /><br><br>
     <label>Create date</label><br>
     <input name="date" value="<%=request.getAttribute("date")%>" /><br><br>
-    <input type="hidden" value="<%=request.getAttribute("role")%>" name="role">
-     <br><br>
+    <input type="hidden" value="<%=request.getAttribute("role")%>" name="role"><br><br>
+    <label>Country</label><br>
+    <select name="country">
+        <option selected="selected" value="<%=request.getAttribute("country")%>">No change</option>
+        <option value="France">France</option>
+        <option value="Russia">Russia</option>
+        <option value="China">China</option>
+        <option value="India">India</option>
+    </select> current: "<%=request.getAttribute("country")%>"<br><br>
+    <label>City</label><br>
+    <input name="city" value="<%=request.getAttribute("city")%>" /><br><br>
+
     <input type="submit" value="Send" />
 </form>
 </body>

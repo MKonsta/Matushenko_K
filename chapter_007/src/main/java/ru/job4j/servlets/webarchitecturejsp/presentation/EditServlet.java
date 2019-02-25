@@ -26,6 +26,8 @@ public class EditServlet extends HttpServlet {
         req.setAttribute("email", user.getEmail());
         req.setAttribute("date", user.getCreateDate());
         req.setAttribute("role", user.getRole());
+        req.setAttribute("country", user.getCountry());
+        req.setAttribute("city", user.getCity());
         HttpSession session = req.getSession();
         String role = ValidateService.getValidateService().findByLogin((String) session.getAttribute("login")).getRole();
         if (role.equals("admin")) {
@@ -44,7 +46,9 @@ public class EditServlet extends HttpServlet {
         String email = req.getParameter("email");
         String date = req.getParameter("date");
         String role = req.getParameter("role");
-        if (ValidateService.getValidateService().update(id, new User(name, login, password, email, date, role))) {
+        String country = req.getParameter("country");
+        String city = req.getParameter("city");
+        if (ValidateService.getValidateService().update(id, new User(name, login, password, email, date, role, country, city))) {
             resp.sendRedirect(req.getContextPath() + "/usersjsp");
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);

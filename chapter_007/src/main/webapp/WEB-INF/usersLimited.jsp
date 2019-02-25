@@ -24,6 +24,8 @@
         <th>E-mail</th>
         <th>Create date</th>
         <th>Role</th>
+        <th>Country</th>
+        <th>City</th>
         <th>Edit user</th>
     </tr>
     <%--<%for (User user : ValidateService.getValidateService().findAll()) {%>--%>
@@ -35,6 +37,8 @@
             <td><c:out value="${user.email}"></c:out></td>
             <td><c:out value="${user.createDate}"></c:out></td>
             <td><c:out value="${user.role}"></c:out></td>
+            <td><c:out value="${user.country}"></c:out></td>
+            <td><c:out value="${user.city}"></c:out></td>
             <c:if test="${user.login == login}">
                 <td>
                     <a href="<%=request.getContextPath()%>/editjsp?id=<c:out value="${user.id}"></c:out>">edit</a>

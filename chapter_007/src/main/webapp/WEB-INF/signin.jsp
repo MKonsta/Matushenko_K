@@ -23,5 +23,7 @@
     Password: <input type="password" name="password"><br><br>
     <input type="submit" value="sign in">
 </form>
+Login "admin"<br>
+Password "1"
 </body>
 </html>

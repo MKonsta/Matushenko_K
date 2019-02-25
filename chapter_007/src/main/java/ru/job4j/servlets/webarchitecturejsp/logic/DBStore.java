@@ -34,7 +34,9 @@ public class DBStore implements AutoCloseable, Store {
                     + " password varchar(30),"
                     + " email varchar(30) unique,"
                     + " createdate varchar(30),"
-                    + " role varchar(30));";
+                    + " role varchar(30),"
+                    + " country varchar(30),"
+                    + " city varchar(30));";
             statement.executeUpdate(sqlCreateTable);
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,7 +47,7 @@ public class DBStore implements AutoCloseable, Store {
     public boolean addUser(User user) {
 
         try (Connection connection = SOURCE.getConnection()) {
-            String sql = "insert into users (name, login, password, email, createdate, role) values(?, ?, ?, ?, ?, ?);";
+            String sql = "insert into users (name, login, password, email, createdate, role, country, city) values(?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
@@ -53,6 +55,8 @@ public class DBStore implements AutoCloseable, Store {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getCreateDate());
             preparedStatement.setString(6, user.getRole());
+            preparedStatement.setString(7, user.getCountry());
+            preparedStatement.setString(8, user.getCity());
             preparedStatement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -63,7 +67,7 @@ public class DBStore implements AutoCloseable, Store {
 
     public boolean updateUser(int id, User user) {
         try (Connection connection = SOURCE.getConnection()) {
-            String sql = "update users set name = ?, login = ?, password = ?, email = ?, createdate = ?, role = ? where id = ?";
+            String sql = "update users set name = ?, login = ?, password = ?, email = ?, createdate = ?, role = ?, country = ?, city = ? where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
@@ -71,7 +75,9 @@ public class DBStore implements AutoCloseable, Store {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getCreateDate());
             preparedStatement.setString(6, user.getRole());
-            preparedStatement.setInt(7, id);
+            preparedStatement.setString(7, user.getCountry());
+            preparedStatement.setString(8, user.getCity());
+            preparedStatement.setInt(9, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,7 +111,9 @@ public class DBStore implements AutoCloseable, Store {
                 String email = resultSet.getString(5);
                 String createDate = resultSet.getString(6);
                 String role = resultSet.getString(7);
-                User user = new User(name, login, password, email, createDate, role);
+                String country = resultSet.getString(8);
+                String city = resultSet.getString(9);
+                User user = new User(name, login, password, email, createDate, role, country, city);
                 user.setId(id);
                 result.add(user);
             }
@@ -130,7 +138,9 @@ public class DBStore implements AutoCloseable, Store {
                 String email = resultSet.getString(5);
                 String date = resultSet.getString(6);
                 String role = resultSet.getString(7);
-                resultUser = new User(name, login, password, email, date, role);
+                String country = resultSet.getString(8);
+                String city = resultSet.getString(9);
+                resultUser = new User(name, login, password, email, date, role, country, city);
                 resultUser.setId(userId);
             }
         } catch (Exception e) {
@@ -154,7 +164,9 @@ public class DBStore implements AutoCloseable, Store {
                 String email = resultSet.getString(5);
                 String date = resultSet.getString(6);
                 String role = resultSet.getString(7);
-                result = new User(name, userLogin, password, email, date, role);
+                String country = resultSet.getString(8);
+                String city = resultSet.getString(9);
+                result = new User(name, userLogin, password, email, date, role, country, city);
                 result.setId(id);
             }
         } catch (Exception e) {
@@ -182,7 +194,7 @@ public class DBStore implements AutoCloseable, Store {
     }
 
     public static void main(String[] args) {
-        DBStore.getInstance().addUser(new User("Ivan", "vano", "111", "dddd", "1111", "admin"));
+//        DBStore.getInstance().addUser(new User("Ivan", "vano", "111", "dddd", "1111", "admin"));
 //        DBStore.getInstance().addUser(new User("Stepan", "step", "ggg@", "ggg"));
 //        DBStore.getInstance().updateUser(2, new User("Stepan", "stepuha", "ggg@", "ggg"));
 //        System.out.println(DBStore.getInstance().deleteUser(2));
