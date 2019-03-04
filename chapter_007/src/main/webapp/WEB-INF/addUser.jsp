@@ -35,7 +35,7 @@
             var country = document.getElementById("country").value;
             var city = document.getElementById("city").value;
 
-            var user = {name: name, login: login, password: password, email: email, date: date,
+            var user = {name: name, login: login, password: password, email: email, createDate: date,
                 role: role, country: country, city: city};
             console.log(user);
 

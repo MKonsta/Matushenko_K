@@ -13,9 +13,9 @@ import java.util.List;
 public class ValidateService {
 
     //Тут сейчас используется коллекция.
-//    private MemoryStore store = MemoryStore.getMemoryStore();
+    private MemoryStore store = MemoryStore.getMemoryStore();
     //Для работы с БД нужно раскомментировать следующую строку, и закомментировать предидущую
-    private DBStore store = DBStore.getInstance();
+//    private DBStore store = DBStore.getInstance();
 
     //==========================Singletone======================================
     private static ValidateService validateService;

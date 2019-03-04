@@ -5,6 +5,8 @@ import ru.job4j.servlets.webarchitecturejsp.logic.DBStore;
 import ru.job4j.servlets.webarchitecturejsp.logic.ValidateService;
 import ru.job4j.servlets.webarchitecturejsp.model.User;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,16 +45,13 @@ public class AddUserServlet extends HttpServlet {
         while ((line = reader.readLine()) != null) {
             sb.append(line);
         }
-        System.out.println("первый! " + sb.toString());
         ObjectMapper objectMapper = new ObjectMapper();
         User user = objectMapper.readValue(sb.toString(), User.class);
-        System.out.println("Второй! " + user);
         if (ValidateService.getValidateService().add(user)) {
             resp.sendRedirect(req.getContextPath() + "/usersjsp");
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
         }
-
     }
 
     @Override

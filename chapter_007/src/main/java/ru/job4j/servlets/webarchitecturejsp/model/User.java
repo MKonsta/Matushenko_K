@@ -25,6 +25,8 @@ public class User {
         this.city = city;
     }
 
+    public User() {}
+
     public int getId() {
         return id;
     }
@@ -116,7 +118,9 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name='" + name + '\'' + ", login='" + login + '\'' + ", email='" + email
-                + '\'' + ", createDate='" + createDate + '\'' + '}';
+        return "User{" +
+                "name='" + name + '\'' + ", login='" + login + '\'' + ", password='" + password + '\''
+                + ", email='" + email + '\'' + ", createDate='" + createDate + '\''
+                + ", role='" + role + '\'' + ", country='" + country + '\'' + ", city='" + city + '\'' + '}';
     }
 }
