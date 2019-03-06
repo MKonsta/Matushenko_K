@@ -21,6 +21,7 @@
         <module>chapter_005</module>
         <module>chapter_006</module>
         <module>chapter_007</module>
+		<module>crud_servlet</module>
     </modules>
 	 	 
 <dependencies>

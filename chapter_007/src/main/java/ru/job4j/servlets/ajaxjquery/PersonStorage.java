@@ -1,7 +1,5 @@
 package ru.job4j.servlets.ajaxjquery;
 
-import com.sun.javafx.collections.MappingChange;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
