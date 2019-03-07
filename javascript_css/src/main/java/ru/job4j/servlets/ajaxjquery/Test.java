@@ -1,7 +1,6 @@
 package ru.job4j.servlets.ajaxjquery;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.job4j.servlets.webarchitecturejsp.model.User;
 
 import java.io.IOException;
 import java.util.Collection;
