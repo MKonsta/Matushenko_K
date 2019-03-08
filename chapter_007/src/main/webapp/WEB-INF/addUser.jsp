@@ -20,43 +20,16 @@
                 alert("enter password");
             } if (document.getElementById("email").value == '') {
                 alert("enter E-mail");
-            } if (document.getElementById("date").value == '') {
-                alert("enter Create date");
-            } if (document.getElementById("city").value == '') {
+            }  if (document.getElementById("city").value == '') {
                 alert("enter City");
             }
-
-            var name = document.getElementById("name").value;
-            var login = document.getElementById("login").value;
-            var password = document.getElementById("password").value;
-            var email = document.getElementById("email").value;
-            var date = document.getElementById("date").value;
-            var role = document.getElementById("role").value;
-            var country = document.getElementById("country").value;
-            var city = document.getElementById("city").value;
-
-            var user = {name: name, login: login, password: password, email: email, createDate: date,
-                role: role, country: country, city: city};
-            console.log(user);
-
-            $.ajax({
-                type: 'POST',
-                url: 'addjsp',
-                data: JSON.stringify(user),
-                datatype: 'json',
-                success: function(data) {
-                    
-                }
-            });
-
             return false;
         }
     </script>
 </head>
 <body>
 <h1>Add new User</h1>
-<form>
-<%--<form method="post">--%>
+<form method="post">
     <label for="name">Name</label><br>
     <input type="text" name="name" id="name" /><br><br>
 
@@ -68,9 +41,6 @@
 
     <label for="email">E-mail</label><br>
     <input name="email" id="email"/><br><br>
-
-    <label for="date">Create date</label><br>
-    <input name="date" id="date"/><br><br>
 
     <label for="role">Role</label><br>
     <select name="role" id="role">
@@ -88,8 +58,7 @@
 
     <label for="city">City</label><br>
     <input name="city" id="city"/><br><br>
-    <%--<input type="submit" onclick="validate()" value="add">--%>
-    <button type="button" onclick="validate()">Submit</button>
+    <input type="submit" onclick="validate()" value="add">
 </form>
 </body>
 </html>

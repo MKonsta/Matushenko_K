@@ -48,7 +48,9 @@ public class EditServlet extends HttpServlet {
         String role = req.getParameter("role");
         String country = req.getParameter("country");
         String city = req.getParameter("city");
-        if (ValidateService.getValidateService().update(id, new User(name, login, password, email, date, role, country, city))) {
+        User user = new User(name, login, password, email, role, country, city);
+        user.setCreateDate(date);
+        if (ValidateService.getValidateService().update(id, user)) {
             resp.sendRedirect(req.getContextPath() + "/usersjsp");
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);

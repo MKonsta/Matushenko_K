@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DBStore implements AutoCloseable, Store {
@@ -53,7 +55,8 @@ public class DBStore implements AutoCloseable, Store {
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setString(5, user.getCreateDate());
+            String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            preparedStatement.setString(5, timeStamp);
             preparedStatement.setString(6, user.getRole());
             preparedStatement.setString(7, user.getCountry());
             preparedStatement.setString(8, user.getCity());
@@ -67,17 +70,16 @@ public class DBStore implements AutoCloseable, Store {
 
     public boolean updateUser(int id, User user) {
         try (Connection connection = SOURCE.getConnection()) {
-            String sql = "update users set name = ?, login = ?, password = ?, email = ?, createdate = ?, role = ?, country = ?, city = ? where id = ?";
+            String sql = "update users set name = ?, login = ?, password = ?, email = ?, role = ?, country = ?, city = ? where id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setString(5, user.getCreateDate());
-            preparedStatement.setString(6, user.getRole());
-            preparedStatement.setString(7, user.getCountry());
-            preparedStatement.setString(8, user.getCity());
-            preparedStatement.setInt(9, id);
+            preparedStatement.setString(5, user.getRole());
+            preparedStatement.setString(6, user.getCountry());
+            preparedStatement.setString(7, user.getCity());
+            preparedStatement.setInt(8, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +115,8 @@ public class DBStore implements AutoCloseable, Store {
                 String role = resultSet.getString(7);
                 String country = resultSet.getString(8);
                 String city = resultSet.getString(9);
-                User user = new User(name, login, password, email, createDate, role, country, city);
+                User user = new User(name, login, password, email, role, country, city);
+                user.setCreateDate(createDate);
                 user.setId(id);
                 result.add(user);
             }
@@ -140,7 +143,8 @@ public class DBStore implements AutoCloseable, Store {
                 String role = resultSet.getString(7);
                 String country = resultSet.getString(8);
                 String city = resultSet.getString(9);
-                resultUser = new User(name, login, password, email, date, role, country, city);
+                resultUser = new User(name, login, password, email, role, country, city);
+                resultUser.setCreateDate(date);
                 resultUser.setId(userId);
             }
         } catch (Exception e) {
@@ -166,7 +170,8 @@ public class DBStore implements AutoCloseable, Store {
                 String role = resultSet.getString(7);
                 String country = resultSet.getString(8);
                 String city = resultSet.getString(9);
-                result = new User(name, userLogin, password, email, date, role, country, city);
+                result = new User(name, userLogin, password, email, role, country, city);
+                result.setCreateDate(date);
                 result.setId(id);
             }
         } catch (Exception e) {
@@ -191,13 +196,6 @@ public class DBStore implements AutoCloseable, Store {
             e.printStackTrace();
         }
         return result;
-    }
-
-    public static void main(String[] args) {
-//        DBStore.getInstance().addUser(new User("Ivan", "vano", "111", "dddd", "1111", "admin"));
-//        DBStore.getInstance().addUser(new User("Stepan", "step", "ggg@", "ggg"));
-//        DBStore.getInstance().updateUser(2, new User("Stepan", "stepuha", "ggg@", "ggg"));
-//        System.out.println(DBStore.getInstance().deleteUser(2));
     }
 
     @Override

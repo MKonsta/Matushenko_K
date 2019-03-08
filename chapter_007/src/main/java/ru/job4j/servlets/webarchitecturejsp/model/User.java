@@ -14,12 +14,11 @@ public class User {
     private String country;
     private String city;
 
-    public User(String name, String login, String password, String email, String createDate, String role, String country, String city) {
+    public User(String name, String login, String password, String email, String role, String country, String city) {
         this.name = name;
         this.login = login;
         this.password = password;
         this.email = email;
-        this.createDate = createDate;
         this.role = role;
         this.country = country;
         this.city = city;

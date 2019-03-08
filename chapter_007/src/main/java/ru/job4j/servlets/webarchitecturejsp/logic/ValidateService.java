@@ -29,8 +29,8 @@ public class ValidateService {
     }
 
     private ValidateService() {
-        store.addUser(new User("Uriy", "admin", "1", "ura@mail.ru", "1111", "admin", "France", "Paris"));
-        store.addUser(new User("Ivan", "user", "1", "ivan@mail.ru", "1111", "user", "Russia", "Moskow"));
+        store.addUser(new User("Uriy", "admin", "1", "ura@mail.ru", "admin", "France", "Paris"));
+        store.addUser(new User("Ivan", "user", "1", "ivan@mail.ru", "user", "Russia", "Moskow"));
     }
     //============================================================================
 

@@ -24,34 +24,33 @@ public class AddUserServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String name = req.getParameter("name");
-//        String login = req.getParameter("login");
-//        String password = req.getParameter("password");
-//        String email = req.getParameter("email");
-//        String date = req.getParameter("date");
-//        String role = req.getParameter("role");
-//        String country = req.getParameter("country");
-//        String city = req.getParameter("city");
-//        User user = new User(name, login, password, email, date, role, country, city);
-//        if (ValidateService.getValidateService().add(user)) {
-//            resp.sendRedirect(req.getContextPath() + "/usersjsp");
-//        } else {
-//            getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
-//        }
-
-        BufferedReader reader = req.getReader();
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
-        ObjectMapper objectMapper = new ObjectMapper();
-        User user = objectMapper.readValue(sb.toString(), User.class);
+        String name = req.getParameter("name");
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
+        String email = req.getParameter("email");
+        String role = req.getParameter("role");
+        String country = req.getParameter("country");
+        String city = req.getParameter("city");
+        User user = new User(name, login, password, email, role, country, city);
         if (ValidateService.getValidateService().add(user)) {
             resp.sendRedirect(req.getContextPath() + "/usersjsp");
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
         }
+
+//        BufferedReader reader = req.getReader();
+//        StringBuilder sb = new StringBuilder();
+//        String line;
+//        while ((line = reader.readLine()) != null) {
+//            sb.append(line);
+//        }
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        User user = objectMapper.readValue(sb.toString(), User.class);
+//        if (ValidateService.getValidateService().add(user)) {
+//            resp.sendRedirect(req.getContextPath() + "/usersjsp");
+//        } else {
+//            getServletContext().getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+//        }
     }
 
     @Override

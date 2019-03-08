@@ -2,7 +2,9 @@ package ru.job4j.servlets.webarchitecturejsp.logic;
 
 import ru.job4j.servlets.webarchitecturejsp.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,12 +43,11 @@ public class MemoryStore implements Store {
                 return false;
             }
         }
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        user.setCreateDate(timeStamp);
         user.setId(id.getAndIncrement());
         userMap.put(user.getId(), user);
         return true;
-        //        user.setId(id.getAndIncrement());
-//        userMap.put(user.getId(), user);
-//        return true;
     }
 
     public boolean updateUser(int id, User user) {
@@ -62,10 +63,6 @@ public class MemoryStore implements Store {
             return true;
         }
         return false;
-
-        //        user.setId(id);
-//        userMap.put(id, user);
-//        return true;
     }
 
     public boolean deleteUser(int id) {

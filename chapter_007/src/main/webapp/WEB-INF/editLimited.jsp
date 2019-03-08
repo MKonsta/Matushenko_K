@@ -25,8 +25,7 @@
     <input name="password" value="<%=request.getAttribute("password")%>" /><br><br>
     <label>E-mail</label><br>
     <input name="email" value="<%=request.getAttribute("email")%>" /><br><br>
-    <label>Create date</label><br>
-    <input name="date" value="<%=request.getAttribute("date")%>" /><br><br>
+    <input type="hidden" name="date" value="<%=request.getAttribute("date")%>" /><br><br>
     <input type="hidden" value="<%=request.getAttribute("role")%>" name="role"><br><br>
     <label>Country</label><br>
     <select name="country">
