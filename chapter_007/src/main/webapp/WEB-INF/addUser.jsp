@@ -11,6 +11,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Add new user</title>
     <script>
+        $(document).ready(function () {
+            getcou();
+        });
+
         function validate() {
             if (document.getElementById("name").value == '') {
                 alert("enter name");
@@ -25,6 +29,21 @@
             }
             return false;
         }
+
+        function getcou() {
+            $.ajax({
+                method: 'GET',
+                url: 'countryservlet',
+                contenttype: "application/json",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#country option:last').after('<option value="' + data[i] + '">' + data[i] + '</option>');
+                    }
+                }
+            });
+        }
+
+
     </script>
 </head>
 <body>
@@ -50,10 +69,7 @@
 
     <label for="country">Country</label><br>
     <select name="country" id="country">
-        <option value="France">France</option>
-        <option value="Russia">Russia</option>
-        <option value="China">China</option>
-        <option value="India">India</option>
+        <option value=""></option>
     </select><br><br>
 
     <label for="city">City</label><br>
