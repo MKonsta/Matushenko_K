@@ -11,8 +11,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Add new user</title>
     <script>
+
+        var coutry;
         $(document).ready(function () {
-            getcou();
+            showcountries();
+            $('#country_id').change(function () {
+                coutry = $('#country_id').val();
+                selectCities();
+            });
         });
 
         function validate() {
@@ -30,14 +36,28 @@
             return false;
         }
 
-        function getcou() {
+        function showcountries() {
             $.ajax({
                 method: 'GET',
                 url: 'countryservlet',
                 contenttype: "application/json",
                 success: function (data) {
                     for (var i = 0; i < data.length; i++) {
-                        $('#country option:last').after('<option value="' + data[i] + '">' + data[i] + '</option>');
+                        $('#country_id option:last').after('<option value="' + data[i] + '">' + data[i] + '</option>');
+                    }
+                }
+            });
+        }
+
+        function selectCities() {
+            $.ajax({
+                type: 'POST',
+                url: 'citiesservlet',
+                data: JSON.stringify(coutry),
+                datatype: 'json',
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#city_id option:last').after('<option value="' + data[i] + '">' + data[i] + '</option>');
                     }
                 }
             });
@@ -67,13 +87,15 @@
         <option value="user">user</option>
     </select> <br><br>
 
-    <label for="country">Country</label><br>
-    <select name="country" id="country">
+    <label for="country_id">Country</label><br>
+    <select name="country" id="country_id">
         <option value=""></option>
     </select><br><br>
 
-    <label for="city">City</label><br>
-    <input name="city" id="city"/><br><br>
+    <label for="city_id">City</label><br>
+    <select name="city" id="city_id">
+        <option value=""></option>
+    </select><br><br>
     <input type="submit" onclick="validate()" value="add">
 </form>
 </body>
