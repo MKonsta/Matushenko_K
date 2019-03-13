@@ -42,9 +42,11 @@
                 url: 'countryservlet',
                 contenttype: "application/json",
                 success: function (data) {
+                    var option = '';
                     for (var i = 0; i < data.length; i++) {
-                        $('#country_id option:last').after('<option value="' + data[i] + '">' + data[i] + '</option>');
+                        option += '<option value="' + data[i] + '">' + data[i] + '</option>';
                     }
+                    $('#country_id').html('<option value = "0">-Выберите страну-</option>' + option);
                 }
             });
         }
@@ -56,9 +58,11 @@
                 data: JSON.stringify(coutry),
                 datatype: 'json',
                 success: function (data) {
+                    var option = '';
                     for (var i = 0; i < data.length; i++) {
-                        $('#city_id option:last').after('<option value="' + data[i] + '">' + data[i] + '</option>');
+                        option += '<option value="' + data[i] + '">' + data[i] + '</option>';
                     }
+                    $('#city_id').html('<option value = "0">-Выберите город-</option>' + option);
                 }
             });
         }
