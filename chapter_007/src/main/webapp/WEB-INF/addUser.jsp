@@ -13,6 +13,7 @@
     <script>
 
         var coutry;
+        //Скрипт запускает функуции при загрузке страницы
         $(document).ready(function () {
             showcountries();
             $('#country_id').change(function () {
@@ -36,6 +37,8 @@
             return false;
         }
 
+        //Фунция подгружает список стран (хранятся в CitiesDB) через сервлет CountriesServlet
+        //и вставляет их в форму (выпадающий список)
         function showcountries() {
             $.ajax({
                 method: 'GET',
@@ -51,6 +54,8 @@
             });
         }
 
+        //Фунция подгружает список городов (хранятся в CitiesDB) по выбраной стране
+        // через сервлет CitiesServlet и вставляет их в форму (выпадающий список)
         function selectCities() {
             $.ajax({
                 type: 'POST',
