@@ -22,11 +22,24 @@
         $(document).ready(function () {
             loadPlaces();
             $('#tbody_id').change(function () {
+                alert(getCurrentPlace());
                 placeNumber = $('#place_id').val();
                 selectPlace();
             });
 
         });
+        
+        function getCurrentPlace() {
+            var id = '-1';
+            var radios = document.getElementsByName('place');
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    id = radios[i].value;
+                    break;
+                }
+            }
+            return id;
+        }
 
         function loadPlaces() {
             $.ajax({
@@ -45,20 +58,19 @@
                         if (data[i].condition == true) {
                             condition = 'disabled';
                         } else condition = '';
-                        option += '<td><input type="radio" name="name" id="place_id" value="' + data[i] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>';
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>';
                         if (data[i+1].condition == true) {
                             condition = 'disabled';
                         } else condition = '';
-                        option += '<td><input type="radio" name="name" id="place_id" value="' + data[i++] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>';
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i++] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>';
                         if (data[i+1].condition == true) {
                             condition = 'disabled';
                         } else condition = '';
-                        option += '<td><input type="radio" name="name" id="place_id" value="' + data[i++] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>' +
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i++] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>' +
                             '</tr>';
                         rows++;
                         places = 1;
                     }
-                    alert("end");
                     $('#tbody_id').html(option);
                 }
             });
