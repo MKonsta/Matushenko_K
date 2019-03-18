@@ -23,6 +23,7 @@
         <module>chapter_007</module>
 		<module>crud_servlet</module>
         <module>javascript_css</module>
+        <module>moviehouse</module>
     </modules>
 	 	 
 <dependencies>
