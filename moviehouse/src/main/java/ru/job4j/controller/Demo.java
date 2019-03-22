@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Demo {
     public static void main(String[] args) throws JsonProcessingException {
-        PlaceHolder holder = PlaceHolder.getInstance();
-        for (Place place : holder.getPlaceMap().values()) {
-            System.out.println(place);
-        }
+//        PlaceHolder holder = PlaceHolder.getInstance();
+//        for (Place place : holder.getPlaceMap().values()) {
+//            System.out.println(place);
+//        }
 //
 //        System.out.println(holder.getPlace(8));
 //
@@ -28,6 +28,13 @@ public class Demo {
 //        System.out.println(places);
 //        String toJson = objectMapper.writeValueAsString(places);
 //        System.out.println(toJson);
+
+
+        for (Place place : PlacesDB.getInstance().getAllPlaces()) {
+            System.out.println(place);
+        }
+
+//        AccountsDB.getInstance();
     }
 
 

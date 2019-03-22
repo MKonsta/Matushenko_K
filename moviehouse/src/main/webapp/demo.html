@@ -15,7 +15,6 @@
                 alert(placeNumber);
                 selectPlace();
             });
-
         });
 
         function test() {
@@ -45,15 +44,15 @@
                         if (data[i].condition == true) {
                             condition = 'disabled';
                         } else condition = '';
-                        option += '<td><input type="radio" name="name" id="place_id" value="' + data[i] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>';
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>';
                         if (data[i+1].condition == true) {
                             condition = 'disabled';
                         } else condition = '';
-                        option += '<td><input type="radio" name="name" id="place_id" value="' + data[i++] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>';
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i++].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ +' ' + data[i].num + '</td>';
                         if (data[i+1].condition == true) {
                             condition = 'disabled';
                         } else condition = '';
-                        option += '<td><input type="radio" name="name" id="place_id" value="' + data[i++] + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + '</td>' +
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i++].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>' +
                             '</tr>';
                         rows++;
                         places = 1;
@@ -89,6 +88,7 @@
         <!--<td><input type="radio" name="name" value="2">Ряд1 место 3</td>-->
     <!--</tr>-->
     </tbody>
-</table>
+</table><br><br>
+<button onclick="location.href = 'http://localhost:8080/moviehouse/payment.html'">but</button>
 </body>
 </html>

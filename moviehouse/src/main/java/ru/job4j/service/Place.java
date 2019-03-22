@@ -5,9 +5,10 @@ public class Place {
     private int price;
     private boolean condition; //Если место свободно то condition == false
 
-    public Place(int num, int price) {
+    public Place(int num, int price, boolean condition) {
         this.num = num;
         this.price = price;
+        this.condition = condition;
     }
 
     public int getNum() {
