@@ -17,21 +17,26 @@
     <title>Payment</title>
 
     <script>
-        var placenumber = -1;
 
         $(document).ready(function () {
             loadPlace();
+            // alert(getId());
         });
+
+        function getId() {
+            var sPageURL = window.location.search.substring(1);
+            var sURLvariables = sPageURL.split('=');
+            return sURLvariables[1];
+        }
 
         function loadPlace() {
             $.ajax({
-                method: 'get',
+                method: 'post',
                 url: 'payment',
-                contenttype: 'application/json',
+                data: JSON.stringify(getId()),
+                dataType: "json",
                 success: function (data) {
-                    placenumber = data.num;
-                    console.log(data);
-                    var head = 'Вы выбрали место №' + data.num + ', Сумма : ' + data.price + ' рублей.';
+                    var head = 'Вы выбрали место №' + getId() + ', Сумма : ' + data.price + ' рублей.';
                     $('#h3').html(head);
                 }
             });
@@ -44,19 +49,9 @@
             var account = {name: name.value, phone: phone.value};
             $.ajax({
                 type: 'post',
-                url: 'payment',
+                url: 'occupie',
                 data: JSON.stringify(account),
                 dataType: 'json'
-            });
-
-            $.ajax({
-                type: 'post',
-                url: 'payment',
-                data: JSON.stringify(placenumber),
-                dataType: 'json',
-                success(){
-                    console.log(placenumber);
-                }
             });
         }
 
@@ -83,7 +78,6 @@
                 <label for="phone">Номер телефона</label>
                 <input type="text" class="form-control" id="phone" placeholder="Номер телефона">
             </div>
-            <!--<input hidden name="olo" value="olololo">-->
             <button type="button" class="btn btn-sucsess" onclick="sendData()">Оплатить</button>
         </form>
     </div>

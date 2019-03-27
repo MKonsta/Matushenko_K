@@ -76,14 +76,14 @@
         }
 
         function redirect() {
-            if (placeNumber != '') {
-                $.ajax({
-                    type: 'post',
-                    url: 'places',
-                    data: JSON.stringify(placeNumber),
-                    dataType: 'json'
-                });
-                location.href = 'http://localhost:8080/moviehouse/payment.html';
+            if (placeNumber !== '') {
+                // $.ajax({
+                //     type: 'post',
+                //     url: 'places',
+                //     data: JSON.stringify(placeNumber),
+                //     dataType: 'json'
+                // });
+                location.href = './payment.html?id=' + placeNumber;
             } else {
                 alert("Выберете пожалуйста место");
             }
@@ -91,12 +91,8 @@
         
     </script>
 
-
 </head>
 <body>
-
-
-
 
 <div class="container">
     <div class="row pt-3">
