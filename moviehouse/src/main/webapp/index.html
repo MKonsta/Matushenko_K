@@ -11,7 +11,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <title>Hello, world!</title>
@@ -22,13 +22,12 @@
         $(document).ready(function () {
             loadPlaces();
             $('#tbody_id').change(function () {
-                alert(getCurrentPlace());
-                // placeNumber = $('#place_id').val();
-                // selectPlace();
+                placeNumber = $('[name=place]:checked').attr('value');
             });
 
         });
-        
+
+        //Для поиска выбрабранного(checked) radioButton можно использовать эту фунцию
         function getCurrentPlace() {
             var id = '-1';
             var radios = document.getElementsByName('place');
@@ -62,11 +61,11 @@
                         if (data[i+1].condition == true) {
                             condition = 'disabled';
                         } else condition = '';
-                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i++].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>';
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[++i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>';
                         if (data[i+1].condition == true) {
                             condition = 'disabled';
                         } else condition = '';
-                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i++].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>' +
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[++i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>' +
                             '</tr>';
                         rows++;
                         places = 1;
@@ -76,14 +75,20 @@
             });
         }
 
-        function selectPlace() {
-            $.ajax({
-                type: 'post',
-                url: 'places',
-                data: JSON.stringify(placeNumber),
-                dataType: 'json'
-            });
+        function redirect() {
+            if (placeNumber != '') {
+                $.ajax({
+                    type: 'post',
+                    url: 'places',
+                    data: JSON.stringify(placeNumber),
+                    dataType: 'json'
+                });
+                location.href = 'http://localhost:8080/moviehouse/payment.html';
+            } else {
+                alert("Выберете пожалуйста место");
+            }
         }
+        
     </script>
 
 
@@ -130,7 +135,7 @@
         </table>
     </div>
     <div class="row float-right">
-        <button type="button" class="btn btn-success">Оплатить</button>
+        <button type="button" onclick="redirect()" class="btn btn-success">Оплатить</button>
     </div>
 </div>
 </body>

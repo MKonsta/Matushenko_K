@@ -1,9 +1,8 @@
 package ru.job4j.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.job4j.controller.PlacesDB;
 import ru.job4j.controller.TempPlaceHolder;
-import ru.job4j.service.Place;
+import ru.job4j.service.Account;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-@WebServlet("/places")
-public class HallServlet extends HttpServlet {
-
+@WebServlet("/payment")
+public class PaymentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String toJson = objectMapper.writeValueAsString(PlacesDB.getInstance().getAllPlaces());
+        String toJson = objectMapper.writeValueAsString(TempPlaceHolder.getINSTANCE().getTempPlace());
+        TempPlaceHolder.getINSTANCE().setPlaceNull();
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json");
         resp.getWriter().write(toJson);
@@ -27,11 +26,11 @@ public class HallServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BufferedReader reader = req.getReader();
-        String line = reader.readLine();
-        line = line.replace( "\"", "");
-        Place place = PlacesDB.getInstance().getPlaceById(Integer.parseInt(line));
-        TempPlaceHolder.getINSTANCE().setPlace(place);
-//        System.out.println(TempPlaceHolder.getINSTANCE().getTempPlace());
+        BufferedReader bufferedReader = req.getReader();
+        String str = bufferedReader.readLine();
+        System.out.println(str);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Account account = objectMapper.readValue(str, Account.class);
     }
 }

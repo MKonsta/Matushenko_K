@@ -20,8 +20,11 @@ public class Demo {
 //            System.out.println(place);
 //        }
 //
-//        System.out.println(holder.getPlace(8));
+//        System.out.println(PlacesDB.getInstance().getPlaceById(5));
 
+//        TempPlaceHolder.getINSTANCE().setPlace(new Place(4, 500, true));
+//        TempPlaceHolder.getINSTANCE().setPlaceNull();
+//        System.out.println(TempPlaceHolder.getINSTANCE().getTempPlace());
 
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        List<Place> places = new ArrayList<>(PlaceHolder.getInstance().getPlaceMap().values());
@@ -30,11 +33,18 @@ public class Demo {
 //        System.out.println(toJson);
 
 
-        for (Place place : PlacesDB.getInstance().getAllPlaces()) {
-            System.out.println(place);
-        }
+//        for (Place place : PlacesDB.getInstance().getAllPlaces()) {
+//            System.out.println(place);
+//        }
 
 //        AccountsDB.getInstance();
+
+
+        char d = '}';
+        if (d == '}') {
+
+            System.out.println("yes");
+        }
     }
 
 

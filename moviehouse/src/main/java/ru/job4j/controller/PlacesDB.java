@@ -72,6 +72,25 @@ public class PlacesDB implements AutoCloseable {
         return result;
     }
 
+    public Place getPlaceById(int id) {
+        Place result = null;
+        try {
+            String sql = "select * from places where id = ?;";
+            PreparedStatement preparedStatement = SOURCE.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int num = resultSet.getInt(1);
+                int price = resultSet.getInt(2);
+                boolean condition = resultSet.getBoolean(3);
+                result = new Place(num, price, condition);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public void occupyPlace(int num) {
         try(Connection connection = SOURCE.getConnection()) {
             String sql = "update places set condition = true where id = ?;";

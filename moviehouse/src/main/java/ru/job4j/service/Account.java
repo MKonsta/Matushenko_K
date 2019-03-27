@@ -9,6 +9,9 @@ public class Account {
         this.phone = phone;
     }
 
+    public Account() {
+    }
+
     public String getName() {
         return name;
     }
