@@ -50,22 +50,35 @@
                     var rows = 1;
                     var places = 1;
                     var condition = '';
+                    var occupied = '';
 
                     for (var i = 0; i < data.length; i++) {
                         option += '<tr>' +
                             '<th>' + rows + '</th>';
                         if (data[i].condition == true) {
                             condition = 'disabled';
-                        } else condition = '';
-                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>';
+                            occupied = ' Занято';
+                        } else {
+                            condition = '';
+                            occupied = '';
+                        }
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' Номер ' + data[i].num + occupied + '</td>';
                         if (data[i+1].condition == true) {
                             condition = 'disabled';
-                        } else condition = '';
-                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[++i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>';
+                            occupied = ' Занято';
+                        } else {
+                            condition = '';
+                            occupied = '';
+                        }
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[++i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' Номер ' + data[i].num + occupied + '</td>';
                         if (data[i+1].condition == true) {
                             condition = 'disabled';
-                        } else condition = '';
-                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[++i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' ' + data[i].num + '</td>' +
+                            occupied = ' Занято';
+                        } else {
+                            condition = '';
+                            occupied = '';
+                        }
+                        option += '<td><input type="radio" name="place" id="place_id" value="' + data[++i].num + '" ' + condition + '>Ряд ' + rows + ' Место ' + places++ + ' Номер ' + data[i].num + occupied + '</td>' +
                             '</tr>';
                         rows++;
                         places = 1;

@@ -1,8 +1,10 @@
 package ru.job4j.controller;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import ru.job4j.service.Account;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -43,5 +45,24 @@ public class AccountsDB {
             e.printStackTrace();
         }
         return INSTANCE;
+    }
+
+    public boolean getExists(Account account) {
+        boolean result = false;
+        try {
+            String sql = "select * from accounts where name = ?";
+            PreparedStatement preparedStatement = SOURCE.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, account.getName());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int phone = resultSet.getInt("phone");
+                if (phone == account.getPhone()) {
+                    result = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

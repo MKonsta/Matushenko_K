@@ -46,12 +46,19 @@
 
             var name = document.getElementById('username');
             var phone = document.getElementById('phone');
-            var account = {name: name.value, phone: phone.value};
+            var account = {name: name.value, phone: phone.value, id: getId()};
             $.ajax({
                 type: 'post',
                 url: 'occupie',
                 data: JSON.stringify(account),
-                dataType: 'json'
+                dataType: 'json',
+                success: function (data) {
+                    if (data == 'exist') {
+                        location.href = './index.html';
+                    } else {
+                        alert("Пользователя с такими данными не существует");
+                    }
+                }
             });
         }
 
