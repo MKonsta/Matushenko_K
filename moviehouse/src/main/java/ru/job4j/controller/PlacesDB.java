@@ -1,12 +1,10 @@
 package ru.job4j.controller;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import ru.job4j.service.Account;
 import ru.job4j.service.Place;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +98,33 @@ public class PlacesDB implements AutoCloseable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean verificationAndOccupie(Account account, int placesId) {
+        Connection connection = null;
+        boolean result = false;
+        try  {
+            connection = SOURCE.getConnection();
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setAutoCommit(false);
+
+            if (AccountsDB.getInstance().getExists(account)) {
+                if (getPlaceById(placesId).isCondition() == false) {
+                    occupyPlace(placesId);
+                    result = true;
+                    connection.commit();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return result;
     }
 
     @Override

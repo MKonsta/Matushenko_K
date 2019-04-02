@@ -32,16 +32,27 @@ public class OccupiedServlet extends HttpServlet {
         int phone = object.getInt("phone");
         Account account = new Account(name, phone);
 
-        String result;
-        if (AccountsDB.getInstance().getExists(account)) {
-            PlacesDB.getInstance().occupyPlace(id);
-            result = "exist";
-        } else {
-            result = "notExist";
+//        String result;
+//        if (AccountsDB.getInstance().getExists(account)) {
+//            PlacesDB.getInstance().occupyPlace(id);
+//            result = "exist";
+//        } else {
+//            result = "notExist";
+//        }
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String toJson = objectMapper.writeValueAsString(result);
+//        resp.setCharacterEncoding("UTF-8");
+//        resp.setContentType("application/json");
+//        resp.getWriter().write(toJson);
+
+        boolean result = PlacesDB.getInstance().verificationAndOccupie(account, id);
+        String toJson = "notExist";
+        if (result) {
+            toJson = "exist";
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        String toJson = objectMapper.writeValueAsString(result);
-        resp.setCharacterEncoding("UTF-8");
+        toJson = objectMapper.writeValueAsString(toJson);
+        resp.setContentType("UTF-8");
         resp.setContentType("application/json");
         resp.getWriter().write(toJson);
     }
