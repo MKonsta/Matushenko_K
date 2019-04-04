@@ -101,10 +101,8 @@ public class PlacesDB implements AutoCloseable {
     }
 
     public boolean verificationAndOccupie(Account account, int placesId) {
-        Connection connection = null;
         boolean result = false;
-        try  {
-            connection = SOURCE.getConnection();
+        try (Connection connection = SOURCE.getConnection()) {
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             connection.setAutoCommit(false);
 
@@ -114,15 +112,13 @@ public class PlacesDB implements AutoCloseable {
                     result = true;
                     connection.commit();
                 }
+            } else {
+                connection.rollback();
+                connection.close();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            try {
-                connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
         }
         return result;
     }
