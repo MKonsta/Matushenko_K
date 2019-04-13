@@ -24,6 +24,7 @@
 		<module>crud_servlet</module>
         <module>javascript_css</module>
         <module>moviehouse</module>
+        <module>jdbc_crud_simple</module>
     </modules>
 	 	 
 <dependencies>
