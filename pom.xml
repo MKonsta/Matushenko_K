@@ -25,6 +25,7 @@
         <module>javascript_css</module>
         <module>moviehouse</module>
         <module>jdbc_crud_simple</module>
+        <module>patterns</module>
     </modules>
 	 	 
 <dependencies>
