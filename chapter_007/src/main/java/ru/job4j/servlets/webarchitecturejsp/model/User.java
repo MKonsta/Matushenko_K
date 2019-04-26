@@ -16,9 +16,7 @@ public class User {
     private String login;
     private String password;
     private String email;
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private String createDate;
     private String role;
     private String country;
     private String city;
@@ -33,7 +31,7 @@ public class User {
         this.city = city;
     }
 
-    public User() {}
+    public User(User user) {}
 
     public int getId() {
         return id;

@@ -5,9 +5,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.mapping.MetadataSource;
 import ru.job4j.servlets.webarchitecturejsp.model.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class HibernateStore implements Store {
@@ -31,18 +32,31 @@ public class HibernateStore implements Store {
 
             session.beginTransaction();
 
+            String timeStamp = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date());
+            user.setCreateDate(timeStamp);
             session.save(user);
 
             session.getTransaction().commit();
         }
-
-
-        return false;
+        return true;
     }
 
     @Override
     public boolean updateUser(int id, User user) {
-        return false;
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+        try(SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+            Session session = sessionFactory.openSession()) {
+
+            session.beginTransaction();
+
+            user.setId(id);
+            User current = session.load(User.class, id);
+            user.setCreateDate(current.getCreateDate());
+            session.update(user);
+
+            session.getTransaction().commit();
+        }
+        return true;
     }
 
     @Override
