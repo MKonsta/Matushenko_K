@@ -1,15 +1,24 @@
 package ru.job4j.servlets.webarchitecturejsp.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
+@Entity(name = "hiber_users")
 public class User {
 
+    @Id
+    @GeneratedValue
     private int id;
     private String name;
     private String login;
     private String password;
     private String email;
-    private String createDate;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
     private String role;
     private String country;
     private String city;
