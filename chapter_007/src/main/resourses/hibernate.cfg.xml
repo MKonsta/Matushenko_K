@@ -12,6 +12,7 @@
 
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
         <!--<mapping resource="Student.hbm.xml" />-->
         <mapping class="ru.job4j.servlets.webarchitecturejsp.model.User"/>

@@ -1,9 +1,7 @@
 package ru.job4j.servlets.webarchitecturejsp.model;
 
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity(name = "hiber_users")
@@ -13,8 +11,10 @@ public class User {
     @GeneratedValue
     private int id;
     private String name;
+    @Column(unique = true)
     private String login;
     private String password;
+    @Column(unique = true)
     private String email;
     private String createDate;
     private String role;
@@ -31,7 +31,7 @@ public class User {
         this.city = city;
     }
 
-    public User(User user) {}
+    public User() {}
 
     public int getId() {
         return id;
@@ -125,8 +125,15 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' + ", login='" + login + '\'' + ", password='" + password + '\''
-                + ", email='" + email + '\'' + ", createDate='" + createDate + '\''
-                + ", role='" + role + '\'' + ", country='" + country + '\'' + ", city='" + city + '\'' + '}';
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", role='" + role + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }
