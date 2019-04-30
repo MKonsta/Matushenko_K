@@ -14,11 +14,14 @@ import java.util.Date;
 import java.util.List;
 
 public class HibernateStore implements Store {
+    private StandardServiceRegistry registry = null;
+    private SessionFactory sessionFactory = null;
 
     private static HibernateStore INSTANCE;
 
     private HibernateStore() {
-
+        registry = new StandardServiceRegistryBuilder().configure().build();
+        sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 
     public static HibernateStore getInstance() {
@@ -31,9 +34,7 @@ public class HibernateStore implements Store {
     @Override
     public boolean addUser(User user) {
         boolean result = false;
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        try(SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            Session session = sessionFactory.openSession()) {
+        try(Session session = sessionFactory.openSession()) {
 
             session.beginTransaction();
 
@@ -53,10 +54,7 @@ public class HibernateStore implements Store {
     @Override
     public boolean updateUser(int id, User user) {
         boolean result = false;
-        System.out.println("=============START================");
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        try(SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            Session session = sessionFactory.openSession()) {
+        try(Session session = sessionFactory.openSession()) {
 
             session.beginTransaction();
 
@@ -72,20 +70,15 @@ public class HibernateStore implements Store {
             session.update(currentUser);
             session.getTransaction().commit();
             result = true;
-            System.out.println("==========PRINT FROM TRY " + result + "==================");
         } catch (HibernateException e) {
-            System.out.println("==========PRINT FROM CATCH " + result + "==================");
             e.printStackTrace();
         }
-        System.out.println("==========PRINT BEFORE RETURN " + result + "==================");
         return result;
     }
 
     @Override
     public boolean deleteUser(int id) {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        try(SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            Session session = sessionFactory.openSession()) {
+        try(Session session = sessionFactory.openSession()) {
 
             session.beginTransaction();
 
@@ -99,10 +92,8 @@ public class HibernateStore implements Store {
 
     @Override
     public List<User> findAll() {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         List<User> users = new ArrayList<>();
-        try(SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            Session session = sessionFactory.openSession()) {
+        try(Session session = sessionFactory.openSession()) {
 
             session.beginTransaction();
 
@@ -116,9 +107,7 @@ public class HibernateStore implements Store {
     @Override
     public User findById(int id) {
         User user;
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        try(SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            Session session = sessionFactory.openSession()) {
+        try(Session session = sessionFactory.openSession()) {
 
             session.beginTransaction();
 
@@ -133,9 +122,7 @@ public class HibernateStore implements Store {
     @Override
     public User findByLogin(String login) {
         User user;
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        try(SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            Session session = sessionFactory.openSession()) {
+        try(Session session = sessionFactory.openSession()) {
 
             session.beginTransaction();
 
@@ -152,9 +139,7 @@ public class HibernateStore implements Store {
 
     @Override
     public boolean isCredentional(String login, String password) {
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        try(SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            Session session = sessionFactory.openSession()) {
+        try(Session session = sessionFactory.openSession()) {
 
             session.beginTransaction();
 

@@ -15,8 +15,8 @@ public class ValidateService {
     //Тут сейчас используется коллекция.
 //    private MemoryStore store = MemoryStore.getMemoryStore();
     //Для работы с БД нужно раскомментировать следующую строку, и закомментировать предидущую
-    private Store store = DBStore.getInstance();
-//    private HibernateStore store = HibernateStore.getInstance();
+//    private Store store = DBStore.getInstance();
+    private Store store = HibernateStore.getInstance();
 
     //==========================Singletone======================================
     private static ValidateService validateService;
