@@ -5,18 +5,18 @@ import ru.job4j.servlets.webarchitecturejsp.model.User;
 import java.util.List;
 
 /**
- * Программа может работать и с БД(DBStore) и с коллекцией(MemoryStore)
+ * Программа может работать и с БД jdbc(DBStore) и с БД hibernate(HibernateStore) и с коллекцией(MemoryStore)
  * Чтобы запустить приложение, необходимо после запуска TomCat вбить в браузер http://localhost:8082/chapter_007/usersjsp
  * Login admin passwod 1
  *
  *  */
 public class ValidateService {
 
-    //Тут сейчас используется коллекция.
-//    private MemoryStore store = MemoryStore.getMemoryStore();
-    //Для работы с БД нужно раскомментировать следующую строку, и закомментировать предидущую
+    //Тут сейчас используется коллекция. Для работы с БД или через hibernate нужно раскомментировать
+    // и закомментировать соответствующие строки
+    private Store store = MemoryStore.getMemoryStore();
 //    private Store store = DBStore.getInstance();
-    private Store store = HibernateStore.getInstance();
+//    private Store store = HibernateStore.getInstance();
 
     //==========================Singletone======================================
     private static ValidateService validateService;

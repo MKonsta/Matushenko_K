@@ -18,5 +18,12 @@ public interface Store {
 
     public User findByLogin(String login);
 
+    /**
+     * Метод используется для авторизации. После введения логина-пароля, происходит проверка их
+     * идентичности с уже ствующими в базе логином и паролем. Если совпало, то return true
+     * @param login
+     * @param password
+     * @return
+     */
     public boolean isCredentional(String login, String password);
 }

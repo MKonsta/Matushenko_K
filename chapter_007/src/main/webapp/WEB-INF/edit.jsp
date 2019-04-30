@@ -10,6 +10,51 @@
 <html>
 <head>
     <title>Edit User</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+
+        var country;
+        $(document).ready(function () {
+            showCountrues();
+            $('#country_id').change(function () {
+                country = $('#country_id').val();
+                selectCities();
+            });
+        });
+
+        function showCountrues() {
+            $.ajax({
+                method: 'GET',
+                url: 'countryservlet',
+                contenttype: "application/json",
+                success: function (data) {
+                    var option = '';
+                    for (var i = 0; i < data.length; i++) {
+                        option += '<option value="' + data[i] + '">' + data[i] + '</option>';
+                    }
+                    $('#country_id').html('<option value = "<%=request.getAttribute("country")%>">-Выберите страну-</option>' + option);
+                }
+            });
+        }
+
+        function selectCities() {
+            $.ajax({
+                type: 'POST',
+                url: 'citiesservlet',
+                data: JSON.stringify(country),
+                datatype: 'json',
+                success: function (data) {
+                    var option = '';
+                    for (var i = 0; i < data.length; i++) {
+                        option += '<option value="' + data[i] + '">' + data[i] + '</option>';
+                    }
+                    $('#city_id').html('<option value = "<%=request.getAttribute("city")%>">-Выберите город-</option>' + option);
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
 <h2>Edit user</h2>
@@ -29,16 +74,17 @@
         <option value="admin">admin</option>
         <option value="user">user</option>
     </select><br><br>
+
     <label>Country</label><br>
-    <select name="country">
-        <option selected="selected" value="<%=request.getAttribute("country")%>">No change</option>
-        <option value="France">France</option>
-        <option value="Russia">Russia</option>
-        <option value="China">China</option>
-        <option value="India">India</option>
+    <select name="country" id="country_id">
+        <option value=""></option>
     </select> current: "<%=request.getAttribute("country")%>"<br><br>
+
     <label>City</label><br>
-    <input name="city" value="<%=request.getAttribute("city")%>" /><br><br>
+    <select name="city" id="city_id">
+        <option value=""></option>
+    </select> current: "<%=request.getAttribute("city")%>"<br><br>
+
     <input type="submit" value="Send" />
 </form>
 </body>
