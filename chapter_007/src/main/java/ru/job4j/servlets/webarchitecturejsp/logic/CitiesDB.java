@@ -17,7 +17,7 @@ public class CitiesDB implements AutoCloseable {
         SOURCE.setDriverClassName("org.postgresql.Driver");
         SOURCE.setUrl("jdbc:postgresql://localhost:5432/userstore");
         SOURCE.setUsername("postgres");
-        SOURCE.setPassword("kozemir");
+        SOURCE.setPassword("root");
         SOURCE.setMinIdle(5);
         SOURCE.setMaxIdle(10);
         SOURCE.setMaxOpenPreparedStatements(100);
